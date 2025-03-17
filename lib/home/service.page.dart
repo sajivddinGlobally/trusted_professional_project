@@ -11,6 +11,7 @@ class ServicePage extends StatefulWidget {
 }
 
 class _ServicePageState extends State<ServicePage> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,9 +74,9 @@ class _ServicePageState extends State<ServicePage> {
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(
-                    vertical: 12.h,
-                    horizontal: 15.w,
-                  ), // 👈 Text ko center karne ke liye
+                    vertical: 10.h,
+                    horizontal: 0.w,
+                  ),
                   hintText: "Search",
                   hintStyle: GoogleFonts.inter(
                     fontWeight: FontWeight.w400,
@@ -107,7 +108,116 @@ class _ServicePageState extends State<ServicePage> {
               ),
             ),
           ),
+          SizedBox(height: 20.h),
+          SizedBox(
+            height: 30.h,
+            width: 440.w - 20.h,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentIndex = 0;
+                    });
+                  },
+                  child: ContainerBody(
+                    text: 'Repair & Home Services',
+                    color:
+                        currentIndex == 0
+                            ? Color.fromARGB(255, 0, 97, 254)
+                            : Color.fromARGB(255, 229, 239, 255),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentIndex = 1;
+                    });
+                  },
+                  child: ContainerBody(
+                    text: 'Cleaning & Maintenance',
+                    color:
+                        currentIndex == 1
+                            ? Color.fromARGB(255, 0, 97, 254)
+                            : Color.fromARGB(255, 229, 239, 255),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentIndex = 2;
+                    });
+                  },
+                  child: ContainerBody(
+                    text: 'Automobile Services',
+                    color: Color.fromARGB(255, 0, 97, 254),
+                  ),
+                ),
+                ContainerBody(
+                  text: 'Tech & IT Support',
+                  color:
+                      currentIndex == 2
+                          ? Color.fromARGB(255, 0, 97, 254)
+                          : Color.fromARGB(255, 229, 239, 255),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentIndex = 3;
+                    });
+                  },
+                  child: ContainerBody(
+                    text: 'Events & Entertainment',
+                    color:
+                        currentIndex == 3
+                            ? Color.fromARGB(255, 0, 97, 254)
+                            : Color.fromARGB(255, 229, 239, 255),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class ContainerBody extends StatefulWidget {
+  final String text;
+  final Color color;
+  const ContainerBody({super.key, required this.text, required this.color});
+
+  @override
+  State<ContainerBody> createState() => _ContainerBodyState();
+}
+
+class _ContainerBodyState extends State<ContainerBody> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w),
+      child: Container(
+        height: 30.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(13.r),
+          color: widget.color,
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          child: Center(
+            child: Text(
+              // "Repair & Home Services",
+              widget.text,
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 11.sp,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
