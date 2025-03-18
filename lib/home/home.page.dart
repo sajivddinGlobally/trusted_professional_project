@@ -139,10 +139,10 @@ class _HomePageState extends State<HomePage> {
                                   contentPadding: EdgeInsets.only(top: 6.h),
                                   filled: true,
                                   fillColor: Color(0xFFFFFFFF),
-                                  hintText: "Search Service ",
+                                  hintText: "Search Service",
                                   hintStyle: GoogleFonts.inter(
                                     color: Color.fromARGB(255, 153, 153, 153),
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                   prefixIcon: Icon(

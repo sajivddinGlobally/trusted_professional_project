@@ -78,10 +78,7 @@ class _ServicePageState extends State<ServicePage> {
               child: TextFormField(
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    vertical: 10.h,
-                    horizontal: 0.w,
-                  ),
+                  contentPadding: EdgeInsets.only(bottom: 5.h),
                   hintText: "Search",
                   hintStyle: GoogleFonts.inter(
                     fontWeight: FontWeight.w400,
@@ -191,7 +188,7 @@ class _ServicePageState extends State<ServicePage> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      currentIndex = 2;
+                      currentIndex = 3;
                     });
                   },
                   child: ContainerBody(
@@ -210,6 +207,7 @@ class _ServicePageState extends State<ServicePage> {
                             : Colors.transparent,
                   ),
                 ),
+                SizedBox(width: 10.w),
               ],
             ),
           ),
@@ -232,7 +230,7 @@ class _MygridviewbuilderState extends State<Mygridviewbuilder> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
         child: GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
