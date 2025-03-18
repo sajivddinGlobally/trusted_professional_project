@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 child: Padding(
                                   padding: EdgeInsets.all(10),
-                                  child: Image.asset("assets/Logo.png"),
+                                  child: Image.asset("assets/skilzaar.png"),
                                 ),
                               ),
                               SizedBox(width: 10.w),
@@ -250,7 +250,7 @@ class _HomePageState extends State<HomePage> {
                             textAlign: TextAlign.center,
                             "How It Works for Service Seekers",
                             style: GoogleFonts.inter(
-                              fontSize: 13.32.sp,
+                              fontSize: 15.32.sp,
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(255, 17, 17, 28),
                             ),
@@ -259,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                             textAlign: TextAlign.center,
                             "Get the service you need in just three simple steps.",
                             style: GoogleFonts.inter(
-                              fontSize: 8.sp,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(255, 63, 63, 63),
                             ),
@@ -559,8 +559,8 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 104.13.h,
-                          // width: 231.w,
+                          height: 300.h,
+                          // width: 276.w,
                           child: PageView.builder(
                             controller: _pageController,
                             itemCount: testimonials.length,
@@ -578,39 +578,44 @@ class _HomePageState extends State<HomePage> {
                                       width: 0.44.w,
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 17.w,
-                                      top: 17.h,
-                                      right: 17.w,
-                                      bottom: 10.h,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 10.w,
+                                          top: 10.h,
+                                          right: 10.r,
+                                        ),
+                                        child: Text(
                                           // overflow: TextOverflow.ellipsis,
                                           testimonials[index]["text"]!,
                                           style: GoogleFonts.inter(
-                                            fontSize: 7.03.sp,
+                                            fontSize: 15.sp,
                                             fontWeight: FontWeight.w500,
                                             color: Color(0XFF3F3F3F),
                                           ),
                                         ),
-                                        SizedBox(height: 10.h),
-                                        Text(
+                                      ),
+                                      // SizedBox(height: 10.h),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 10.w,
+                                          bottom: 6.h,
+                                          top: 10.h,
+                                        ),
+                                        child: Text(
                                           testimonials[index]["author"]!,
                                           style: GoogleFonts.inter(
-                                            fontSize: 6.15.sp,
+                                            fontSize: 10.15.sp,
                                             fontWeight: FontWeight.bold,
                                             color: Color(0xFF0061FE),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
@@ -685,7 +690,7 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              "assets/Logo.png",
+                              "assets/skilzaar.png",
                               width: 181.w,
                               height: 56.h,
                             ),
@@ -809,36 +814,41 @@ class _HomePageState extends State<HomePage> {
               : bottom == 2
               ? ChatPage()
               : ProfilePage(),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (value) {
-          setState(() {
-            bottom = value;
-          });
-        },
-        currentIndex: bottom,
-        type: BottomNavigationBarType.fixed,
-        // showSelectedLabels: false,
-        // showUnselectedLabels: false,
-        selectedItemColor: Color(0xFF0061FE),
-        unselectedItemColor: Color(0xFF666666),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.layers_outlined),
-            label: 'Service',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.grey)),
+        ),
+        child: BottomNavigationBar(
+          onTap: (value) {
+            setState(() {
+              bottom = value;
+            });
+          },
+          currentIndex: bottom,
+          type: BottomNavigationBarType.fixed,
+          // showSelectedLabels: false,
+          // showUnselectedLabels: false,
+          selectedItemColor: Color(0xFF0061FE),
+          unselectedItemColor: Color(0xFF666666),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.layers_outlined),
+              label: 'Service',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble_outline),
+              label: 'Chat',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1085,8 +1095,9 @@ class _MyContainerState extends State<MyContainer> {
                 Text(
                   // "Search & Compare",
                   widget.title,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
-                    fontSize: 10.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                     color: Color.fromARGB(255, 17, 17, 28),
                   ),
@@ -1094,8 +1105,9 @@ class _MyContainerState extends State<MyContainer> {
                 Text(
                   // "Browse verified professionals across various categories.",
                   widget.subtitle,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
-                    fontSize: 8.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                     color: Color.fromARGB(255, 63, 63, 63),
                   ),
