@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trusted_profissional_app/login/login.page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -125,38 +126,79 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   SizedBox(height: 10.h),
-                  Container(
-                    width: 400.w,
-                    height: 52.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      border: Border.all(
-                        width: 1,
-                        color: Color.fromARGB(255, 238, 29, 82),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(builder: (context) => Login()),
+                      );
+                    },
+                    child: Container(
+                      width: 400.w,
+                      height: 52.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        border: Border.all(
+                          width: 1,
+                          color: Color.fromARGB(255, 17, 17, 28),
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10.w),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.logout,
-                            color: Color.fromARGB(255, 238, 29, 82),
-                          ),
-                          SizedBox(width: 10.w),
-                          Text(
-                            "Logout",
-                            style: GoogleFonts.inter(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Color.fromARGB(255, 238, 29, 82),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10.w),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.login,
+                              color: Color.fromARGB(255, 38, 38, 38),
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 10.w),
+                            Text(
+                              "Login",
+                              style: GoogleFonts.inter(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromARGB(255, 38, 38, 38),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
+                  SizedBox(height: 10.h),
+                  // Container(
+                  //   width: 400.w,
+                  //   height: 52.h,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10.r),
+                  //     color: Color.fromARGB(255, 255, 255, 255),
+                  //     border: Border.all(
+                  //       width: 1,
+                  //       color: Color.fromARGB(255, 238, 29, 82),
+                  //     ),
+                  //   ),
+                  //   child: Padding(
+                  //     padding: EdgeInsets.only(left: 10.w),
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(
+                  //           Icons.logout,
+                  //           color: Color.fromARGB(255, 238, 29, 82),
+                  //         ),
+                  //         SizedBox(width: 10.w),
+                  //         Text(
+                  //           "Logout",
+                  //           style: GoogleFonts.inter(
+                  //             fontSize: 16.sp,
+                  //             fontWeight: FontWeight.w500,
+                  //             color: Color.fromARGB(255, 238, 29, 82),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

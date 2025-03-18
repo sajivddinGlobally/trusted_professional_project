@@ -60,20 +60,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           color: Color.fromARGB(255, 30, 30, 30),
                         ),
                       ),
-                      Text(
-                        "Login",
-                        style: GoogleFonts.inter(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(255, 0, 97, 254),
-                          decoration: TextDecoration.underline,
-                          decorationColor: Color.fromARGB(
-                            255,
-                            0,
-                            97,
-                            254,
-                          ), // Optional: Line ka color change karne ke liye
-                          decorationThickness: 2, // Optional: Line ki thickness
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(builder: (context) => Login()),
+                          );
+                        },
+                        child: Text(
+                          "Login",
+                          style: GoogleFonts.inter(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Color.fromARGB(255, 0, 97, 254),
+                            decoration: TextDecoration.underline,
+                            decorationColor: Color.fromARGB(
+                              255,
+                              0,
+                              97,
+                              254,
+                            ), // Optional: Line ka color change karne ke liye
+                            decorationThickness:
+                                2, // Optional: Line ki thickness
+                          ),
                         ),
                       ),
                     ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trusted_profissional_app/home/home.page.dart';
 import 'package:trusted_profissional_app/signUp/signUpScreen.dart';
 
 void main() {
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
             // tested with just a hot reload.
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
-          home: SignUpScreen(),
+          home: HomePage(),
+          // home: SignUpScreen(),
         );
       },
     );
