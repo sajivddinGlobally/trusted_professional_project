@@ -843,10 +843,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.chat_bubble_outline),
               label: 'Chat',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              label: 'Profile',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           ],
         ),
       ),

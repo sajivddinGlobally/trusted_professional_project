@@ -28,6 +28,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,7 +270,7 @@ class _MessageInputState extends State<MessageInput> {
                 child: Container(
                   child: Icon(
                     Icons.send,
-                    color: Color.fromARGB(255, 144, 136, 241),
+                    color: Color.fromARGB(255, 0, 97, 254),
                   ),
                 ),
               ),
