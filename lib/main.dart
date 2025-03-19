@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
-import 'package:trusted_profissional_app/signUp/signUpScreen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Add this line
+  await Hive.initFlutter();
+  if (!Hive.isBoxOpen("user")) {
+    await Hive.openBox("user");
+  }
+  var box = Hive.box("user");
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,6 +20,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box("user");
+
+    var token = box.get("token");
+    // log("//////////////////////////////");
+    // log(token.toString());
+    print("/////////////////////////");
+    print(token.toString());
+
     return ScreenUtilInit(
       designSize: Size(440, 956),
       minTextAdapt: true,

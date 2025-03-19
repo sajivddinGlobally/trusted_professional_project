@@ -1,20 +1,30 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
+import 'package:trusted_profissional_app/login/loginModel/loginBodyModel.dart';
+import 'package:trusted_profissional_app/login/serviceLogin/loginController.dart';
+import 'package:trusted_profissional_app/login/serviceLogin/loginService.dart';
 import 'package:trusted_profissional_app/signUp/signUpScreen.dart';
 
-class Login extends StatefulWidget {
+class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  ConsumerState<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends ConsumerState<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool islogin = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,20 +171,52 @@ class _LoginState extends State<Login> {
                   minimumSize: Size(440.w, 53.h),
                   backgroundColor: Color.fromARGB(255, 0, 97, 254),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => HomePage()),
-                  );
+                onPressed: () async {
+                  setState(() {
+                    islogin = true;
+                  });
+                  try {
+                    final body = LoginBodyModel(
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                    final service = LoginService(await getDio());
+                    //  final response = await compute(service.login, body); comput use
+                    final response = await service.login(
+                      body,
+                    ); // without comput use
+                    if (response != null) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(builder: (context) => HomePage()),
+                        (route) => false,
+                      );
+                    } else {
+                      Fluttertoast.showToast(msg: "Some thing went wrong");
+                    }
+                  } catch (_) {
+                    setState(() {
+                      islogin = false;
+                      Fluttertoast.showToast(
+                        msg: "Login email & password is invalid",
+                      );
+                    });
+                  }
                 },
-                child: Text(
-                  "Login",
-                  style: GoogleFonts.inter(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
+                child:
+                    islogin == false
+                        ? Text(
+                          "Login",
+                          style: GoogleFonts.inter(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        )
+                        : Padding(
+                          padding: EdgeInsets.all(6),
+                          child: CircularProgressIndicator(color: Colors.white),
+                        ),
               ),
             ),
             SizedBox(height: 50.h),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,6 +15,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box("user");
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +68,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: EdgeInsets.only(top: 16.h),
                   child: Text(
-                    "Robert Johnson",
+                    // "Robert Johnson",
+                    "${box.get('name')}",
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
                       fontSize: 18.sp,
@@ -75,7 +78,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Text(
-                  "jonsonrobert2323@gmail.com",
+                  // "jonsonrobert2323@gmail.com",
+                  "${box.get("email")}",
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w400,
                     fontSize: 12.sp,
@@ -167,38 +171,43 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   SizedBox(height: 10.h),
-                  // Container(
-                  //   width: 400.w,
-                  //   height: 52.h,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10.r),
-                  //     color: Color.fromARGB(255, 255, 255, 255),
-                  //     border: Border.all(
-                  //       width: 1,
-                  //       color: Color.fromARGB(255, 238, 29, 82),
-                  //     ),
-                  //   ),
-                  //   child: Padding(
-                  //     padding: EdgeInsets.only(left: 10.w),
-                  //     child: Row(
-                  //       children: [
-                  //         Icon(
-                  //           Icons.logout,
-                  //           color: Color.fromARGB(255, 238, 29, 82),
-                  //         ),
-                  //         SizedBox(width: 10.w),
-                  //         Text(
-                  //           "Logout",
-                  //           style: GoogleFonts.inter(
-                  //             fontSize: 16.sp,
-                  //             fontWeight: FontWeight.w500,
-                  //             color: Color.fromARGB(255, 238, 29, 82),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {});
+                    },
+                    child: Container(
+                      width: 400.w,
+                      height: 52.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        border: Border.all(
+                          width: 1,
+                          color: Color.fromARGB(255, 238, 29, 82),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10.w),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: Color.fromARGB(255, 238, 29, 82),
+                            ),
+                            SizedBox(width: 10.w),
+                            Text(
+                              "Logout",
+                              style: GoogleFonts.inter(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromARGB(255, 238, 29, 82),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

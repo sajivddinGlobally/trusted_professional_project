@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trusted_profissional_app/home/chat.page.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
@@ -48,9 +49,11 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int bottom = 0;
+  String? username;
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box("user");
     return Scaffold(
       // backgroundColor: Color(0xFFFFFFFF),
       body:
@@ -89,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Hi, Rajesh",
+                                    // "Hi, Rajesh",
+                                    "${box.get('name')}",
                                     style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
