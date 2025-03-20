@@ -1,6 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:retrofit/http.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/signUp/registerModel/registerBodyModel.dart';
 import 'package:trusted_profissional_app/signUp/registerModel/registerResModel.dart';
@@ -14,5 +12,3 @@ final registerProvider =
       final registerservice = RegisterService(await getDio());
       return registerservice.register(body);
     });
-
-

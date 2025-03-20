@@ -1,6 +1,4 @@
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
 import 'package:trusted_profissional_app/login/loginModel/loginBodyModel.dart';
-import 'package:trusted_profissional_app/login/serviceLogin/loginController.dart';
+
 import 'package:trusted_profissional_app/login/serviceLogin/loginService.dart';
 import 'package:trusted_profissional_app/signUp/signUpScreen.dart';
 
@@ -190,6 +188,7 @@ class _LoginState extends ConsumerState<Login> {
                       var box = Hive.box("data");
                       box.put('email', response.data.email);
                       box.put('token', response.data.token);
+                      box.put("isLoggedIn", true);
                       Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(builder: (context) => HomePage()),

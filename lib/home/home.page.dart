@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var box = Hive.box("user");
+    var box = Hive.box("data");
     return Scaffold(
       // backgroundColor: Color(0xFFFFFFFF),
       body:
