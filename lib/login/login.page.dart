@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
 import 'package:trusted_profissional_app/login/loginModel/loginBodyModel.dart';
@@ -186,6 +186,10 @@ class _LoginState extends ConsumerState<Login> {
                       body,
                     ); // without comput use
                     if (response != null) {
+                      // *Hive me user credentials save karein**
+                      var box = Hive.box("data");
+                      box.put('email', response.data.email);
+                      box.put('token', response.data.token);
                       Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(builder: (context) => HomePage()),

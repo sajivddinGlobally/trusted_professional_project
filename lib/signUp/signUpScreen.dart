@@ -125,16 +125,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         );
                         return;
                       }
-
                       // Show Circular Indicator
                       setState(() {
                         isCircular = true;
                       });
-
                       await Future.delayed(
                         Duration(seconds: 2),
                       ); // 👈 2-second delay for loading simulation
-
                       await ref.watch(
                         registerProvider(
                           RegisterBodyModel(
@@ -151,7 +148,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       setState(() {
                         isCircular = false;
                       });
-
                       Navigator.push(
                         context,
                         CupertinoPageRoute(builder: (context) => Login()),
@@ -216,7 +212,7 @@ class _RegisterFieldState extends State<RegisterField> {
           ),
           SizedBox(height: 12.h),
           Container(
-            height: 55.h,
+            // height: 55.h,
             width: MediaQuery.of(context).size.width,
             child: TextFormField(
               controller: widget.controller,
@@ -257,7 +253,7 @@ class _RegisterFieldState extends State<RegisterField> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "${widget.lable} field required";
+                  return "${widget.lable} field is required";
                 }
                 return null;
               },
