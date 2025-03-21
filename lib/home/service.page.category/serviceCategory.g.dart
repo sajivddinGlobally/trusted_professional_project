@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'categoryService.dart';
+part of 'serviceCategory.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'categoryService.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _CategoryService implements CategoryService {
-  _CategoryService(
+class _ServiceCategory implements ServiceCategory {
+  _ServiceCategory(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,34 +24,19 @@ class _CategoryService implements CategoryService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HomeCategoryResModel> multipartCategory(
-    String name,
-    File file,
-  ) async {
+  Future<CategoryModel> getCategory() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry(
-      'name',
-      name,
-    ));
-    _data.files.add(MapEntry(
-      'file',
-      MultipartFile.fromFileSync(
-        file.path,
-        filename: file.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    final _options = _setStreamType<HomeCategoryResModel>(Options(
-      method: 'POST',
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<CategoryModel>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
-      contentType: 'multipart/form-data',
     )
         .compose(
           _dio.options,
-          '/api/category-store',
+          '/api/category',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -61,9 +46,9 @@ class _CategoryService implements CategoryService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late HomeCategoryResModel _value;
+    late CategoryModel _value;
     try {
-      _value = HomeCategoryResModel.fromJson(_result.data!);
+      _value = CategoryModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

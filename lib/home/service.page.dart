@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trusted_profissional_app/home/home.service/categoryController.dart';
+import 'package:trusted_profissional_app/home/service.page.category/categoryController.dart';
 import 'package:trusted_profissional_app/service/particularService.dart';
 
 class ServicePage extends StatefulWidget {
-  const ServicePage({super.key});
+  final Function callback;
+  const ServicePage({super.key, required this.callback});
 
   @override
   State<ServicePage> createState() => _ServicePageState();
@@ -15,19 +19,43 @@ class _ServicePageState extends State<ServicePage> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 64.h),
-          Row(
-            children: [
-              SizedBox(width: 20.w),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 64.h),
+            Row(
+              children: [
+                SizedBox(width: 20.w),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 44.w,
+                    height: 44.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromARGB(255, 232, 232, 232),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 4.w),
+                        child: Icon(Icons.arrow_back_ios_rounded, size: 20.sp),
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(),
+                Text(
+                  "Service Listing",
+                  style: GoogleFonts.inter(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF11111C),
+                  ),
+                ),
+                Spacer(),
+                Container(
                   width: 44.w,
                   height: 44.h,
                   decoration: BoxDecoration(
@@ -35,197 +63,173 @@ class _ServicePageState extends State<ServicePage> {
                     color: Color.fromARGB(255, 232, 232, 232),
                   ),
                   child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 4.w),
-                      child: Icon(Icons.arrow_back_ios_rounded, size: 20.sp),
-                    ),
-                  ),
-                ),
-              ),
-              Spacer(),
-              Text(
-                "Service Listing",
-                style: GoogleFonts.inter(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF11111C),
-                ),
-              ),
-              Spacer(),
-              Container(
-                width: 44.w,
-                height: 44.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 232, 232, 232),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.tune,
-                    size: 20.sp,
-                    color: Color(0xFF1E1E1E),
-                  ),
-                ),
-              ),
-              SizedBox(width: 20.w),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Container(
-              height: 50.h,
-              child: TextFormField(
-                textAlignVertical: TextAlignVertical.center,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(bottom: 5.h),
-                  hintText: "Search",
-                  hintStyle: GoogleFonts.inter(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15.sp,
-                    color: Color.fromARGB(255, 128, 128, 128),
-                  ),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(top: 5.h),
                     child: Icon(
-                      Icons.search,
-                      color: Color.fromARGB(255, 128, 128, 128),
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                    borderSide: BorderSide(
-                      color: Color.fromARGB(25, 0, 0, 0),
-                      width: 1.w,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                    borderSide: BorderSide(
-                      color: Color.fromARGB(25, 0, 0, 0),
-                      width: 1.w,
+                      Icons.tune,
+                      size: 20.sp,
+                      color: Color(0xFF1E1E1E),
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
                 SizedBox(width: 20.w),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      currentIndex = 0;
-                    });
-                  },
-                  child: ContainerBody(
-                    text: 'Cleaning & Maintenance',
-                    textcolor:
-                        currentIndex == 0
-                            ? Color.fromARGB(255, 229, 239, 255)
-                            : Color.fromARGB(255, 0, 97, 254),
-                    color:
-                        currentIndex == 0
-                            ? Color.fromARGB(255, 0, 97, 254)
-                            : Color.fromARGB(255, 229, 239, 255),
-                    bordercolor:
-                        currentIndex == 0
-                            ? Color.fromARGB(255, 17, 17, 28)
-                            : Colors.transparent,
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      currentIndex = 1;
-                    });
-                  },
-                  child: ContainerBody(
-                    text: 'Automobile Services',
-                    textcolor:
-                        currentIndex == 1
-                            ? Color.fromARGB(255, 229, 239, 255)
-                            : Color.fromARGB(255, 0, 97, 254),
-                    color:
-                        currentIndex == 1
-                            ? Color.fromARGB(255, 0, 97, 254)
-                            : Color.fromARGB(255, 229, 239, 255),
-                    bordercolor:
-                        currentIndex == 1
-                            ? Color.fromARGB(255, 17, 17, 28)
-                            : Colors.transparent,
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      currentIndex = 2;
-                    });
-                  },
-                  child: ContainerBody(
-                    text: 'Tech & IT Support',
-                    textcolor:
-                        currentIndex == 2
-                            ? Color.fromARGB(255, 229, 239, 255)
-                            : Color.fromARGB(255, 0, 97, 254),
-                    color:
-                        currentIndex == 2
-                            ? Color.fromARGB(255, 0, 97, 254)
-                            : Color.fromARGB(255, 229, 239, 255),
-                    bordercolor:
-                        currentIndex == 2
-                            ? Color.fromARGB(255, 17, 17, 28)
-                            : Colors.transparent,
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      currentIndex = 3;
-                    });
-                  },
-                  child: ContainerBody(
-                    text: 'Events & Entertainment',
-                    textcolor:
-                        currentIndex == 3
-                            ? Color.fromARGB(255, 229, 239, 255)
-                            : Color.fromARGB(255, 0, 97, 254),
-                    color:
-                        currentIndex == 3
-                            ? Color.fromARGB(255, 0, 97, 254)
-                            : Color.fromARGB(255, 229, 239, 255),
-                    bordercolor:
-                        currentIndex == 3
-                            ? Color.fromARGB(255, 17, 17, 28)
-                            : Colors.transparent,
-                  ),
-                ),
-                SizedBox(width: 10.w),
               ],
             ),
-          ),
-          Mygridviewbuilder(),
-        ],
+            SizedBox(height: 20.h),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: Container(
+                height: 50.h,
+                child: TextFormField(
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(bottom: 5.h),
+                    hintText: "Search",
+                    hintStyle: GoogleFonts.inter(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15.sp,
+                      color: Color.fromARGB(255, 128, 128, 128),
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(top: 5.h),
+                      child: Icon(
+                        Icons.search,
+                        color: Color.fromARGB(255, 128, 128, 128),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(25, 0, 0, 0),
+                        width: 1.w,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(25, 0, 0, 0),
+                        width: 1.w,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.h),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SizedBox(width: 20.w),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 0;
+                      });
+                    },
+                    child: ContainerBody(
+                      text: 'Cleaning & Maintenance',
+                      textcolor:
+                          currentIndex == 0
+                              ? Color.fromARGB(255, 229, 239, 255)
+                              : Color.fromARGB(255, 0, 97, 254),
+                      color:
+                          currentIndex == 0
+                              ? Color.fromARGB(255, 0, 97, 254)
+                              : Color.fromARGB(255, 229, 239, 255),
+                      bordercolor:
+                          currentIndex == 0
+                              ? Color.fromARGB(255, 17, 17, 28)
+                              : Colors.transparent,
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 1;
+                      });
+                    },
+                    child: ContainerBody(
+                      text: 'Automobile Services',
+                      textcolor:
+                          currentIndex == 1
+                              ? Color.fromARGB(255, 229, 239, 255)
+                              : Color.fromARGB(255, 0, 97, 254),
+                      color:
+                          currentIndex == 1
+                              ? Color.fromARGB(255, 0, 97, 254)
+                              : Color.fromARGB(255, 229, 239, 255),
+                      bordercolor:
+                          currentIndex == 1
+                              ? Color.fromARGB(255, 17, 17, 28)
+                              : Colors.transparent,
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 2;
+                      });
+                    },
+                    child: ContainerBody(
+                      text: 'Tech & IT Support',
+                      textcolor:
+                          currentIndex == 2
+                              ? Color.fromARGB(255, 229, 239, 255)
+                              : Color.fromARGB(255, 0, 97, 254),
+                      color:
+                          currentIndex == 2
+                              ? Color.fromARGB(255, 0, 97, 254)
+                              : Color.fromARGB(255, 229, 239, 255),
+                      bordercolor:
+                          currentIndex == 2
+                              ? Color.fromARGB(255, 17, 17, 28)
+                              : Colors.transparent,
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 3;
+                      });
+                    },
+                    child: ContainerBody(
+                      text: 'Events & Entertainment',
+                      textcolor:
+                          currentIndex == 3
+                              ? Color.fromARGB(255, 229, 239, 255)
+                              : Color.fromARGB(255, 0, 97, 254),
+                      color:
+                          currentIndex == 3
+                              ? Color.fromARGB(255, 0, 97, 254)
+                              : Color.fromARGB(255, 229, 239, 255),
+                      bordercolor:
+                          currentIndex == 3
+                              ? Color.fromARGB(255, 17, 17, 28)
+                              : Colors.transparent,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                ],
+              ),
+            ),
+            Mygridviewbuilder(),
+          ],
+        ),
       ),
     );
   }
 }
 
-class Mygridviewbuilder extends StatefulWidget {
+class Mygridviewbuilder extends ConsumerStatefulWidget {
   const Mygridviewbuilder({super.key});
 
   @override
-  State<Mygridviewbuilder> createState() => _MygridviewbuilderState();
+  ConsumerState<Mygridviewbuilder> createState() => _MygridviewbuilderState();
 }
 
-class _MygridviewbuilderState extends State<Mygridviewbuilder> {
+class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -333,7 +337,7 @@ class _MygridviewbuilderState extends State<Mygridviewbuilder> {
   }
 }
 
-class ContainerBody extends StatefulWidget {
+class ContainerBody extends ConsumerStatefulWidget {
   final String text;
   final Color color;
   final Color textcolor;
@@ -347,34 +351,41 @@ class ContainerBody extends StatefulWidget {
   });
 
   @override
-  State<ContainerBody> createState() => _ContainerBodyState();
+  ConsumerState<ContainerBody> createState() => _ContainerBodyState();
 }
 
-class _ContainerBodyState extends State<ContainerBody> {
+class _ContainerBodyState extends ConsumerState<ContainerBody> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 30.h,
-      // width: 150.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(13.r),
-        color: widget.color,
-        border: Border.all(width: 1, color: widget.bordercolor),
-      ),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-          child: Text(
-            // "Repair & Home Services",
-            widget.text,
-            style: GoogleFonts.inter(
-              fontWeight: FontWeight.w400,
-              fontSize: 11.sp,
-              color: widget.textcolor,
+    final categoryprovider = ref.watch(categoryProvider);
+    return categoryprovider.when(
+      data: (data) {
+        return Container(
+          height: 30.h,
+          // width: 150.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(13.r),
+            color: widget.color,
+            border: Border.all(width: 1, color: widget.bordercolor),
+          ),
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+              child: Text(
+                // "Repair & Home Services",
+                widget.text,
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 11.sp,
+                  color: widget.textcolor,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
+      error: (error, stackTrace) => Center(child: Text(error.toString())),
+      loading: () => Center(child: CircularProgressIndicator()),
     );
   }
 }

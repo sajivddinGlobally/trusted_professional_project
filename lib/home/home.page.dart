@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trusted_profissional_app/home/chat.page.dart';
-import 'package:trusted_profissional_app/home/model/service/categoryController.dart';
+import 'package:trusted_profissional_app/home/home.service/categoryController.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
 import 'package:trusted_profissional_app/profile.page.dart';
 
@@ -63,6 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final homeserviceprovider = ref.watch(homeServiceProvider);
     var box = Hive.box("data");
     return Scaffold(
       // backgroundColor: Color(0xFFFFFFFF),
@@ -102,8 +103,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    // "Hi, Rajesh",
-                                    "${box.get('name')}",
+                                    "Hi, Rajesh",
+                                    // "${box.get('name')}",
                                     style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -210,52 +211,71 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    SizedBox(
-                      height: 190.h,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: mylist.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.w),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: 121.w,
-                                  height: 185.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.53.r),
-                                    color: Colors.black,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.53.r),
-                                    child: Image.asset(
-                                      // "assets/electrician.png",
-                                      mylist[index]["imageUrl"]!,
+                    homeserviceprovider.when(
+                      data: (data) {
+                        return SizedBox(
+                          height: 190.h,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: data.data.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(left: 20.w),
+                                child: Stack(
+                                  children: [
+                                    Container(
                                       width: 121.w,
                                       height: 185.h,
-                                      fit: BoxFit.cover,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                          8.53.r,
+                                        ),
+                                        color: Colors.black,
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          8.53.r,
+                                        ),
+                                        child: Image.network(
+                                          // "assets/electrician.png",
+                                          // mylist[index]["imageUrl"]!,
+                                          data.data[index].imageUrl,
+                                          width: 121.w,
+                                          height: 185.h,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 15.h,
-                                  left: 8.w,
-                                  child: Text(
-                                    // "Electrician Service",
-                                    mylist[index]["service"]!,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 8.53,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromARGB(255, 255, 255, 255),
+                                    Positioned(
+                                      bottom: 15.h,
+                                      left: 8.w,
+                                      child: Text(
+                                        // "Electrician Service",
+                                        // mylist[index]["service"]!,
+                                        data.data[index].title,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 8.53,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(
+                                            255,
+                                            255,
+                                            255,
+                                            255,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      error:
+                          (error, stackTrace) =>
+                              Center(child: Text(error.toString())),
+                      loading: () => Center(child: CircularProgressIndicator()),
                     ),
                     SizedBox(height: 20.h),
                     Center(
@@ -837,7 +857,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               )
               : bottom == 1
-              ? ServicePage()
+              ? ServicePage(
+                callback: () {
+                  setState(() {
+                    bottom = 0;
+                  });
+                },
+              )
               : bottom == 2
               ? ChatPage()
               : ProfilePage(),
