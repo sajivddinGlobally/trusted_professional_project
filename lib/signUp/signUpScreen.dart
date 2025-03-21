@@ -207,7 +207,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         isCircular = true;
                       });
                       try {
-                        // Direct call kiya hai service ko  bina riverpod ka use kar ke 
+                        // Direct call kiya hai service ko  bina riverpod ka use kar ke
                         final registerService = RegisterService(getDio());
 
                         final response = await registerService.register(
@@ -220,21 +220,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             phone: phoneController.text,
                           ),
                         );
-                        // if (response.token.isNotEmpty) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(content: Text("Registration successful!")),
-                        //   );
-                        //   Navigator.pushAndRemoveUntil(
-                        //     context,
-                        //     CupertinoPageRoute(builder: (context) => Login()),
-                        //     (route) => false,
-                        //   );
-                        // } else {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(content: Text("Registration successful!")),
-                        //   );
-                        // }
-
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Registration successful!")),
                         );

@@ -5,10 +5,7 @@ import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/home/model/categoaryResModel.dart';
 import 'package:trusted_profissional_app/home/model/service/categoryService.dart';
 
-final multipartProvider = FutureProvider.family<HomeCategoryResModel, File>((
-  ref,
-  file,
-) async {
+final multipartProvider = FutureProvider<HomeCategoryResModel>((ref) async {
   final categorservice = CategoryService(await getDio());
-  return categorservice.multipartCategory("My Image", file);
+  return categorservice.multipartCategory(name, file)
 });
