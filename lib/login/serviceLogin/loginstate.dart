@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:trusted_profissional_app/login/loginModel/loginResModel.dart';
 
 abstract class Loginstate {}

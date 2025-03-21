@@ -23,6 +23,7 @@ class _LoginState extends ConsumerState<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool islogin = false;
+  bool secure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +98,88 @@ class _LoginState extends ConsumerState<Login> {
             ),
             SizedBox(height: 20.h),
             RegisterField(lable: "Your Email", controller: emailController),
-            RegisterField(lable: "Password", controller: passwordController),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Password",
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12.h),
+                  Container(
+                    // height: 55.h,
+                    width: MediaQuery.of(context).size.width,
+                    child: TextFormField(
+                      obscureText: secure == true ? secure : false,
+                      controller: passwordController,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              secure = !secure;
+                            });
+                          },
+                          child:
+                              secure == true
+                                  ? Icon(
+                                    Icons.visibility_off,
+                                    color: Color.fromARGB(150, 30, 30, 30),
+                                  )
+                                  : Icon(
+                                    Icons.visibility,
+                                    color: Color.fromARGB(150, 30, 30, 30),
+                                  ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 12.h,
+                          horizontal: 15.w,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 17, 17, 25),
+                            width: 1,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 17, 17, 25),
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 17, 17, 25),
+                            width: 1,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 17, 17, 25),
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 15.h),
             Padding(
               padding: EdgeInsets.only(right: 20.w),

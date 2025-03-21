@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'registerService.dart';
+part of 'categoryService.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'registerService.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _RegisterService implements RegisterService {
-  _RegisterService(
+class _CategoryService implements CategoryService {
+  _CategoryService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,20 +24,34 @@ class _RegisterService implements RegisterService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<RegistorResModel> register(RegistorBodyModel body) async {
+  Future<HomeCategoryResModel> multipartCategory(
+    String name,
+    File file,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
-    final _options = _setStreamType<RegistorResModel>(Options(
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'name',
+      name,
+    ));
+    _data.files.add(MapEntry(
+      'file',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    final _options = _setStreamType<HomeCategoryResModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
         .compose(
           _dio.options,
-          '/api/register',
+          '/api/category-store',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -47,9 +61,9 @@ class _RegisterService implements RegisterService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late RegistorResModel _value;
+    late HomeCategoryResModel _value;
     try {
-      _value = RegistorResModel.fromJson(_result.data!);
+      _value = HomeCategoryResModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

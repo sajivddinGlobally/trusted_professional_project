@@ -178,6 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 10.h),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

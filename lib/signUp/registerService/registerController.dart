@@ -4,8 +4,8 @@ import 'package:trusted_profissional_app/signUp/registerModel/registerBodyModel.
 import 'package:trusted_profissional_app/signUp/registerModel/registerResModel.dart';
 import 'package:trusted_profissional_app/signUp/registerService/registerService.dart';
 
-final registerProvider =
-    FutureProvider.family<RegisterResModel, RegisterBodyModel>((
+final registerProviderController =
+    FutureProvider.family<RegistorResModel, RegistorBodyModel>((
       ref,
       body,
     ) async {

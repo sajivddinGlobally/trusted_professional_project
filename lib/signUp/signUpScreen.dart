@@ -1,11 +1,17 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 import 'package:trusted_profissional_app/signUp/registerModel/registerBodyModel.dart';
+import 'package:trusted_profissional_app/signUp/registerModel/registerResModel.dart';
 import 'package:trusted_profissional_app/signUp/registerService/registerController.dart';
+import 'package:trusted_profissional_app/signUp/registerService/registerService.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -100,7 +106,77 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               ),
               SizedBox(height: 20.h),
               RegisterField(lable: 'Your Name', controller: nameController),
-              RegisterField(lable: 'Your Phone', controller: phoneController),
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Your Phone",
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Color.fromARGB(255, 30, 30, 30),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 12.h),
+                    Container(
+                      // height: 55.h,
+                      width: MediaQuery.of(context).size.width,
+                      child: TextFormField(
+                        keyboardType: TextInputType.numberWithOptions(),
+                        controller: phoneController,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 12.h,
+                            horizontal: 15.w,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 17, 17, 25),
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 17, 17, 25),
+                              width: 1,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 17, 17, 25),
+                              width: 1,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 17, 17, 25),
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Your Phone field is required";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               RegisterField(lable: 'Your Email', controller: emailController),
               RegisterField(lable: 'Password', controller: passwordController),
               RegisterField(
@@ -116,24 +192,26 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     backgroundColor: Color.fromARGB(255, 0, 97, 254),
                   ),
                   onPressed: () async {
+                    setState(() {
+                      isCircular = true;
+                    });
                     if (_formKey.currentState!.validate()) {
                       if (passwordController.text !=
                           confirmpasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Password not match")),
+                          SnackBar(content: Text("Passwords do not match")),
                         );
                         return;
                       }
-                      // Show Circular Indicator
                       setState(() {
                         isCircular = true;
                       });
-                      await Future.delayed(
-                        Duration(seconds: 2),
-                      ); // 👈 2-second delay for loading simulation
-                      await ref.watch(
-                        registerProvider(
-                          RegisterBodyModel(
+                      try {
+                        // Direct call kiya hai service ko  bina riverpod ka use kar ke 
+                        final registerService = RegisterService(getDio());
+
+                        final response = await registerService.register(
+                          RegistorBodyModel(
                             name: nameController.text,
                             email: emailController.text,
                             password: passwordController.text,
@@ -141,17 +219,40 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 confirmpasswordController.text,
                             phone: phoneController.text,
                           ),
-                        ),
-                      );
-                      // Hide Circular Indicator and navigate
-                      setState(() {
-                        isCircular = false;
-                      });
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(builder: (context) => Login()),
-                        (route) => false,
-                      );
+                        );
+                        // if (response.token.isNotEmpty) {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(content: Text("Registration successful!")),
+                        //   );
+                        //   Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     CupertinoPageRoute(builder: (context) => Login()),
+                        //     (route) => false,
+                        //   );
+                        // } else {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(content: Text("Registration successful!")),
+                        //   );
+                        // }
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Registration successful!")),
+                        );
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(builder: (context) => Login()),
+                          (route) => false,
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Error: ${e.toString()}")),
+                        );
+                        log(e.toString());
+                      } finally {
+                        setState(() {
+                          isCircular = false;
+                        });
+                      }
                     }
                   },
                   child:

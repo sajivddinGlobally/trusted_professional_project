@@ -1,21 +1,26 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trusted_profissional_app/home/chat.page.dart';
+import 'package:trusted_profissional_app/home/model/service/categoryController.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
 import 'package:trusted_profissional_app/profile.page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   final PageController _pageController = PageController();
 
   final List<Map<String, String>> testimonials = [
@@ -50,6 +55,11 @@ class _HomePageState extends State<HomePage> {
 
   int bottom = 0;
   String? username;
+
+  Future<MultipartFile?> getmultipartfile(File? imageFile) async {
+    if (imageFile == null) return null;
+    return await MultipartFile.fromFile(imageFile.path);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +189,7 @@ class _HomePageState extends State<HomePage> {
                             textAlign: TextAlign.center,
                             "Find Trusted Professionals for Every Need",
                             style: GoogleFonts.inter(
+                              letterSpacing: -1,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(255, 17, 17, 24),
@@ -189,6 +200,7 @@ class _HomePageState extends State<HomePage> {
                             textAlign: TextAlign.center,
                             "From home repairs to business services, we connect you with verified experts.",
                             style: GoogleFonts.inter(
+                              letterSpacing: -1,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(255, 63, 63, 63),
@@ -254,6 +266,7 @@ class _HomePageState extends State<HomePage> {
                             textAlign: TextAlign.center,
                             "How It Works for Service Seekers",
                             style: GoogleFonts.inter(
+                              letterSpacing: 1,
                               fontSize: 15.32.sp,
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(255, 17, 17, 28),
@@ -407,6 +420,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     "Are You a Skilled Professional? ",
                                     style: GoogleFonts.inter(
+                                      letterSpacing: -0.5,
                                       color: Color(0xFFFFFFFF),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17.72.sp,
@@ -415,6 +429,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     "Let Customers Find You!",
                                     style: GoogleFonts.inter(
+                                      letterSpacing: -0.5,
                                       color: Color(0xFFFFFFFF),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17.72.sp,
@@ -645,22 +660,30 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            textAlign: TextAlign.center,
-                            "Ready to Experience Hassle-Free Services?",
-                            style: GoogleFonts.inter(
-                              fontSize: 29.9.sp,
-                              color: Color(0xFF1E1E1E),
-                              fontWeight: FontWeight.w500,
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              "Ready to Experience Hassle-Free Services?",
+                              style: GoogleFonts.inter(
+                                letterSpacing: -1,
+                                fontSize: 29.9.sp,
+                                color: Color(0xFF1E1E1E),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
-                          Text(
-                            textAlign: TextAlign.center,
-                            "Find top-rated professionals instantly, Book services with just a tap.  Join thousands of happy users.",
-                            style: GoogleFonts.inter(
-                              fontSize: 11.34.sp,
-                              color: Color(0xFF1E1E1E),
-                              fontWeight: FontWeight.w500,
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              "Find top-rated professionals instantly, Book services with just a tap.  Join thousands of happy users.",
+                              style: GoogleFonts.inter(
+                                // letterSpacing: -0.5,
+                                fontSize: 11.34.sp,
+                                color: Color(0xFF1E1E1E),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],
