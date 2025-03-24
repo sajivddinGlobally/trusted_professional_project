@@ -103,8 +103,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Hi, Rajesh",
-                                    // "${box.get('name')}",
+                                    // "Hi, Rajesh",
+                                    "${box.get('name')}",
                                     style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -857,13 +857,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               )
               : bottom == 1
-              ? ServicePage(
-                callback: () {
-                  setState(() {
-                    bottom = 0;
-                  });
-                },
-              )
+              ? ServicePage()
               : bottom == 2
               ? ChatPage()
               : ProfilePage(),

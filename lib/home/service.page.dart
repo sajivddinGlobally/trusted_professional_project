@@ -8,8 +8,7 @@ import 'package:trusted_profissional_app/home/service.page.category/categoryCont
 import 'package:trusted_profissional_app/service/particularService.dart';
 
 class ServicePage extends StatefulWidget {
-  final Function callback;
-  const ServicePage({super.key, required this.callback});
+  const ServicePage({super.key});
 
   @override
   State<ServicePage> createState() => _ServicePageState();
@@ -281,6 +280,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                           borderRadius: BorderRadius.circular(15.r),
                           child: Image.asset(
                             "assets/electricianservice.png",
+
                             height: 80.h,
                             width: MediaQuery.of(context).size.width,
                             fit: BoxFit.cover,
@@ -291,7 +291,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                     Padding(
                       padding: EdgeInsets.only(left: 8.w, top: 10.h),
                       child: Text(
-                        "Rahul:Electrician Service",
+                        "Rahul: Electrician Service",
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
@@ -357,35 +357,28 @@ class ContainerBody extends ConsumerStatefulWidget {
 class _ContainerBodyState extends ConsumerState<ContainerBody> {
   @override
   Widget build(BuildContext context) {
-    final categoryprovider = ref.watch(categoryProvider);
-    return categoryprovider.when(
-      data: (data) {
-        return Container(
-          height: 30.h,
-          // width: 150.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(13.r),
-            color: widget.color,
-            border: Border.all(width: 1, color: widget.bordercolor),
-          ),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.w, right: 10.w),
-              child: Text(
-                // "Repair & Home Services",
-                widget.text,
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 11.sp,
-                  color: widget.textcolor,
-                ),
-              ),
+    return Container(
+      height: 30.h,
+      // width: 150.w,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(13.r),
+        color: widget.color,
+        border: Border.all(width: 1, color: widget.bordercolor),
+      ),
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          child: Text(
+            // "Repair & Home Services",
+            widget.text,
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.w400,
+              fontSize: 11.sp,
+              color: widget.textcolor,
             ),
           ),
-        );
-      },
-      error: (error, stackTrace) => Center(child: Text(error.toString())),
-      loading: () => Center(child: CircularProgressIndicator()),
+        ),
+      ),
     );
   }
 }

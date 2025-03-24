@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var box = Hive.box("data");
+    var box = Hive.box("user");
     var token = box.get("token");
     log("////////////////////////");
     log(token.toString());
