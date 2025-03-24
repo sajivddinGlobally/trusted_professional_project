@@ -532,10 +532,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ],
                           ),
                           Positioned(
-                            left: 48.w,
+                            left: 50.w,
                             top: 30.h,
                             child: Container(
-                              width: 2.w,
+                              width: 1.w,
                               height: 150.h,
                               decoration: BoxDecoration(
                                 color: Color(0xFF000000),
