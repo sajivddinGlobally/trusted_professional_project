@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 import 'package:trusted_profissional_app/home/chat.page.dart';
 import 'package:trusted_profissional_app/home/home.service/categoryController.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
@@ -54,12 +55,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   ];
 
   int bottom = 0;
-  String? username;
-
-  Future<MultipartFile?> getmultipartfile(File? imageFile) async {
-    if (imageFile == null) return null;
-    return await MultipartFile.fromFile(imageFile.path);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -513,24 +508,43 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SizedBox(height: 25.h),
                     Center(
-                      child: Column(
+                      child: Stack(
                         children: [
-                          CustomCard(
-                            title: "Join for Free",
-                            subtitle:
-                                "Sign up and list your services in minutes.",
+                          Column(
+                            children: [
+                              CustomCard(
+                                title: "Join for Free",
+                                subtitle:
+                                    "Sign up and list your services in minutes.",
+                              ),
+                              SizedBox(height: 10.h),
+                              CustomCard(
+                                title: 'Get More Clients',
+                                subtitle:
+                                    'Connect with customers actively looking for services.',
+                              ),
+                              SizedBox(height: 10.h),
+                              CustomCard(
+                                title: 'Grow Your Business',
+                                subtitle:
+                                    'Build trust, receive bookings, and earn more.',
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 10.h),
-                          CustomCard(
-                            title: 'Get More Clients',
-                            subtitle:
-                                'Connect with customers actively looking for services.',
-                          ),
-                          SizedBox(height: 10.h),
-                          CustomCard(
-                            title: 'Grow Your Business',
-                            subtitle:
-                                'Build trust, receive bookings, and earn more.',
+                          Positioned(
+                            left: 48.w,
+                            top: 30.h,
+                            child: Container(
+                              width: 2.w,
+                              height: 150.h,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF000000),
+                                // border: Border.all(
+                                //   width: 0.65.w,
+                                //   color: Color(0xFF000000),
+                                // ),
+                              ),
+                            ),
                           ),
                         ],
                       ),

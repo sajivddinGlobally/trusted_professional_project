@@ -49,6 +49,8 @@ dependencies:
   hive_flutter: ^1.1.0
   fluttertoast: ^8.2.12
   path_provider: ^2.1.5
+  timelines: ^0.1.0
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:
