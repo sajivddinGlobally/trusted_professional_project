@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    var box = Hive.box("data");
+    var box = Hive.box("authBox");
     return Scaffold(
       body: Container(
         child: Column(
@@ -135,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          var box = Hive.box('data');
+                          var box = Hive.box('authBox');
                           box.clear();
                           Fluttertoast.showToast(msg: "Logout successful");
                           Navigator.pushAndRemoveUntil(

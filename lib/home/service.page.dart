@@ -280,7 +280,6 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                           borderRadius: BorderRadius.circular(15.r),
                           child: Image.asset(
                             "assets/electricianservice.png",
-
                             height: 80.h,
                             width: MediaQuery.of(context).size.width,
                             fit: BoxFit.cover,

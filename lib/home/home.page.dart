@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:timeline_tile/timeline_tile.dart';
+
 import 'package:trusted_profissional_app/home/chat.page.dart';
 import 'package:trusted_profissional_app/home/home.service/categoryController.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
@@ -55,11 +54,12 @@ class _HomePageState extends ConsumerState<HomePage> {
   ];
 
   int bottom = 0;
+  int tabindex = 0;
 
   @override
   Widget build(BuildContext context) {
     final homeserviceprovider = ref.watch(homeServiceProvider);
-    var box = Hive.box("data");
+    var box = Hive.box('authBox');
     return Scaffold(
       // backgroundColor: Color(0xFFFFFFFF),
       body:
@@ -539,10 +539,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                               height: 150.h,
                               decoration: BoxDecoration(
                                 color: Color(0xFF000000),
-                                // border: Border.all(
-                                //   width: 0.65.w,
-                                //   color: Color(0xFF000000),
-                                // ),
                               ),
                             ),
                           ),

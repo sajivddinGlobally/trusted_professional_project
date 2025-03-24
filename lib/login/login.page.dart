@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -267,10 +269,10 @@ class _LoginState extends ConsumerState<Login> {
                     ); // without comput use
                     if (response != null) {
                       // *Hive me user credentials save karein**
-                      var box = Hive.box("data");
+                      var box = Hive.box('authBox');
                       box.put('email', response.data.email);
                       box.put('token', response.data.token);
-                      box.put("isLoggedIn", true);
+
                       Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(builder: (context) => HomePage()),
