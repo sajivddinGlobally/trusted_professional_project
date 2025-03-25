@@ -99,7 +99,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 children: [
                                   Text(
                                     // "Hi, Rajesh",
-                                    "${box.get('name')}",
+                                    "Hey${ box.get('name') ?? ""}",
                                     style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,

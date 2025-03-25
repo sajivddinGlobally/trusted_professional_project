@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.only(top: 16.h),
                     child: Text(
                       // "Robert Johnson",
-                      "${box.get('name')}",
+                      "${box.get('name') ?? "Hello guest"}",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 18.sp,
@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Text(
                     // "jonsonrobert2323@gmail.com",
-                    "${box.get("email")}",
+                    "${box.get("email") ?? "example@gmail.com"}",
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
                       fontSize: 15.sp,
