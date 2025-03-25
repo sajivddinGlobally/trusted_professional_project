@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:trusted_profissional_app/add_service_page.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -21,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
     var box = Hive.box("authBox");
     return Scaffold(
       body: Container(
+        color: Color.fromARGB(255, 255, 255, 255),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -210,6 +212,49 @@ class _ProfilePageState extends State<ProfilePage> {
                               SizedBox(width: 10.w),
                               Text(
                                 "Login",
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 38, 38, 38),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => AddServicePage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: 400.w,
+                        height: 52.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          border: Border.all(
+                            width: 1,
+                            color: Color.fromARGB(255, 17, 17, 28),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10.w),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.design_services_rounded,
+                                color: Color.fromARGB(255, 38, 38, 38),
+                              ),
+                              SizedBox(width: 10.w),
+                              Text(
+                                "Add Service",
                                 style: GoogleFonts.inter(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
