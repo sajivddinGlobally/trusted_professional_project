@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 import 'package:trusted_profissional_app/signUp/registerModel/registerBodyModel.dart';
-import 'package:trusted_profissional_app/signUp/registerModel/registerResModel.dart';
-import 'package:trusted_profissional_app/signUp/registerService/registerController.dart';
 import 'package:trusted_profissional_app/signUp/registerService/registerService.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
