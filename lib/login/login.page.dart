@@ -133,16 +133,15 @@ class _LoginState extends ConsumerState<Login> {
                               secure = !secure;
                             });
                           },
-                          child:
-                              secure == true
-                                  ? Icon(
-                                    Icons.visibility_off,
-                                    color: Color.fromARGB(150, 30, 30, 30),
-                                  )
-                                  : Icon(
-                                    Icons.visibility,
-                                    color: Color.fromARGB(150, 30, 30, 30),
-                                  ),
+                          child: secure == true
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: Color.fromARGB(150, 30, 30, 30),
+                                )
+                              : Icon(
+                                  Icons.visibility,
+                                  color: Color.fromARGB(150, 30, 30, 30),
+                                ),
                         ),
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 12.h,
@@ -280,8 +279,8 @@ class _LoginState extends ConsumerState<Login> {
                     if (response != null) {
                       // *Hive me user credentials save karein**
                       var box = Hive.box('authBox');
-                      box.put('email', response.data.email);
-                      box.put('token', response.data.token);
+                      await box.put('email', response.data.email);
+                      await box.put('token', response.data.token);
 
                       Navigator.pushAndRemoveUntil(
                         context,
@@ -300,20 +299,19 @@ class _LoginState extends ConsumerState<Login> {
                     });
                   }
                 },
-                child:
-                    islogin == false
-                        ? Text(
-                          "Login",
-                          style: GoogleFonts.inter(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        )
-                        : Padding(
-                          padding: EdgeInsets.all(6),
-                          child: CircularProgressIndicator(color: Colors.white),
+                child: islogin == false
+                    ? Text(
+                        "Login",
+                        style: GoogleFonts.inter(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
                         ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.all(6),
+                        child: CircularProgressIndicator(color: Colors.white),
+                      ),
               ),
             ),
             SizedBox(height: 50.h),

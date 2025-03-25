@@ -15,10 +15,99 @@ class ServicePage extends StatefulWidget {
 }
 
 class _ServicePageState extends State<ServicePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int currentIndex = 0;
+  Map<String, List<String>> filters = {
+    "Brand": [
+      "Philips",
+      "Sony",
+      "JBL",
+      "Headphones",
+      "Sennheiser",
+      "Motorola",
+      "Zebronics",
+      "iBall",
+      "Signature",
+      "Generic"
+    ],
+    "Features": [
+      "Wireless",
+      "Sports",
+      "Noise Cancelling",
+      "With Microphone",
+      "Tangle Free Cord"
+    ],
+    "Connectivity Technology": [
+      "Wired-3.5 MM Single Pin",
+      "Bluetooth Wireless",
+      "Wired USB"
+    ],
+  };
+  Map<String, List<bool>> selectedFilters = {};
+  @override
+  void initState() {
+    super.initState();
+    // Initialize selection map
+    filters.forEach((key, value) {
+      selectedFilters[key] = List.generate(value.length, (index) => false);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: Drawer(
+        backgroundColor: Colors.white,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 16.w, right: 16.w, top: 40.w, bottom: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: filters.keys.map((category) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      category,
+                      style: GoogleFonts.montserrat(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children:
+                          List.generate(filters[category]!.length, (index) {
+                        return ChoiceChip(
+                          iconTheme: IconThemeData(color: Colors.white),
+                          label: Text(filters[category]![index]),
+                          selected: selectedFilters[category]![index],
+                          onSelected: (selected) {
+                            setState(() {
+                              selectedFilters[category]![index] = selected;
+                            });
+                          },
+                          selectedColor: Colors.blue,
+                          backgroundColor: Colors.transparent,
+                          labelStyle: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w600,
+                            color: selectedFilters[category]![index]
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        );
+                      }),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,18 +143,24 @@ class _ServicePageState extends State<ServicePage> {
                   ),
                 ),
                 Spacer(),
-                Container(
-                  width: 44.w,
-                  height: 44.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color.fromARGB(255, 232, 232, 232),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.tune,
-                      size: 20.sp,
-                      color: Color(0xFF1E1E1E),
+                GestureDetector(
+                  onTap: () {
+                    _scaffoldKey.currentState
+                        ?.openEndDrawer(); // Opens End Drawer
+                  },
+                  child: Container(
+                    width: 44.w,
+                    height: 44.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromARGB(255, 232, 232, 232),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.tune,
+                        size: 20.sp,
+                        color: Color(0xFF1E1E1E),
+                      ),
                     ),
                   ),
                 ),
@@ -113,106 +208,106 @@ class _ServicePageState extends State<ServicePage> {
               ),
             ),
             SizedBox(height: 20.h),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SizedBox(width: 20.w),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        currentIndex = 0;
-                      });
-                    },
-                    child: ContainerBody(
-                      text: 'Cleaning & Maintenance',
-                      textcolor:
-                          currentIndex == 0
-                              ? Color.fromARGB(255, 229, 239, 255)
-                              : Color.fromARGB(255, 0, 97, 254),
-                      color:
-                          currentIndex == 0
-                              ? Color.fromARGB(255, 0, 97, 254)
-                              : Color.fromARGB(255, 229, 239, 255),
-                      bordercolor:
-                          currentIndex == 0
-                              ? Color.fromARGB(255, 17, 17, 28)
-                              : Colors.transparent,
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        currentIndex = 1;
-                      });
-                    },
-                    child: ContainerBody(
-                      text: 'Automobile Services',
-                      textcolor:
-                          currentIndex == 1
-                              ? Color.fromARGB(255, 229, 239, 255)
-                              : Color.fromARGB(255, 0, 97, 254),
-                      color:
-                          currentIndex == 1
-                              ? Color.fromARGB(255, 0, 97, 254)
-                              : Color.fromARGB(255, 229, 239, 255),
-                      bordercolor:
-                          currentIndex == 1
-                              ? Color.fromARGB(255, 17, 17, 28)
-                              : Colors.transparent,
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        currentIndex = 2;
-                      });
-                    },
-                    child: ContainerBody(
-                      text: 'Tech & IT Support',
-                      textcolor:
-                          currentIndex == 2
-                              ? Color.fromARGB(255, 229, 239, 255)
-                              : Color.fromARGB(255, 0, 97, 254),
-                      color:
-                          currentIndex == 2
-                              ? Color.fromARGB(255, 0, 97, 254)
-                              : Color.fromARGB(255, 229, 239, 255),
-                      bordercolor:
-                          currentIndex == 2
-                              ? Color.fromARGB(255, 17, 17, 28)
-                              : Colors.transparent,
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        currentIndex = 3;
-                      });
-                    },
-                    child: ContainerBody(
-                      text: 'Events & Entertainment',
-                      textcolor:
-                          currentIndex == 3
-                              ? Color.fromARGB(255, 229, 239, 255)
-                              : Color.fromARGB(255, 0, 97, 254),
-                      color:
-                          currentIndex == 3
-                              ? Color.fromARGB(255, 0, 97, 254)
-                              : Color.fromARGB(255, 229, 239, 255),
-                      bordercolor:
-                          currentIndex == 3
-                              ? Color.fromARGB(255, 17, 17, 28)
-                              : Colors.transparent,
-                    ),
-                  ),
-                  SizedBox(width: 10.w),
-                ],
-              ),
-            ),
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     children: [
+            //       SizedBox(width: 20.w),
+            //       GestureDetector(
+            //         onTap: () {
+            //           setState(() {
+            //             currentIndex = 0;
+            //           });
+            //         },
+            //         child: ContainerBody(
+            //           text: 'Cleaning & Maintenance',
+            //           textcolor:
+            //               currentIndex == 0
+            //                   ? Color.fromARGB(255, 229, 239, 255)
+            //                   : Color.fromARGB(255, 0, 97, 254),
+            //           color:
+            //               currentIndex == 0
+            //                   ? Color.fromARGB(255, 0, 97, 254)
+            //                   : Color.fromARGB(255, 229, 239, 255),
+            //           bordercolor:
+            //               currentIndex == 0
+            //                   ? Color.fromARGB(255, 17, 17, 28)
+            //                   : Colors.transparent,
+            //         ),
+            //       ),
+            //       SizedBox(width: 8.w),
+            //       GestureDetector(
+            //         onTap: () {
+            //           setState(() {
+            //             currentIndex = 1;
+            //           });
+            //         },
+            //         child: ContainerBody(
+            //           text: 'Automobile Services',
+            //           textcolor:
+            //               currentIndex == 1
+            //                   ? Color.fromARGB(255, 229, 239, 255)
+            //                   : Color.fromARGB(255, 0, 97, 254),
+            //           color:
+            //               currentIndex == 1
+            //                   ? Color.fromARGB(255, 0, 97, 254)
+            //                   : Color.fromARGB(255, 229, 239, 255),
+            //           bordercolor:
+            //               currentIndex == 1
+            //                   ? Color.fromARGB(255, 17, 17, 28)
+            //                   : Colors.transparent,
+            //         ),
+            //       ),
+            //       SizedBox(width: 8.w),
+            //       GestureDetector(
+            //         onTap: () {
+            //           setState(() {
+            //             currentIndex = 2;
+            //           });
+            //         },
+            //         child: ContainerBody(
+            //           text: 'Tech & IT Support',
+            //           textcolor:
+            //               currentIndex == 2
+            //                   ? Color.fromARGB(255, 229, 239, 255)
+            //                   : Color.fromARGB(255, 0, 97, 254),
+            //           color:
+            //               currentIndex == 2
+            //                   ? Color.fromARGB(255, 0, 97, 254)
+            //                   : Color.fromARGB(255, 229, 239, 255),
+            //           bordercolor:
+            //               currentIndex == 2
+            //                   ? Color.fromARGB(255, 17, 17, 28)
+            //                   : Colors.transparent,
+            //         ),
+            //       ),
+            //       SizedBox(width: 8.w),
+            //       GestureDetector(
+            //         onTap: () {
+            //           setState(() {
+            //             currentIndex = 3;
+            //           });
+            //         },
+            //         child: ContainerBody(
+            //           text: 'Events & Entertainment',
+            //           textcolor:
+            //               currentIndex == 3
+            //                   ? Color.fromARGB(255, 229, 239, 255)
+            //                   : Color.fromARGB(255, 0, 97, 254),
+            //           color:
+            //               currentIndex == 3
+            //                   ? Color.fromARGB(255, 0, 97, 254)
+            //                   : Color.fromARGB(255, 229, 239, 255),
+            //           bordercolor:
+            //               currentIndex == 3
+            //                   ? Color.fromARGB(255, 17, 17, 28)
+            //                   : Colors.transparent,
+            //         ),
+            //       ),
+            //       SizedBox(width: 10.w),
+            //     ],
+            //   ),
+            // ),
             Mygridviewbuilder(),
           ],
         ),
