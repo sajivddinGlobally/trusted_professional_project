@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
+import 'package:trusted_profissional_app/forgot_password/forgot_password.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
 import 'package:trusted_profissional_app/login/loginModel/loginBodyModel.dart';
 
@@ -186,12 +186,22 @@ class _LoginState extends ConsumerState<Login> {
               padding: EdgeInsets.only(right: 20.w),
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  "Forgot Password?",
-                  style: GoogleFonts.inter(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromARGB(255, 30, 30, 30),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => ForgotPassword(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Forgot Password?",
+                    style: GoogleFonts.inter(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromARGB(255, 30, 30, 30),
+                    ),
                   ),
                 ),
               ),
