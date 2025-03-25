@@ -9,7 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({super.key});     
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
