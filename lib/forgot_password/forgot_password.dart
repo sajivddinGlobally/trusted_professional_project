@@ -84,7 +84,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                     ),
                   ),
-                  validator: (value) {},
+                  validator: (value) {
+                    return "Welcome";
+                  },
                 ),
               ],
             ),
