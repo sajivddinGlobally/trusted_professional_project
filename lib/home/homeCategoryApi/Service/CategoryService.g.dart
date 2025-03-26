@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'serviceCategory.dart';
+part of 'CategoryService.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'serviceCategory.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _ServiceCategory implements ServiceCategory {
-  _ServiceCategory(
+class _CategoryService implements CategoryService {
+  _CategoryService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,

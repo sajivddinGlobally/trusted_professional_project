@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final homeServiceModel = homeServiceModelFromJson(jsonString);
+//     final serviceModel = serviceModelFromJson(jsonString);
 
 import 'dart:convert';
 
-HomeServiceModel homeServiceModelFromJson(String str) => HomeServiceModel.fromJson(json.decode(str));
+ServiceModel serviceModelFromJson(String str) => ServiceModel.fromJson(json.decode(str));
 
-String homeServiceModelToJson(HomeServiceModel data) => json.encode(data.toJson());
+String serviceModelToJson(ServiceModel data) => json.encode(data.toJson());
 
-class HomeServiceModel {
+class ServiceModel {
     String message;
     List<Datum> data;
 
-    HomeServiceModel({
+    ServiceModel({
         required this.message,
         required this.data,
     });
 
-    factory HomeServiceModel.fromJson(Map<String, dynamic> json) => HomeServiceModel(
+    factory ServiceModel.fromJson(Map<String, dynamic> json) => ServiceModel(
         message: json["message"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     );

@@ -9,7 +9,8 @@ import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'package:trusted_profissional_app/home/chat.page.dart';
-import 'package:trusted_profissional_app/home/home.service/categoryController.dart';
+import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
+
 import 'package:trusted_profissional_app/home/service.page.dart';
 import 'package:trusted_profissional_app/profile.page.dart';
 
@@ -58,7 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final homeserviceprovider = ref.watch(homeServiceProvider);
+    final categoryData = ref.watch(categoryProvider);
     var box = Hive.box('authBox');
     return Scaffold(
       // backgroundColor: Color(0xFFFFFFFF),
@@ -99,7 +100,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 children: [
                                   Text(
                                     // "Hi, Rajesh",
-                                    "Hey${ box.get('name') ?? ""}",
+                                    "Hey${box.get('name') ?? ""}",
                                     style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -206,13 +207,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    homeserviceprovider.when(
-                      data: (data) {
+                    categoryData.when(
+                      data: (category) {
                         return SizedBox(
                           height: 190.h,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: data.data.length,
+                            itemCount: category.data.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: EdgeInsets.only(left: 20.w),
@@ -234,7 +235,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         child: Image.network(
                                           // "assets/electrician.png",
                                           // mylist[index]["imageUrl"]!,
-                                          data.data[index].imageUrl,
+                                          category.data[index].imageUrl,
                                           width: 121.w,
                                           height: 185.h,
                                           fit: BoxFit.cover,
@@ -247,7 +248,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       child: Text(
                                         // "Electrician Service",
                                         // mylist[index]["service"]!,
-                                        data.data[index].title,
+                                        category.data[index].title,
                                         style: GoogleFonts.inter(
                                           fontSize: 8.53,
                                           fontWeight: FontWeight.w500,

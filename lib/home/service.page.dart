@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:trusted_profissional_app/home/home.service/categoryController.dart';
-import 'package:trusted_profissional_app/home/service.page.category/categoryController.dart';
-import 'package:trusted_profissional_app/service/particularService.dart';
+import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/serviceController.dart';
+
+import 'package:trusted_profissional_app/particularService/particularService.page.dart';
 
 class ServicePage extends StatefulWidget {
   const ServicePage({super.key});
@@ -28,19 +28,19 @@ class _ServicePageState extends State<ServicePage> {
       "Zebronics",
       "iBall",
       "Signature",
-      "Generic"
+      "Generic",
     ],
     "Features": [
       "Wireless",
       "Sports",
       "Noise Cancelling",
       "With Microphone",
-      "Tangle Free Cord"
+      "Tangle Free Cord",
     ],
     "Connectivity Technology": [
       "Wired-3.5 MM Single Pin",
       "Bluetooth Wireless",
-      "Wired USB"
+      "Wired USB",
     ],
   };
   Map<String, List<bool>> selectedFilters = {};
@@ -62,48 +62,57 @@ class _ServicePageState extends State<ServicePage> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
-                left: 16.w, right: 16.w, top: 40.w, bottom: 16.w),
+              left: 16.w,
+              right: 16.w,
+              top: 40.w,
+              bottom: 16.w,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: filters.keys.map((category) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      category,
-                      style: GoogleFonts.montserrat(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children:
-                          List.generate(filters[category]!.length, (index) {
-                        return ChoiceChip(
-                          iconTheme: IconThemeData(color: Colors.white),
-                          label: Text(filters[category]![index]),
-                          selected: selectedFilters[category]![index],
-                          onSelected: (selected) {
-                            setState(() {
-                              selectedFilters[category]![index] = selected;
-                            });
-                          },
-                          selectedColor: Colors.blue,
-                          backgroundColor: Colors.transparent,
-                          labelStyle: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w600,
-                            color: selectedFilters[category]![index]
-                                ? Colors.white
-                                : Colors.black,
+              children:
+                  filters.keys.map((category) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          category,
+                          style: GoogleFonts.montserrat(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
-                        );
-                      }),
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                );
-              }).toList(),
+                        ),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: List.generate(filters[category]!.length, (
+                            index,
+                          ) {
+                            return ChoiceChip(
+                              iconTheme: IconThemeData(color: Colors.white),
+                              label: Text(filters[category]![index]),
+                              selected: selectedFilters[category]![index],
+                              onSelected: (selected) {
+                                setState(() {
+                                  selectedFilters[category]![index] = selected;
+                                });
+                              },
+                              selectedColor: Colors.blue,
+                              backgroundColor: Colors.transparent,
+                              labelStyle: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w600,
+                                color:
+                                    selectedFilters[category]![index]
+                                        ? Colors.white
+                                        : Colors.black,
+                              ),
+                            );
+                          }),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    );
+                  }).toList(),
             ),
           ),
         ),
@@ -326,106 +335,117 @@ class Mygridviewbuilder extends ConsumerStatefulWidget {
 class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
   @override
   Widget build(BuildContext context) {
+    final serviceData = ref.watch(serviceProvider);
     return SizedBox(
-      child: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
-        child: GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: 10,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10.h, // Spacing between columns
-            mainAxisSpacing: 10.h, // Spacing between rows
-            childAspectRatio: 1.3, // ✅ Adjust this to change item size
-          ),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(builder: (context) => ParticularService()),
-                );
-              },
-              child: Container(
-                width: 196.w,
-                height: 134.h,
-                decoration: BoxDecoration(
-                  // color: Colors.yellow,
-                  borderRadius: BorderRadius.circular(20.r),
-                  border: Border.all(
-                    color: Color.fromARGB(255, 17, 17, 28),
-                    width: 1,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      // height: 80.h,
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: 5.h,
-                          left: 5.w,
-                          right: 5.w,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.r),
-                          child: Image.asset(
-                            "assets/electricianservice.png",
-                            height: 80.h,
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+      child: serviceData.when(
+        data: (service) {
+          return Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: service.data.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.h, // Spacing between columns
+                mainAxisSpacing: 10.h, // Spacing between rows
+                childAspectRatio: 1.3, // ✅ Adjust this to change item size
+              ),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => ParticularService(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 196.w,
+                    height: 134.h,
+                    decoration: BoxDecoration(
+                      // color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(20.r),
+                      border: Border.all(
+                        color: Color.fromARGB(255, 17, 17, 28),
+                        width: 1,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.w, top: 10.h),
-                      child: Text(
-                        "Rahul: Electrician Service",
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                          color: Color.fromARGB(255, 17, 17, 28),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.w, top: 5.h),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Starting from ₹600",
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11.sp,
-                              color: Color.fromARGB(255, 102, 102, 102),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          // height: 80.h,
+                          width: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: 5.h,
+                              left: 5.w,
+                              right: 5.w,
                             ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10.w),
-                            child: Text(
-                              "⭐ 4.8/5",
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 11.sp,
-                                color: Color.fromARGB(255, 102, 102, 102),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.r),
+                              child: Image.network(
+                                // "assets/electricianservice.png",
+                                service.data[index].imageUrl,
+                                height: 80.h,
+                                width: MediaQuery.of(context).size.width,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 8.w, top: 10.h),
+                          child: Text(
+                            // "Rahul: Electrician Service",
+                            service.data[index].title,
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                              color: Color.fromARGB(255, 17, 17, 28),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 8.w, top: 5.h),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Starting from ₹600",
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11.sp,
+                                  color: Color.fromARGB(255, 102, 102, 102),
+                                ),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.only(right: 10.w),
+                                child: Text(
+                                  "⭐ 4.8/5",
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11.sp,
+                                    color: Color.fromARGB(255, 102, 102, 102),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+        error: (error, stackTrace) => Center(child: Text(error.toString())),
+        loading: () => Center(child: CircularProgressIndicator()),
       ),
     );
   }

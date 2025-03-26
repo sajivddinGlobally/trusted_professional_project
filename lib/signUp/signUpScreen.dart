@@ -182,9 +182,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               ),
               SizedBox(height: 10.h),
               ListTile(
-                title: Text('Service Provid'),
+                title: Text('Service Provider'),
                 leading: Radio<String>(
-                  value: 'Service Provider',
+                  value: 'Service Providerer',
                   groupValue: _selectedOption,
                   onChanged: (value) {
                     setState(() {
