@@ -307,6 +307,29 @@ class _AddServicePageState extends State<AddServicePage> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h),
+                  child: Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(
+                          MediaQuery.of(context).size.width,
+                          53.h,
+                        ),
+                        backgroundColor: Color.fromARGB(255, 0, 97, 254),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        "Save",
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 40.h),
               ],
             ),
