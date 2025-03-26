@@ -8,10 +8,10 @@ final serviceProvider = FutureProvider((ref) async {
   return apiservice.getService();
 });
 
-final particularServiceProvider = FutureProvider.family<ServiceModel, String>((
-  ref,
-  id,
-) async {
-  final apiservice = ApiService(await getDio());
-  return apiservice.getParticularService(id);
-});
+// final particularServiceProvider = FutureProvider.family<ServiceModel, String>((
+//   ref,
+//   id,
+// ) async {
+//   final apiservice = ApiService(await getDio());
+//   return apiservice.getParticularService(id);
+// });

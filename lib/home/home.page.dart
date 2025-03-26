@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,10 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'package:trusted_profissional_app/home/chat.page.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
-
 import 'package:trusted_profissional_app/home/service.page.dart';
 import 'package:trusted_profissional_app/profile.page.dart';
 
@@ -141,7 +137,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           SizedBox(height: 16.h),
                           Padding(
                             padding: EdgeInsets.only(left: 30.w, right: 30.r),
-                            child: Container(
+                            child: SizedBox(
                               height: 54.h,
                               width: 400.w,
                               child: TextField(

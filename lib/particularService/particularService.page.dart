@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -105,7 +104,7 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                               particularservice.data[index].description
                                   .toString(),
                               style: GoogleFonts.inter(
-                                letterSpacing: -1,
+                                letterSpacing: -0.20,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14.sp,
                                 color: Color.fromARGB(255, 77, 77, 77),

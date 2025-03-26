@@ -11,6 +11,6 @@ abstract class ApiService {
   @GET('/api/Service')
   Future<ServiceModel> getService();
 
-  @GET('/api/particular-service/{id}')
-  Future<ServiceModel> getParticularService(@Path() String id);
+  // @GET('/api/particular-service/{id}')
+  // Future<ServiceModel> getParticularService(@Path() String id);
 }
