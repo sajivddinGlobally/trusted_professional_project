@@ -184,12 +184,13 @@ class _ServicePageState extends State<ServicePage> {
                 child: TextFormField(
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 5.h),
+                    // contentPadding: EdgeInsets.only(bottom: 45.h),
                     hintText: "Search",
                     hintStyle: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
                       fontSize: 15.sp,
                       color: Color.fromARGB(255, 128, 128, 128),
+                      height: 2.h,
                     ),
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(top: 5.h),
