@@ -216,7 +216,7 @@ class _ServicePageState extends State<ServicePage> {
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            // SizedBox(height: 20.h),
             // SingleChildScrollView(
             //   scrollDirection: Axis.horizontal,
             //   child: Row(
@@ -340,7 +340,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
       child: serviceData.when(
         data: (service) {
           return Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 10.h),
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),

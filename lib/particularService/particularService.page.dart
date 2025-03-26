@@ -138,10 +138,7 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    // "Service Location",
-                                    particularservice
-                                        .data[index]
-                                        .serviceLocation,
+                                    "Service Location",
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w500,
@@ -151,7 +148,9 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                                   SizedBox(height: 5.h),
                                   Text(
                                     // "Mumbai, Navi Mumbai, Thane",
-                                    particularservice.data[index].serviceTitle,
+                                    particularservice
+                                        .data[index]
+                                        .serviceLocation,
                                     style: TextStyle(
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.w500,
@@ -167,7 +166,6 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                               color: Colors.grey.shade300,
                             ),
                             SizedBox(width: 10.w),
-
                             // Availability
                             Expanded(
                               child: Column(
@@ -185,6 +183,8 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                                   SizedBox(height: 5.w),
                                   Text(
                                     "8 AM - 10 PM",
+                                    // particularservice.data[index].date
+                                    //     .toString(),
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w500,
@@ -489,9 +489,12 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Question(
-                            questions: "1. How long does the service take?",
+                            questions:
+                                "1.${particularservice.data[index].faq[index].question}",
+                            // "1. How long does the service take?",
                             answer:
-                                "Most repairs take 30-45 minutes, complex jobs may take longer.",
+                                particularservice.data[index].faq[index].answer,
+                            // "Most repairs take 30-45 minutes, complex jobs may take longer.",
                           ),
                           SizedBox(height: 20.h),
                           Question(

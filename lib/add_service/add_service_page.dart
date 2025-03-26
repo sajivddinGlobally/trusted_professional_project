@@ -176,70 +176,70 @@ class _AddServicePageState extends State<AddServicePage> {
                         ),
                       ),
                       SizedBox(height: 6.h),
-                      GestureDetector(
-                        onTap: () {
-                          _selectTime(context);
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 60.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            border: Border.all(),
-                          ),
-                          child: Row(
-                            children: [
-                              SizedBox(width: 10.w),
-                              _selectedFile != null
-                                  ? Text(
-                                    _selectedFile!.path,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  )
-                                  : Text(
-                                    "No file selected",
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  ),
-                              Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  PickFile();
-                                },
-                                child: Container(
-                                  width: 70.w,
-                                  height: 25.h,
-                                  decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 0, 97, 254),
-                                    borderRadius: BorderRadius.circular(4.r),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 5.w,
-                                      right: 5.w,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Upload file",
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child:
+                                  _selectedFile != null
+                                      ? Text(
+                                        _selectedFile!.path,
+                                        // overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                         style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 11.sp,
-                                          color: Colors.white,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(255, 0, 0, 0),
                                         ),
+                                      )
+                                      : Text(
+                                        "No file selected",
+                                        style: GoogleFonts.inter(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                      ),
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                PickFile();
+                              },
+                              child: Container(
+                                width: 70.w,
+                                height: 25.h,
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 0, 97, 254),
+                                  borderRadius: BorderRadius.circular(4.r),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 5.w,
+                                    right: 5.w,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Upload file",
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 11.sp,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10.w),
-                            ],
-                          ),
+                            ),
+                            SizedBox(width: 10.w),
+                          ],
                         ),
                       ),
                     ],
