@@ -147,7 +147,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                               child: TextField(
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(top: 6.h),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8.h,
+                                  ),
                                   filled: true,
                                   fillColor: Color(0xFFFFFFFF),
                                   hintText: "Search Service",
