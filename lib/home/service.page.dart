@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/serviceController.dart';
+import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/apiServiceProvider.dart';
+import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/serviceProviderController.dart';
 
 import 'package:trusted_profissional_app/particularService/particularService.page.dart';
 
@@ -336,29 +339,34 @@ class Mygridviewbuilder extends ConsumerStatefulWidget {
 class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
   @override
   Widget build(BuildContext context) {
-    final serviceData = ref.watch(serviceProvider);
+    final serviceproviderData = ref.watch(serviceProviderController);
+
     return SizedBox(
-      child: serviceData.when(
-        data: (service) {
+      child: serviceproviderData.when(
+        data: (data) {
           return Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 10.h),
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: service.data.length,
+              itemCount: data.serviceProviders.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10.h, // Spacing between columns
                 mainAxisSpacing: 10.h, // Spacing between rows
                 childAspectRatio: 1.3, // ✅ Adjust this to change item size
               ),
-              itemBuilder: (context, index) {
+              itemBuilder: (context, index2) {
                 return GestureDetector(
                   onTap: () {
+                    log(data.serviceProviders.length.toString());
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => ParticularService(),
+                        builder:
+                            (context) => ParticularService(
+                              id: data.serviceProviders[index2].id.toString(),
+                            ),
                       ),
                     );
                   },
@@ -390,7 +398,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                               borderRadius: BorderRadius.circular(15.r),
                               child: Image.network(
                                 // "assets/electricianservice.png",
-                                service.data[index].imageUrl,
+                                data.serviceProviders[index2].bannerImage,
                                 height: 80.h,
                                 width: MediaQuery.of(context).size.width,
                                 fit: BoxFit.cover,
@@ -402,7 +410,8 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                           padding: EdgeInsets.only(left: 8.w, top: 10.h),
                           child: Text(
                             // "Rahul: Electrician Service",
-                            service.data[index].title,
+                            data.serviceProviders[index2].title,
+                            overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
                               fontSize: 14.sp,
@@ -415,7 +424,8 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                           child: Row(
                             children: [
                               Text(
-                                "Starting from ₹600",
+                                // "Starting from ₹600",
+                                "Starting from ${data.serviceProviders[index2].startingPrice}",
                                 style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 11.sp,
