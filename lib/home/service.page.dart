@@ -9,8 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Model/subcategory.model.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
-import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryService.dart';
-import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/serviceController.dart';
+import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/serviceProviderController.dart';
 
 import 'package:trusted_profissional_app/particularService/particularService.page.dart';
 
@@ -70,7 +69,6 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
 
-                  
                   children:
                       filters.keys.map((category) {
                         return Column(
@@ -349,7 +347,7 @@ class Mygridviewbuilder extends ConsumerStatefulWidget {
 class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
   @override
   Widget build(BuildContext context) {
-    final serviceData = ref.watch(serviceProvider);
+    final serviceData = ref.watch(serviceProviderController);
     return SizedBox(
       child: serviceData.when(
         data: (service) {
@@ -358,7 +356,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: service.data.length,
+              itemCount: service.serviceProviders.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10.h, // Spacing between columns
@@ -371,7 +369,10 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => ParticularService(),
+                        builder:
+                            (context) => ParticularService(
+                              id: service.serviceProviders[index].id.toString(),
+                            ),
                       ),
                     );
                   },
@@ -403,7 +404,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                               borderRadius: BorderRadius.circular(15.r),
                               child: Image.network(
                                 // "assets/electricianservice.png",
-                                service.data[index].imageUrl,
+                                service.serviceProviders[index].bannerImage,
                                 height: 80.h,
                                 width: MediaQuery.of(context).size.width,
                                 fit: BoxFit.cover,
@@ -415,7 +416,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                           padding: EdgeInsets.only(left: 8.w, top: 10.h),
                           child: Text(
                             // "Rahul: Electrician Service",
-                            service.data[index].title,
+                            service.serviceProviders[index].title,
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
                               fontSize: 14.sp,
@@ -459,7 +460,12 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
           );
         },
         error: (error, stackTrace) => Center(child: Text(error.toString())),
-        loading: () => Center(child: CircularProgressIndicator()),
+        loading:
+            () => SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Center(child: CircularProgressIndicator()),
+            ),
       ),
     );
   }

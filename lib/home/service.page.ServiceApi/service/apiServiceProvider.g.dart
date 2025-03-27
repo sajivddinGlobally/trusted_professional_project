@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'serviceParticular.dart';
+part of 'apiServiceProvider.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'serviceParticular.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _ServiceParticular implements ServiceParticular {
-  _ServiceParticular(
+class _ApiServiceProvider implements ApiServiceProvider {
+  _ApiServiceProvider(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,19 @@ class _ServiceParticular implements ServiceParticular {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ParticularServiceModel> getParticularService() async {
+  Future<ServiceProviderModel> getServiceProvider() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ParticularServiceModel>(Options(
+    final _options = _setStreamType<ServiceProviderModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/particular-service',
+          '/api/services-providers',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,9 +46,43 @@ class _ServiceParticular implements ServiceParticular {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ParticularServiceModel _value;
+    late ServiceProviderModel _value;
     try {
-      _value = ParticularServiceModel.fromJson(_result.data!);
+      _value = ServiceProviderModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ParticularServiceProviderModel> particulearServiceProvider(
+      String id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ParticularServiceProviderModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/api/service-providers/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ParticularServiceProviderModel _value;
+    try {
+      _value = ParticularServiceProviderModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

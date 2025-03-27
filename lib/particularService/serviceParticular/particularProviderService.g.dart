@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'apiService.dart';
+part of 'particularProviderService.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'apiService.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _ApiService implements ApiService {
-  _ApiService(
+class _ParticularProviderService implements ParticularProviderService {
+  _ParticularProviderService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,20 @@ class _ApiService implements ApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ServiceModel> getService() async {
+  Future<ParticularServiceProviderModel> particulerServiceProvider(
+      String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ServiceModel>(Options(
+    final _options = _setStreamType<ParticularServiceProviderModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/Service',
+          '/api/service-providers/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,9 +47,9 @@ class _ApiService implements ApiService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ServiceModel _value;
+    late ParticularServiceProviderModel _value;
     try {
-      _value = ServiceModel.fromJson(_result.data!);
+      _value = ParticularServiceProviderModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
