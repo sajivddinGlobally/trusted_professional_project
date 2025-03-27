@@ -6,3 +6,16 @@ final categoryProvider = FutureProvider((ref) async {
   final categoryservice = CategoryService(await getDio());
   return categoryservice.getCategory();
 });
+
+final filtersProvider = FutureProvider<Map<String, List<Map<String, dynamic>>>>(
+  (ref) async {
+    final service = CategoryService(await getDio());
+    Map<String, dynamic> response = await service.fetchFiltes();
+    Map<String, List<Map<String, dynamic>>> filters = {};
+    response["data"].forEach((key, value) {
+      filters[key] = List<Map<String, dynamic>>.from(value);
+    });
+    return filters;
+  },
+);
+  

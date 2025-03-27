@@ -346,7 +346,11 @@ class _ProfilePageState extends State<ProfilePage> {
 //                     ),
 //                   ),
 //                 ),
-//                 Text(
+//                 Te
+// 
+// 
+// 
+// xt(
 //                   isLoggedIn
 //                       ? userBox.get("email", defaultValue: "No Email")
 //                       : "No Email",
