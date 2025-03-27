@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'serviceCategory.dart';
+part of 'apiService.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'serviceCategory.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _ServiceCategory implements ServiceCategory {
-  _ServiceCategory(
+class _ApiService implements ApiService {
+  _ApiService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,19 @@ class _ServiceCategory implements ServiceCategory {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<CategoryModel> getCategory() async {
+  Future<ServiceModel> getService() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<CategoryModel>(Options(
+    final _options = _setStreamType<ServiceModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/category',
+          '/api/Service',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,9 +46,9 @@ class _ServiceCategory implements ServiceCategory {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CategoryModel _value;
+    late ServiceModel _value;
     try {
-      _value = CategoryModel.fromJson(_result.data!);
+      _value = ServiceModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

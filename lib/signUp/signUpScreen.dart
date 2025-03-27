@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -182,9 +183,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               ),
               SizedBox(height: 10.h),
               ListTile(
-                title: Text('Service Provid'),
+                title: Text('Service Provider'),
                 leading: Radio<String>(
-                  value: 'Service Provider',
+                  value: 'Service Providerer',
                   groupValue: _selectedOption,
                   onChanged: (value) {
                     setState(() {
@@ -214,9 +215,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     backgroundColor: Color.fromARGB(255, 0, 97, 254),
                   ),
                   onPressed: () async {
-                    // setState(() {
-                    //   isCircular = true;
-                    // });
                     if (_formKey.currentState!.validate()) {
                       if (passwordController.text !=
                           confirmpasswordController.text) {

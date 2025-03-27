@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,9 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'package:trusted_profissional_app/home/chat.page.dart';
-import 'package:trusted_profissional_app/home/home.service/categoryController.dart';
+import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
 import 'package:trusted_profissional_app/profile.page.dart';
 
@@ -58,7 +55,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final homeserviceprovider = ref.watch(homeServiceProvider);
+    final categoryData = ref.watch(categoryProvider);
     var box = Hive.box('authBox');
     return Scaffold(
       // backgroundColor: Color(0xFFFFFFFF),
@@ -99,7 +96,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 children: [
                                   Text(
                                     // "Hi, Rajesh",
-                                    "Hey${ box.get('name') ?? ""}",
+                                    "Hey${box.get('name') ?? ""}",
                                     style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -140,13 +137,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                           SizedBox(height: 16.h),
                           Padding(
                             padding: EdgeInsets.only(left: 30.w, right: 30.r),
-                            child: Container(
+                            child: SizedBox(
                               height: 54.h,
                               width: 400.w,
                               child: TextField(
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(top: 6.h),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8.h,
+                                  ),
                                   filled: true,
                                   fillColor: Color(0xFFFFFFFF),
                                   hintText: "Search Service",
@@ -206,13 +205,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    homeserviceprovider.when(
-                      data: (data) {
+                    categoryData.when(
+                      data: (category) {
                         return SizedBox(
                           height: 190.h,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: data.data.length,
+                            itemCount: category.data.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: EdgeInsets.only(left: 20.w),
@@ -234,7 +233,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         child: Image.network(
                                           // "assets/electrician.png",
                                           // mylist[index]["imageUrl"]!,
-                                          data.data[index].imageUrl,
+                                          category.data[index].imageUrl,
                                           width: 121.w,
                                           height: 185.h,
                                           fit: BoxFit.cover,
@@ -247,7 +246,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       child: Text(
                                         // "Electrician Service",
                                         // mylist[index]["service"]!,
-                                        data.data[index].title,
+                                        category.data[index].title,
                                         style: GoogleFonts.inter(
                                           fontSize: 8.53,
                                           fontWeight: FontWeight.w500,

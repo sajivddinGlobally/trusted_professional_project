@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home.services.dart';
+part of 'serviceParticular.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'home.services.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _HomeServices implements HomeServices {
-  _HomeServices(
+class _ServiceParticular implements ServiceParticular {
+  _ServiceParticular(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,19 @@ class _HomeServices implements HomeServices {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HomeServiceModel> getService() async {
+  Future<ParticularServiceModel> getParticularService() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HomeServiceModel>(Options(
+    final _options = _setStreamType<ParticularServiceModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/Service',
+          '/api/particular-service',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,9 +46,9 @@ class _HomeServices implements HomeServices {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late HomeServiceModel _value;
+    late ParticularServiceModel _value;
     try {
-      _value = HomeServiceModel.fromJson(_result.data!);
+      _value = ParticularServiceModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
