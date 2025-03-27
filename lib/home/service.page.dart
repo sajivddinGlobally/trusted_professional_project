@@ -35,6 +35,9 @@ class _ServicePageState extends ConsumerState<ServicePage> {
     // });
   }
 
+  String searchQuery = "";
+  TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // if (filters.isEmpty) {
@@ -221,6 +224,11 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                           ),
                         ),
                       ),
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value.toLowerCase();
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -325,7 +333,7 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                 //     ],
                 //   ),
                 // ),
-                Mygridviewbuilder(),
+                Mygridviewbuilder(searchQuery),
               ],
             ),
           ),
@@ -338,7 +346,8 @@ class _ServicePageState extends ConsumerState<ServicePage> {
 }
 
 class Mygridviewbuilder extends ConsumerStatefulWidget {
-  const Mygridviewbuilder({super.key});
+  final String searchQuery;
+  const Mygridviewbuilder(this.searchQuery, {super.key});
 
   @override
   ConsumerState<Mygridviewbuilder> createState() => _MygridviewbuilderState();
@@ -351,12 +360,18 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
     return SizedBox(
       child: serviceData.when(
         data: (service) {
+          final filteredServices =
+              service.serviceProviders.where((provider) {
+                return provider.title.toLowerCase().contains(
+                  widget.searchQuery,
+                );
+              }).toList();
           return Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 10.h),
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: service.serviceProviders.length,
+              itemCount: filteredServices.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10.h, // Spacing between columns
@@ -371,7 +386,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                       CupertinoPageRoute(
                         builder:
                             (context) => ParticularService(
-                              id: service.serviceProviders[index].id.toString(),
+                              id: filteredServices[index].id.toString(),
                             ),
                       ),
                     );
@@ -404,7 +419,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                               borderRadius: BorderRadius.circular(15.r),
                               child: Image.network(
                                 // "assets/electricianservice.png",
-                                service.serviceProviders[index].bannerImage,
+                                filteredServices[index].bannerImage,
                                 height: 80.h,
                                 width: MediaQuery.of(context).size.width,
                                 fit: BoxFit.cover,
@@ -416,7 +431,7 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
                           padding: EdgeInsets.only(left: 8.w, top: 10.h),
                           child: Text(
                             // "Rahul: Electrician Service",
-                            service.serviceProviders[index].title,
+                            filteredServices[index].title,
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
                               fontSize: 14.sp,
