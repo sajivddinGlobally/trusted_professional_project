@@ -1,12 +1,11 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:trusted_profissional_app/add_service_page.dart';
+import 'package:trusted_profissional_app/add_service/add_service_page.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 
 class ProfilePage extends StatefulWidget {

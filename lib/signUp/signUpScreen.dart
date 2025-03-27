@@ -25,6 +25,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   final _formKey = GlobalKey<FormState>();
   bool isCircular = false;
+  String _selectedOption = 'Option'; // Default selected option
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +180,32 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 lable: 'Confirm Password',
                 controller: confirmpasswordController,
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 10.h),
+              ListTile(
+                title: Text('Service Provid'),
+                leading: Radio<String>(
+                  value: 'Service Provider',
+                  groupValue: _selectedOption,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedOption = value!;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text('Service Seeker'),
+                leading: Radio<String>(
+                  value: 'Service Seeker',
+                  groupValue: _selectedOption,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedOption = value!;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height: 20.h),
               Padding(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w),
                 child: ElevatedButton(
@@ -188,9 +214,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     backgroundColor: Color.fromARGB(255, 0, 97, 254),
                   ),
                   onPressed: () async {
-                    setState(() {
-                      isCircular = true;
-                    });
+                    // setState(() {
+                    //   isCircular = true;
+                    // });
                     if (_formKey.currentState!.validate()) {
                       if (passwordController.text !=
                           confirmpasswordController.text) {
