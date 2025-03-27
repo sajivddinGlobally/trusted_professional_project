@@ -65,10 +65,12 @@ class _ServicePageState extends ConsumerState<ServicePage> {
           endDrawer: Drawer(
             backgroundColor: Colors.white,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 40.w),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+
+                  
                   children:
                       filters.keys.map((category) {
                         return Column(
