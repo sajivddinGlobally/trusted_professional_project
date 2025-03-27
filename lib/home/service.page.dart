@@ -25,6 +25,7 @@ class _ServicePageState extends ConsumerState<ServicePage> {
   int currentIndex = 0;
   Map<String, List<Map<String, dynamic>>> filters = {};
   Map<String, List<bool>> selectedFilters = {};
+  String selectCategoryId = "";
   @override
   void initState() {
     super.initState();
@@ -101,6 +102,7 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                                         selectedFilters[category]![index] =
                                             selected;
                                       });
+                                      log(selectedFilters.toString());
                                     },
                                     selectedColor: Colors.blue,
                                     backgroundColor: Colors.transparent,
@@ -333,7 +335,7 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                 //     ],
                 //   ),
                 // ),
-                Mygridviewbuilder(searchQuery),
+                Mygridviewbuilder(searchQuery, selectCategoryId),
               ],
             ),
           ),
@@ -347,7 +349,8 @@ class _ServicePageState extends ConsumerState<ServicePage> {
 
 class Mygridviewbuilder extends ConsumerStatefulWidget {
   final String searchQuery;
-  const Mygridviewbuilder(this.searchQuery, {super.key});
+  final String subcategoriid;
+  const Mygridviewbuilder(this.searchQuery, this.subcategoriid, {super.key});
 
   @override
   ConsumerState<Mygridviewbuilder> createState() => _MygridviewbuilderState();
@@ -356,7 +359,9 @@ class Mygridviewbuilder extends ConsumerStatefulWidget {
 class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
   @override
   Widget build(BuildContext context) {
-    final serviceData = ref.watch(serviceProviderController);
+    final serviceData = ref.watch(
+      serviceProviderController(widget.subcategoriid),
+    );
     return SizedBox(
       child: serviceData.when(
         data: (service) {

@@ -24,7 +24,7 @@ class _ApiServiceProvider implements ApiServiceProvider {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ServiceProviderModel> getServiceProvider() async {
+  Future<ServiceProviderModel> getServiceProvider(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -36,7 +36,7 @@ class _ApiServiceProvider implements ApiServiceProvider {
     )
         .compose(
           _dio.options,
-          '/api/services-providers',
+          '/api/services-providers?sub_category_id=${id}',
           queryParameters: queryParameters,
           data: _data,
         )
