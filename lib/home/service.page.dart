@@ -81,7 +81,7 @@ class _ServicePageState extends State<ServicePage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8),
                         Wrap(
                           spacing: 8,
                           runSpacing: 8,
@@ -109,7 +109,7 @@ class _ServicePageState extends State<ServicePage> {
                             );
                           }),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16),
                       ],
                     );
                   }).toList(),

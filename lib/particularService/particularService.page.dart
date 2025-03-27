@@ -22,7 +22,7 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
           child: particullerData.when(
             data: (particularservice) {
               return ListView.builder(
-                itemCount: particularservice.data.length,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +169,6 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-
                                 children: [
                                   Text(
                                     "Availability",
@@ -182,8 +181,6 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                                   SizedBox(height: 5.w),
                                   Text(
                                     "8 AM - 10 PM",
-                                    // particularservice.data[index].date
-                                    //     .toString(),
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w500,
@@ -193,14 +190,12 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                                 ],
                               ),
                             ),
-
                             Container(
                               width: 1,
                               height: 40,
                               color: Colors.grey.shade300,
                             ),
                             SizedBox(width: 10.w),
-                            // Starting Price
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

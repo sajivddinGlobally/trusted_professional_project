@@ -246,8 +246,9 @@ class _AddServicePageState extends State<AddServicePage> {
                   ),
                 ),
                 DropDownFiled(),
+                SizedBox(height: 20.h),
                 Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
                   child: Column(
                     children: [
                       Row(
@@ -318,7 +319,11 @@ class _AddServicePageState extends State<AddServicePage> {
                         ),
                         backgroundColor: Color.fromARGB(255, 0, 97, 254),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.maybeOf(context)!.showSnackBar(
+                          SnackBar(content: Text("Services Add")),
+                        );
+                      },
                       child: Text(
                         "Save",
                         style: GoogleFonts.inter(
@@ -371,6 +376,11 @@ class _DropDownFiledState extends State<DropDownFiled> {
             value: selectedValue,
             decoration: InputDecoration(
               hintText: "Select Category",
+              hintStyle: GoogleFonts.inter(
+                fontSize: 10.sp,
+                fontWeight: FontWeight.normal,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
                 borderSide: BorderSide(),
