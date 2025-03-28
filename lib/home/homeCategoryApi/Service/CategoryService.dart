@@ -13,6 +13,8 @@ abstract class CategoryService {
   Future<CategoryModel> getCategory();
   @GET('/api/sub-categories/{id}')
   Future<SubCategoryModel> fetchSubcategoty(@Path("id") String id);
+  @GET('/api/sub-categories')
+  Future<SubCategoryModel> fetchALLSubcategoty();
   @GET('/api/filtered-subcategories')
   Future<Map<String, dynamic>> fetchFiltes();
 }

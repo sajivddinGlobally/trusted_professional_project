@@ -7,6 +7,11 @@ final categoryProvider = FutureProvider((ref) async {
   return categoryservice.getCategory();
 });
 
+final subcategory = FutureProvider((ref) async {
+  final service = CategoryService(await getDio());
+  return service.fetchALLSubcategoty();
+});
+
 final filtersProvider = FutureProvider<Map<String, List<Map<String, dynamic>>>>(
   (ref) async {
     final service = CategoryService(await getDio());
@@ -18,4 +23,3 @@ final filtersProvider = FutureProvider<Map<String, List<Map<String, dynamic>>>>(
     return filters;
   },
 );
-  

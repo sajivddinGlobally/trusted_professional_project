@@ -134,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     //     ),
                     //   ),
                     // )
-                    if (box.get('name') != null) ...[
+                    if (box.get('token') != null) ...[
                       SizedBox(height: 10.h),
                       GestureDetector(
                         onTap: () {
@@ -227,48 +227,50 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                     //// add condition for add serviec
                     SizedBox(height: 10.h),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => AddServicePage(),
+                    if (box.get('user_type') == "Service Provider") ...[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => AddServicePage(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 400.w,
+                          height: 52.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            border: Border.all(
+                              width: 1,
+                              color: Color.fromARGB(255, 17, 17, 28),
+                            ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        width: 400.w,
-                        height: 52.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          border: Border.all(
-                            width: 1,
-                            color: Color.fromARGB(255, 17, 17, 28),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10.w),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.design_services_rounded,
-                                color: Color.fromARGB(255, 38, 38, 38),
-                              ),
-                              SizedBox(width: 10.w),
-                              Text(
-                                "Add Service",
-                                style: GoogleFonts.inter(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10.w),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.design_services_rounded,
                                   color: Color.fromARGB(255, 38, 38, 38),
                                 ),
-                              ),
-                            ],
+                                SizedBox(width: 10.w),
+                                Text(
+                                  "Add Service",
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color.fromARGB(255, 38, 38, 38),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
