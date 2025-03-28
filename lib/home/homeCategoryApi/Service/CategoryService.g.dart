@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-
+ 
 part of 'CategoryService.dart';
-
+ 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
-
+ 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
-
+ 
 class _CategoryService implements CategoryService {
   _CategoryService(
     this._dio, {
@@ -16,13 +16,13 @@ class _CategoryService implements CategoryService {
   }) {
     baseUrl ??= 'http://skilzaar.laravel.globallywebsolutions.com';
   }
-
+ 
   final Dio _dio;
-
+ 
   String? baseUrl;
-
+ 
   final ParseErrorLogger? errorLogger;
-
+ 
   @override
   Future<CategoryModel> getCategory() async {
     final _extra = <String, dynamic>{};
@@ -55,7 +55,7 @@ class _CategoryService implements CategoryService {
     }
     return _value;
   }
-
+ 
   @override
   Future<SubCategoryModel> fetchSubcategoty(String id) async {
     final _extra = <String, dynamic>{};
@@ -88,7 +88,7 @@ class _CategoryService implements CategoryService {
     }
     return _value;
   }
-
+ 
   @override
   Future<Map<String, dynamic>> fetchFiltes() async {
     final _extra = <String, dynamic>{};
@@ -122,7 +122,7 @@ class _CategoryService implements CategoryService {
     }
     return _value;
   }
-
+ 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
@@ -135,7 +135,7 @@ class _CategoryService implements CategoryService {
     }
     return requestOptions;
   }
-
+ 
   String _combineBaseUrls(
     String dioBaseUrl,
     String? baseUrl,
@@ -143,13 +143,13 @@ class _CategoryService implements CategoryService {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }
-
+ 
     final url = Uri.parse(baseUrl);
-
+ 
     if (url.isAbsolute) {
       return url.toString();
     }
-
+ 
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

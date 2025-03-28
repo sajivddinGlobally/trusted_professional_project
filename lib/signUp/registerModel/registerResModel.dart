@@ -32,6 +32,9 @@ class User {
     String name;
     String email;
     String phone;
+    String userType;
+    dynamic image;
+    String aadhar;
     DateTime updatedAt;
     DateTime createdAt;
     int id;
@@ -40,6 +43,9 @@ class User {
         required this.name,
         required this.email,
         required this.phone,
+        required this.userType,
+        required this.image,
+        required this.aadhar,
         required this.updatedAt,
         required this.createdAt,
         required this.id,
@@ -49,6 +55,9 @@ class User {
         name: json["name"],
         email: json["email"],
         phone: json["phone"],
+        userType: json["user_type"],
+        image: json["image"],
+        aadhar: json["aadhar"],
         updatedAt: DateTime.parse(json["updated_at"]),
         createdAt: DateTime.parse(json["created_at"]),
         id: json["id"],
@@ -58,6 +67,9 @@ class User {
         "name": name,
         "email": email,
         "phone": phone,
+        "user_type": userType,
+        "image": image,
+        "aadhar": aadhar,
         "updated_at": updatedAt.toIso8601String(),
         "created_at": createdAt.toIso8601String(),
         "id": id,

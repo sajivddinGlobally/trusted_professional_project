@@ -14,6 +14,8 @@ class RegistorBodyModel {
     String password;
     String passwordConfirmation;
     String phone;
+    String aadhar;
+    String userType;
 
     RegistorBodyModel({
         required this.name,
@@ -21,6 +23,8 @@ class RegistorBodyModel {
         required this.password,
         required this.passwordConfirmation,
         required this.phone,
+        required this.aadhar,
+        required this.userType,
     });
 
     factory RegistorBodyModel.fromJson(Map<String, dynamic> json) => RegistorBodyModel(
@@ -29,6 +33,8 @@ class RegistorBodyModel {
         password: json["password"],
         passwordConfirmation: json["password_confirmation"],
         phone: json["phone"],
+        aadhar: json["aadhar"],
+        userType: json["user_type"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -37,5 +43,7 @@ class RegistorBodyModel {
         "password": password,
         "password_confirmation": passwordConfirmation,
         "phone": phone,
+        "aadhar": aadhar,
+        "user_type": userType,
     };
 }
