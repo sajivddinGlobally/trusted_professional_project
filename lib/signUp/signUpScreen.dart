@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 import 'package:trusted_profissional_app/signUp/registerModel/registerBodyModel.dart';
+import 'package:trusted_profissional_app/signUp/registerModel/registerResModel.dart';
 import 'package:trusted_profissional_app/signUp/registerService/registerService.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
@@ -21,15 +22,20 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
+  final adharControlelr = TextEditingController();
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool isCircular = false;
-  String _selectedOption = 'Option'; // Default selected option
+  // Default user type
+  String _selectedOption = "Service Seeker";
+
+  bool isServiceProvider = UserRegisterDataHold.usertype == "service provider";
 
   @override
   Widget build(BuildContext context) {
+    bool isServiceProvider = _selectedOption == "Service Provider";
     return Scaffold(
       backgroundColor: Color(0xFFFFFFFF),
       body: Form(
@@ -102,7 +108,53 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 10.h),
+              Row(
+                children: [
+                  Expanded(
+                    child: ListTile(
+                      title: Text('Service Provider'),
+                      leading: Radio<String>(
+                        value: "Service Provider",
+                        groupValue: _selectedOption,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedOption = value!;
+                            UserRegisterDataHold.usertype = value;
+                          });
+                        },
+                      ),
+                      onTap: () {
+                        setState(() {
+                          _selectedOption = "Service Provider";
+                          UserRegisterDataHold.usertype = "Service Provider";
+                        });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: ListTile(
+                      title: Text('Service Seeker'),
+                      leading: Radio<String>(
+                        value: "Service Seeker",
+                        groupValue: _selectedOption,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedOption = value!;
+                            UserRegisterDataHold.usertype = value;
+                          });
+                        },
+                      ),
+                      onTap: () {
+                        setState(() {
+                          _selectedOption = "Service Seeker";
+                          UserRegisterDataHold.usertype = "Service Seeker";
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
               RegisterField(lable: 'Your Name', controller: nameController),
               Padding(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
@@ -176,35 +228,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 ),
               ),
               RegisterField(lable: 'Your Email', controller: emailController),
+              // Aadhar Field, only visible for "service provider"
+              Visibility(
+                visible: isServiceProvider,
+                child: RegisterField(
+                  lable: "Adhar Number",
+                  controller: adharControlelr,
+                ),
+              ),
+              // RegisterField(
+              //   lable: 'Aadhar Number',
+              //   controller: adharControlelr,
+              // ),
               RegisterField(lable: 'Password', controller: passwordController),
               RegisterField(
                 lable: 'Confirm Password',
                 controller: confirmpasswordController,
-              ),
-              SizedBox(height: 10.h),
-              ListTile(
-                title: Text('Service Provider'),
-                leading: Radio<String>(
-                  value: 'Service Providerer',
-                  groupValue: _selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedOption = value!;
-                    });
-                  },
-                ),
-              ),
-              ListTile(
-                title: Text('Service Seeker'),
-                leading: Radio<String>(
-                  value: 'Service Seeker',
-                  groupValue: _selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedOption = value!;
-                    });
-                  },
-                ),
               ),
               SizedBox(height: 20.h),
               Padding(
@@ -238,6 +277,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             passwordConfirmation:
                                 confirmpasswordController.text,
                             phone: phoneController.text,
+                            userType: _selectedOption,
+                            aadhar:
+                                isServiceProvider
+                                    ? adharControlelr.text
+                                    : "", // Aadhar sirf service provider ke liye
                           ),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -369,4 +413,8 @@ class _RegisterFieldState extends State<RegisterField> {
       ),
     );
   }
+}
+
+class UserRegisterDataHold {
+  static String usertype = "";
 }

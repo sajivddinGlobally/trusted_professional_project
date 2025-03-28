@@ -929,7 +929,7 @@ class _addServiceFieldState extends State<addServiceField> {
 }
 
 class AddServiceApiContrioller {
-  static addService({
+  static Future<Map<String, dynamic>>  addService({
     required String title,
     required String description,
     required String serviceLocation,
@@ -978,8 +978,7 @@ class AddServiceApiContrioller {
       "sub_category_id": sub_category_id,
     });
 
-    try {
-      final http.StreamedResponse response = await request.send();
+   final http.StreamedResponse response = await request.send();
 
       final responseBody = await response.stream.bytesToString();
       log(responseBody); // Log response for debugging
@@ -989,9 +988,6 @@ class AddServiceApiContrioller {
       } else {
         throw Exception("Failed to register: ${response.reasonPhrase}");
       }
-    } catch (e) {
-      throw Exception("Something went wrong: $e");
-    }
-    return;
+    return data;
   }
 }
