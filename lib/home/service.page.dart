@@ -24,43 +24,22 @@ class _ServicePageState extends ConsumerState<ServicePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int currentIndex = 0;
   Map<String, List<Map<String, dynamic>>> filters = {};
-  Map<String, List<bool>> selectedFilters = {};
+  Map<String, int?> selectedFilters = {}; // Ensure it's a Map
+
   String selectCategoryId = "";
   @override
-  void initState() {
-    super.initState();
-    // Initialize selection map
-
-    // filters.forEach((key, value) {
-    //   selectedFilters[key] = List.generate(value.length, (index) => false);
-    // });
-  }
-
   String searchQuery = "";
   TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // if (filters.isEmpty) {
-    //   final data = ref.watch(filtersProvider);
-    //   data.whenData((value) async {
-    //     filters = value;
-    //   });
-    //   filters.forEach((key, value) {
-    //     selectedFilters[key] = List.generate(value.length, (index) => false);
-    //   });
-    // }
-
     final filterData = ref.watch(filtersProvider);
 
     return filterData.when(
       data: (filters) {
         // Initialize selectedFilters properly
         filters.forEach((key, value) {
-          selectedFilters.putIfAbsent(
-            key,
-            () => List.generate(value.length, (index) => false),
-          );
+          selectedFilters.putIfAbsent(key, () => null); // Store null initially
         });
 
         return Scaffold(
@@ -89,34 +68,50 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
-                              children: List.generate(
-                                filters[category]!.length,
-                                (index) {
-                                  return ChoiceChip(
-                                    label: Text(
-                                      filters[category]![index]['title'],
-                                    ),
-                                    selected: selectedFilters[category]![index],
-                                    onSelected: (selected) {
-                                      setState(() {
-                                        selectedFilters[category]![index] =
-                                            selected;
-                                      });
-                                      log(selectedFilters.toString());
-                                    },
-                                    selectedColor: Colors.blue,
-                                    backgroundColor: Colors.transparent,
-                                    labelStyle: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w600,
-                                      color:
-                                          selectedFilters[category]![index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                    ),
-                                  );
-                                },
-                              ),
+                              children: List.generate(filters[category]!.length, (
+                                index,
+                              ) {
+                                return ChoiceChip(
+                                  label: Text(
+                                    filters[category]![index]['title'],
+                                  ),
+                                  selected:
+                                      selectedFilters[category] ==
+                                      filters[category]![index]['id'], // Only one selected
+                                  onSelected: (selected) {
+                                    setState(() {
+                                      if (selected) {
+                                        selectedFilters[category] =
+                                            filters[category]![index]['id']; // Set new selected index
+                                        selectCategoryId =
+                                            filters[category]![index]['id']
+                                                .toString();
+                                        _scaffoldKey.currentState
+                                            ?.closeEndDrawer();
+                                      } else {
+                                        selectedFilters.remove(
+                                          category,
+                                        ); // Unselect if clicked again
+                                        selectCategoryId = "";
+                                        _scaffoldKey.currentState
+                                            ?.closeEndDrawer();
+                                      }
+                                    });
+                                    log(selectedFilters.toString());
+                                  },
+                                  selectedColor: Colors.blue,
+                                  backgroundColor: Colors.transparent,
+                                  labelStyle: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w600,
+                                    color:
+                                        selectedFilters[category] == index
+                                            ? Colors.white
+                                            : Colors.black,
+                                  ),
+                                );
+                              }),
                             ),
+
                             SizedBox(height: 16),
                           ],
                         );
@@ -234,107 +229,7 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                     ),
                   ),
                 ),
-                // SizedBox(height: 20.h),
-                // SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: Row(
-                //     children: [
-                //       SizedBox(width: 20.w),
-                //       GestureDetector(
-                //         onTap: () {
-                //           setState(() {
-                //             currentIndex = 0;
-                //           });
-                //         },
-                //         child: ContainerBody(
-                //           text: 'Cleaning & Maintenance',
-                //           textcolor:
-                //               currentIndex == 0
-                //                   ? Color.fromARGB(255, 229, 239, 255)
-                //                   : Color.fromARGB(255, 0, 97, 254),
-                //           color:
-                //               currentIndex == 0
-                //                   ? Color.fromARGB(255, 0, 97, 254)
-                //                   : Color.fromARGB(255, 229, 239, 255),
-                //           bordercolor:
-                //               currentIndex == 0
-                //                   ? Color.fromARGB(255, 17, 17, 28)
-                //                   : Colors.transparent,
-                //         ),
-                //       ),
-                //       SizedBox(width: 8.w),
-                //       GestureDetector(
-                //         onTap: () {
-                //           setState(() {
-                //             currentIndex = 1;
-                //           });
-                //         },
-                //         child: ContainerBody(
-                //           text: 'Automobile Services',
-                //           textcolor:
-                //               currentIndex == 1
-                //                   ? Color.fromARGB(255, 229, 239, 255)
-                //                   : Color.fromARGB(255, 0, 97, 254),
-                //           color:
-                //               currentIndex == 1
-                //                   ? Color.fromARGB(255, 0, 97, 254)
-                //                   : Color.fromARGB(255, 229, 239, 255),
-                //           bordercolor:
-                //               currentIndex == 1
-                //                   ? Color.fromARGB(255, 17, 17, 28)
-                //                   : Colors.transparent,
-                //         ),
-                //       ),
-                //       SizedBox(width: 8.w),
-                //       GestureDetector(
-                //         onTap: () {
-                //           setState(() {
-                //             currentIndex = 2;
-                //           });
-                //         },
-                //         child: ContainerBody(
-                //           text: 'Tech & IT Support',
-                //           textcolor:
-                //               currentIndex == 2
-                //                   ? Color.fromARGB(255, 229, 239, 255)
-                //                   : Color.fromARGB(255, 0, 97, 254),
-                //           color:
-                //               currentIndex == 2
-                //                   ? Color.fromARGB(255, 0, 97, 254)
-                //                   : Color.fromARGB(255, 229, 239, 255),
-                //           bordercolor:
-                //               currentIndex == 2
-                //                   ? Color.fromARGB(255, 17, 17, 28)
-                //                   : Colors.transparent,
-                //         ),
-                //       ),
-                //       SizedBox(width: 8.w),
-                //       GestureDetector(
-                //         onTap: () {
-                //           setState(() {
-                //             currentIndex = 3;
-                //           });
-                //         },
-                //         child: ContainerBody(
-                //           text: 'Events & Entertainment',
-                //           textcolor:
-                //               currentIndex == 3
-                //                   ? Color.fromARGB(255, 229, 239, 255)
-                //                   : Color.fromARGB(255, 0, 97, 254),
-                //           color:
-                //               currentIndex == 3
-                //                   ? Color.fromARGB(255, 0, 97, 254)
-                //                   : Color.fromARGB(255, 229, 239, 255),
-                //           bordercolor:
-                //               currentIndex == 3
-                //                   ? Color.fromARGB(255, 17, 17, 28)
-                //                   : Colors.transparent,
-                //         ),
-                //       ),
-                //       SizedBox(width: 10.w),
-                //     ],
-                //   ),
-                // ),
+
                 Mygridviewbuilder(searchQuery, selectCategoryId),
               ],
             ),

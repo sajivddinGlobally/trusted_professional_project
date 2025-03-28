@@ -2,17 +2,20 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trusted_profissional_app/home/homeCategoryApi/Model/CategoryModel.dart';
+import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
 
-class AddServicePage extends StatefulWidget {
+class AddServicePage extends ConsumerStatefulWidget {
   const AddServicePage({super.key});
 
   @override
-  State<AddServicePage> createState() => _AddServicePageState();
+  _AddServicePageState createState() => _AddServicePageState();
 }
 
-class _AddServicePageState extends State<AddServicePage> {
+class _AddServicePageState extends ConsumerState<AddServicePage> {
   TimeOfDay? selectedTime;
   File? _selectedFile;
 
@@ -38,7 +41,10 @@ class _AddServicePageState extends State<AddServicePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final data = ref.watch(categoryProvider);
+     return data.when(
+      data: (snapshot) {
+        return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,7 +251,7 @@ class _AddServicePageState extends State<AddServicePage> {
                     ],
                   ),
                 ),
-                DropDownFiled(),
+                DropDownField(categories: snapshot.data,),
                 SizedBox(height: 20.h),
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, right: 20.w),
@@ -342,19 +348,27 @@ class _AddServicePageState extends State<AddServicePage> {
         ),
       ),
     );
+      },
+      error: (error, StackTrace) {
+        return Center(child: Text(StackTrace.toString()));
+      },
+      loading: () => Center(child: CircularProgressIndicator()),
+    );
   }
 }
 
-class DropDownFiled extends StatefulWidget {
-  const DropDownFiled({super.key});
+class DropDownField extends StatefulWidget {
+  final List<Datum> categories; // Pass the list of categories
+
+  const DropDownField({super.key, required this.categories});
 
   @override
-  State<DropDownFiled> createState() => _DropDownFiledState();
+  State<DropDownField> createState() => _DropDownFieldState();
 }
 
-class _DropDownFiledState extends State<DropDownFiled> {
-  String? selectedValue;
-  List<String> dropdownItems = ['Category 1', 'Category 2', 'Category 3'];
+class _DropDownFieldState extends State<DropDownField> {
+  int? selectedCategoryId;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -372,8 +386,8 @@ class _DropDownFiledState extends State<DropDownFiled> {
             ),
           ),
           SizedBox(height: 6.h),
-          DropdownButtonFormField<String>(
-            value: selectedValue,
+          DropdownButtonFormField<int>(
+            value: selectedCategoryId,
             decoration: InputDecoration(
               hintText: "Select Category",
               hintStyle: GoogleFonts.inter(
@@ -395,24 +409,24 @@ class _DropDownFiledState extends State<DropDownFiled> {
                 vertical: 12.h,
               ), // Adjust padding
             ),
-            items:
-                dropdownItems.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: GoogleFonts.inter(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 30, 30, 30),
-                      ),
-                    ),
-                  );
-                }).toList(),
-            onChanged: (newvlaue) {
+            items: widget.categories.map((Datum category) {
+              return DropdownMenuItem<int>(
+                value: category.id, // Pass ID as value
+                child: Text(
+                  category.title, // Show title as text
+                  style: GoogleFonts.inter(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 30, 30, 30),
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (newValue) {
               setState(() {
-                selectedValue = newvlaue;
+                selectedCategoryId = newValue;
               });
+              print("Selected Category ID: $selectedCategoryId");
             },
           ),
         ],

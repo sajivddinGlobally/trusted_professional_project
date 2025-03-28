@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.only(top: 16.h),
                     child: Text(
                       // "Robert Johnson",
-                      "${box.get('name')}",
+                      "${box.get('name') ?? "Hello Guest"}",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 18.sp,
@@ -84,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Text(
                     // "jonsonrobert2323@gmail.com",
-                    "${box.get("email")}",
+                    "${box.get("email") ?? "example@gmail.com"}",
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
                       fontSize: 15.sp,
@@ -102,126 +102,130 @@ class _ProfilePageState extends State<ProfilePage> {
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 400.w,
-                      height: 52.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        border: Border.all(
-                          width: 1,
-                          color: Color.fromARGB(255, 17, 17, 28),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 10.w),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.person_2_outlined,
-                              color: Color.fromARGB(255, 38, 38, 38),
+                    // Container(
+                    //   width: 400.w,
+                    //   height: 52.h,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10.r),
+                    //     color: Color.fromARGB(255, 255, 255, 255),
+                    //     border: Border.all(
+                    //       width: 1,
+                    //       color: Color.fromARGB(255, 17, 17, 28),
+                    //     ),
+                    //   ),
+                    //   child: Padding(
+                    //     padding: EdgeInsets.only(left: 10.w),
+                    //     child: Row(
+                    //       children: [
+                    //         Icon(
+                    //           Icons.person_2_outlined,
+                    //           color: Color.fromARGB(255, 38, 38, 38),
+                    //         ),
+                    //         SizedBox(width: 10.w),
+                    //         Text(
+                    //           "Profile Settings",
+                    //           style: GoogleFonts.inter(
+                    //             fontSize: 16.sp,
+                    //             fontWeight: FontWeight.w500,
+                    //             color: Color.fromARGB(255, 38, 38, 38),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // )
+                    if (box.get('name') != null) ...[
+                      SizedBox(height: 10.h),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            var box = Hive.box('authBox');
+                            box.clear();
+                            Fluttertoast.showToast(msg: "Logout successful");
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              CupertinoPageRoute(builder: (context) => Login()),
+                              (route) => false,
+                            );
+                          });
+                        },
+                        child: Container(
+                          width: 400.w,
+                          height: 52.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            border: Border.all(
+                              width: 1,
+                              color: Color.fromARGB(255, 238, 29, 82),
                             ),
-                            SizedBox(width: 10.w),
-                            Text(
-                              "Profile Settings",
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Color.fromARGB(255, 38, 38, 38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          var box = Hive.box('authBox');
-                          box.clear();
-                          Fluttertoast.showToast(msg: "Logout successful");
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            CupertinoPageRoute(builder: (context) => Login()),
-                            (route) => false,
-                          );
-                        });
-                      },
-                      child: Container(
-                        width: 400.w,
-                        height: 52.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          border: Border.all(
-                            width: 1,
-                            color: Color.fromARGB(255, 238, 29, 82),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10.w),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.logout,
-                                color: Color.fromARGB(255, 238, 29, 82),
-                              ),
-                              SizedBox(width: 10.w),
-                              Text(
-                                "Logout",
-                                style: GoogleFonts.inter(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10.w),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.logout,
                                   color: Color.fromARGB(255, 238, 29, 82),
                                 ),
-                              ),
-                            ],
+                                SizedBox(width: 10.w),
+                                Text(
+                                  "Logout",
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color.fromARGB(255, 238, 29, 82),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10.h),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(builder: (context) => Login()),
-                        );
-                      },
-                      child: Container(
-                        width: 400.w,
-                        height: 52.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          border: Border.all(
-                            width: 1,
-                            color: Color.fromARGB(255, 17, 17, 28),
+                      SizedBox(height: 10.h),
+                    ] else ...[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(builder: (context) => Login()),
+                          );
+                        },
+                        child: Container(
+                          width: 400.w,
+                          height: 52.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            border: Border.all(
+                              width: 1,
+                              color: Color.fromARGB(255, 17, 17, 28),
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10.w),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.login,
-                                color: Color.fromARGB(255, 38, 38, 38),
-                              ),
-                              SizedBox(width: 10.w),
-                              Text(
-                                "Login",
-                                style: GoogleFonts.inter(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10.w),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.login,
                                   color: Color.fromARGB(255, 38, 38, 38),
                                 ),
-                              ),
-                            ],
+                                SizedBox(width: 10.w),
+                                Text(
+                                  "Login",
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color.fromARGB(255, 38, 38, 38),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
+                    //// add condition for add serviec
                     SizedBox(height: 10.h),
                     GestureDetector(
                       onTap: () {
