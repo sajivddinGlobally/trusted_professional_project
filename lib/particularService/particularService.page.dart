@@ -548,7 +548,12 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
             );
           },
           error: (error, stackTrace) => Center(child: Text(error.toString())),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading:
+              () => SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Center(child: CircularProgressIndicator()),
+              ),
         ),
       ),
     );
