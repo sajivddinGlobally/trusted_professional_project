@@ -272,67 +272,30 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         isCircular = true;
                       });
                       try {
-                        log("Name: ${nameController.text}");
-                        log("Email: ${emailController.text}");
-                        log("Phone: ${phoneController.text}");
-                        log("User Type: $_selectedOption");
-                        log(
-                          "Aadhar: ${isServiceProvider ? adharControlelr.text : 'EMPTY'}",
-                        );
-
                         // Direct call kiya hai service ko  bina riverpod ka use kar ke
-                        // final registerService = RegisterService(getDio());
-
-                        // final response = await registerService.register(
-                        //   RegistorBodyModel(
-                        //     name: nameController.text,
-                        //     email: emailController.text,
-                        //     password: passwordController.text,
-                        //     passwordConfirmation:
-                        //         confirmpasswordController.text,
-                        //     phone: phoneController.text,
-                        //     userType: _selectedOption,
-                        //     // aadhar:
-                        //     //     isServiceProvider
-                        //     //         ? adharControlelr.text
-                        //     //         : "", // Aadhar sirf service provider ke liye
-                        //     aadhar:
-                        //         isServiceProvider
-                        //             ? adharControlelr.text
-                        //             : "", // ✅ Ensure empty string
-                        //   ),
-                        // );
-                        final requestBody = RegistorBodyModel(
-                          name: nameController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                          passwordConfirmation: confirmpasswordController.text,
-                          phone: phoneController.text,
-                          aadhar:
-                              isServiceProvider
-                                  ? adharControlelr.text
-                                  : "", // ✅ Always send empty string
-                          userType: _selectedOption,
-                        );
-
-                        // 🔴 Debug: Print JSON payload before sending
-                        log(
-                          "Final Request Body: ${jsonEncode(requestBody.toJson())}",
-                        );
                         final registerService = RegisterService(getDio());
 
                         final response = await registerService.register(
-                          requestBody,
+                          RegistorBodyModel(
+                            name: nameController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                            passwordConfirmation:
+                                confirmpasswordController.text,
+                            phone: phoneController.text,
+                            userType: _selectedOption,
+                            // aadhar:
+                            //     isServiceProvider
+                            //         ? adharControlelr.text
+                            //         : "", // Aadhar sirf service provider ke liye
+                            aadhar:
+                                isServiceProvider
+                                    ? adharControlelr.text
+                                    : "", // ✅ Ensure empty string
+                          ),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Registration successful!")),
-                        );
-                        log("Name: ${nameController.text}");
-                        log("Email: ${emailController.text}");
-                        log("Phone: ${phoneController.text}");
-                        log("User Type: $_selectedOption");
-                        log(
-                          "Aadhar: ${isServiceProvider ? adharControlelr.text : 'EMPTY'}",
                         );
                         Navigator.pushAndRemoveUntil(
                           context,

@@ -28,11 +28,60 @@ class RegistorResModel {
     };
 }
 
+// class User {
+//     String name;
+//     String email;
+//     String phone;
+//     bool userType;
+//     dynamic image;
+//     String aadhar;
+//     DateTime updatedAt;
+//     DateTime createdAt;
+//     int id;
+
+//     User({
+//         required this.name,
+//         required this.email,
+//         required this.phone,
+//         required this.userType,
+//         required this.image,
+//         required this.aadhar,
+//         required this.updatedAt,
+//         required this.createdAt,
+//         required this.id,
+//     });
+
+//     factory User.fromJson(Map<String, dynamic> json) => User(
+//         name: json["name"],
+//         email: json["email"],
+//         phone: json["phone"],
+//         userType: json["user_type"],
+//         image: json["image"],
+//         aadhar: json["aadhar"],
+//         updatedAt: DateTime.parse(json["updated_at"]),
+//         createdAt: DateTime.parse(json["created_at"]),
+//         id: json["id"],
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "name": name,
+//         "email": email,
+//         "phone": phone,
+//         "user_type": userType,
+//         "image": image,
+//         "aadhar": aadhar,
+//         "updated_at": updatedAt.toIso8601String(),
+//         "created_at": createdAt.toIso8601String(),
+//         "id": id,
+//     };
+// }
+
+
 class User {
     String name;
     String email;
     String phone;
-    String userType;
+    bool userType;  
     dynamic image;
     String aadhar;
     DateTime updatedAt;
@@ -55,9 +104,9 @@ class User {
         name: json["name"],
         email: json["email"],
         phone: json["phone"],
-        userType: json["user_type"],
+        userType: json["user_type"] == "Service Provider", // ✅ Convert `String` to `bool`
         image: json["image"],
-        aadhar: json["aadhar"],
+        aadhar: json["aadhar"] ?? "",  // ✅ Handle null
         updatedAt: DateTime.parse(json["updated_at"]),
         createdAt: DateTime.parse(json["created_at"]),
         id: json["id"],
@@ -67,7 +116,7 @@ class User {
         "name": name,
         "email": email,
         "phone": phone,
-        "user_type": userType,
+        "user_type": userType ? "Service Provider" : "Service Seeker", // ✅ Convert back to String
         "image": image,
         "aadhar": aadhar,
         "updated_at": updatedAt.toIso8601String(),
