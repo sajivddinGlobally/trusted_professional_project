@@ -1,5 +1,5 @@
+import 'dart:convert';
 import 'dart:developer';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 import 'package:trusted_profissional_app/signUp/registerModel/registerBodyModel.dart';
-import 'package:trusted_profissional_app/signUp/registerModel/registerResModel.dart';
+
 import 'package:trusted_profissional_app/signUp/registerService/registerService.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
@@ -29,7 +29,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isCircular = false;
   // Default user type
-  String _selectedOption = "Service Seeker";
+  String _selectedOption = "service provider";
 
   bool isServiceProvider = UserRegisterDataHold.usertype == "service provider";
 
@@ -110,32 +110,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               ),
               SizedBox(height: 10.h),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: ListTile(
-                      title: Text('Service Provider'),
-                      leading: Radio<String>(
-                        value: "Service Provider",
-                        groupValue: _selectedOption,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedOption = value!;
-                            UserRegisterDataHold.usertype = value;
-                          });
-                        },
-                      ),
-                      onTap: () {
-                        setState(() {
-                          _selectedOption = "Service Provider";
-                          UserRegisterDataHold.usertype = "Service Provider";
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: ListTile(
-                      title: Text('Service Seeker'),
-                      leading: Radio<String>(
+                  Row(
+                    children: [
+                      Radio<String>(
                         value: "Service Seeker",
                         groupValue: _selectedOption,
                         onChanged: (value) {
@@ -145,13 +124,40 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           });
                         },
                       ),
-                      onTap: () {
-                        setState(() {
-                          _selectedOption = "Service Seeker";
-                          UserRegisterDataHold.usertype = "Service Seeker";
-                        });
-                      },
-                    ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedOption = "Service Seeker";
+                            UserRegisterDataHold.usertype = "Service Seeker";
+                          });
+                        },
+                        child: Text("Service Seeker"),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 15.w),
+                  Row(
+                    children: [
+                      Radio<String>(
+                        value: "Service Provider",
+                        groupValue: _selectedOption,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedOption = value!;
+                            UserRegisterDataHold.usertype = value;
+                          });
+                        },
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedOption = "Service Provider";
+                            UserRegisterDataHold.usertype = "Service Provider";
+                          });
+                        },
+                        child: Text("Service Provider"),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -266,26 +272,67 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         isCircular = true;
                       });
                       try {
+                        log("Name: ${nameController.text}");
+                        log("Email: ${emailController.text}");
+                        log("Phone: ${phoneController.text}");
+                        log("User Type: $_selectedOption");
+                        log(
+                          "Aadhar: ${isServiceProvider ? adharControlelr.text : 'EMPTY'}",
+                        );
+
                         // Direct call kiya hai service ko  bina riverpod ka use kar ke
+                        // final registerService = RegisterService(getDio());
+
+                        // final response = await registerService.register(
+                        //   RegistorBodyModel(
+                        //     name: nameController.text,
+                        //     email: emailController.text,
+                        //     password: passwordController.text,
+                        //     passwordConfirmation:
+                        //         confirmpasswordController.text,
+                        //     phone: phoneController.text,
+                        //     userType: _selectedOption,
+                        //     // aadhar:
+                        //     //     isServiceProvider
+                        //     //         ? adharControlelr.text
+                        //     //         : "", // Aadhar sirf service provider ke liye
+                        //     aadhar:
+                        //         isServiceProvider
+                        //             ? adharControlelr.text
+                        //             : "", // ✅ Ensure empty string
+                        //   ),
+                        // );
+                        final requestBody = RegistorBodyModel(
+                          name: nameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                          passwordConfirmation: confirmpasswordController.text,
+                          phone: phoneController.text,
+                          aadhar:
+                              isServiceProvider
+                                  ? adharControlelr.text
+                                  : "", // ✅ Always send empty string
+                          userType: _selectedOption,
+                        );
+
+                        // 🔴 Debug: Print JSON payload before sending
+                        log(
+                          "Final Request Body: ${jsonEncode(requestBody.toJson())}",
+                        );
                         final registerService = RegisterService(getDio());
 
                         final response = await registerService.register(
-                          RegistorBodyModel(
-                            name: nameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            passwordConfirmation:
-                                confirmpasswordController.text,
-                            phone: phoneController.text,
-                            userType: _selectedOption,
-                            aadhar:
-                                isServiceProvider
-                                    ? adharControlelr.text
-                                    : "", // Aadhar sirf service provider ke liye
-                          ),
+                          requestBody,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Registration successful!")),
+                        );
+                        log("Name: ${nameController.text}");
+                        log("Email: ${emailController.text}");
+                        log("Phone: ${phoneController.text}");
+                        log("User Type: $_selectedOption");
+                        log(
+                          "Aadhar: ${isServiceProvider ? adharControlelr.text : 'EMPTY'}",
                         );
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -361,53 +408,49 @@ class _RegisterFieldState extends State<RegisterField> {
             ],
           ),
           SizedBox(height: 12.h),
-          Container(
-            // height: 55.h,
-            width: MediaQuery.of(context).size.width,
-            child: TextFormField(
-              controller: widget.controller,
-              textAlignVertical: TextAlignVertical.center,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12.h,
-                  horizontal: 15.w,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(255, 17, 17, 25),
-                    width: 1,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(255, 17, 17, 25),
-                    width: 1,
-                  ),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(255, 17, 17, 25),
-                    width: 1,
-                  ),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(255, 17, 17, 25),
-                    width: 1,
-                  ),
+          TextFormField(
+            controller: widget.controller,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 12.h,
+                horizontal: 15.w,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(
+                  color: Color.fromARGB(255, 17, 17, 25),
+                  width: 1,
                 ),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "${widget.lable} field is required";
-                }
-                return null;
-              },
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(
+                  color: Color.fromARGB(255, 17, 17, 25),
+                  width: 1,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(
+                  color: Color.fromARGB(255, 17, 17, 25),
+                  width: 1,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(
+                  color: Color.fromARGB(255, 17, 17, 25),
+                  width: 1,
+                ),
+              ),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "${widget.lable} field is required";
+              }
+              return null;
+            },
           ),
         ],
       ),

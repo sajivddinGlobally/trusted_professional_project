@@ -28,7 +28,7 @@ class ServiceProvider {
     int id;
     int userId;
     int subCategoryId;
-    int categoryId;
+    // int categoryId;
     String bannerImage;
     String title;
     String description;
@@ -49,7 +49,7 @@ class ServiceProvider {
         required this.id,
         required this.userId,
         required this.subCategoryId,
-        required this.categoryId,
+        // required this.categoryId,
         required this.bannerImage,
         required this.title,
         required this.description,
@@ -71,7 +71,7 @@ class ServiceProvider {
         id: json["id"],
         userId: json["user_id"],
         subCategoryId: json["sub_category_id"],
-        categoryId: json["category_id"],
+        // categoryId: json["category_id"],
         bannerImage: json["banner_image"],
         title: json["title"],
         description: json["description"],
@@ -93,7 +93,7 @@ class ServiceProvider {
         "id": id,
         "user_id": userId,
         "sub_category_id": subCategoryId,
-        "category_id": categoryId,
+        // "category_id": categoryId,
         "banner_image": bannerImage,
         "title": title,
         "description": description,
