@@ -28,13 +28,13 @@ class Service {
     int id;
     int userId;
     int subCategoryId;
-    int categoryId;
     String bannerImage;
     String title;
     String description;
     String serviceLocation;
     String availabilityTime;
     String startingPrice;
+    String status;
     String whatsIncludedDescription;
     String fullPackageDescription;
     String emergencyServiceDescription;
@@ -43,19 +43,18 @@ class Service {
     DateTime updatedAt;
     String userName;
     String subCategoryName;
-    String categoryName;
 
     Service({
         required this.id,
         required this.userId,
         required this.subCategoryId,
-        required this.categoryId,
         required this.bannerImage,
         required this.title,
         required this.description,
         required this.serviceLocation,
         required this.availabilityTime,
         required this.startingPrice,
+        required this.status,
         required this.whatsIncludedDescription,
         required this.fullPackageDescription,
         required this.emergencyServiceDescription,
@@ -64,20 +63,19 @@ class Service {
         required this.updatedAt,
         required this.userName,
         required this.subCategoryName,
-        required this.categoryName,
     });
 
     factory Service.fromJson(Map<String, dynamic> json) => Service(
         id: json["id"],
         userId: json["user_id"],
         subCategoryId: json["sub_category_id"],
-        categoryId: json["category_id"],
         bannerImage: json["banner_image"],
         title: json["title"],
         description: json["description"],
         serviceLocation: json["service_location"],
         availabilityTime: json["availability_time"],
         startingPrice: json["starting_price"],
+        status: json["status"],
         whatsIncludedDescription: json["whats_included_description"],
         fullPackageDescription: json["full_package_description"],
         emergencyServiceDescription: json["emergency_service_description"],
@@ -86,20 +84,19 @@ class Service {
         updatedAt: DateTime.parse(json["updated_at"]),
         userName: json["user_name"],
         subCategoryName: json["sub_category_name"],
-        categoryName: json["category_name"],
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "user_id": userId,
         "sub_category_id": subCategoryId,
-        "category_id": categoryId,
         "banner_image": bannerImage,
         "title": title,
         "description": description,
         "service_location": serviceLocation,
         "availability_time": availabilityTime,
         "starting_price": startingPrice,
+        "status": status,
         "whats_included_description": whatsIncludedDescription,
         "full_package_description": fullPackageDescription,
         "emergency_service_description": emergencyServiceDescription,
@@ -108,6 +105,5 @@ class Service {
         "updated_at": updatedAt.toIso8601String(),
         "user_name": userName,
         "sub_category_name": subCategoryName,
-        "category_name": categoryName,
     };
 }

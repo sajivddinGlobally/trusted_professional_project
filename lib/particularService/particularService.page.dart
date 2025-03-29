@@ -452,7 +452,7 @@ class _ParticularServiceState extends ConsumerState<ParticularService> {
                         SizedBox(height: 3.h),
                         Text(
                           // "7+ Years Experience | Certified Plumber | Mumbai",
-                          data.service.categoryName,
+                          data.service.subCategoryName,
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 9.sp,
