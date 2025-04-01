@@ -127,15 +127,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _selectedOption = "Service Seeker";
-                            UserRegisterDataHold.usertype = "Service Seeker";
+                            _selectedOption = "Seeking Servicer";
+                            UserRegisterDataHold.usertype = "Seeking Service";
                           });
                         },
-                        child: Text("Service Seeker"),
+                        child: Text("Seeking Service"),
                       ),
                     ],
                   ),
-                  SizedBox(width: 15.w),
+                  SizedBox(width: 10.w),
                   Row(
                     children: [
                       Radio<String>(

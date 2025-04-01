@@ -691,7 +691,6 @@ class _AddServicePageState extends ConsumerState<AddServicePage> {
                             // ScaffoldMessenger.maybeOf(context)!.showSnackBar(
                             //   SnackBar(content: Text("Services Add")),
                             // );
-
                             try {
                               setState(() {
                                 loder = true;
@@ -929,7 +928,7 @@ class _addServiceFieldState extends State<addServiceField> {
 }
 
 class AddServiceApiContrioller {
-  static Future<Map<String, dynamic>>  addService({
+  static Future<Map<String, dynamic>> addService({
     required String title,
     required String description,
     required String serviceLocation,
@@ -978,16 +977,16 @@ class AddServiceApiContrioller {
       "sub_category_id": sub_category_id,
     });
 
-   final http.StreamedResponse response = await request.send();
+    final http.StreamedResponse response = await request.send();
 
-      final responseBody = await response.stream.bytesToString();
-      log(responseBody); // Log response for debugging
-      Map<String, dynamic> data = jsonDecode(responseBody);
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        log(responseBody.toString());
-      } else {
-        throw Exception("Failed to register: ${response.reasonPhrase}");
-      }
+    final responseBody = await response.stream.bytesToString();
+    log(responseBody); // Log response for debugging
+    Map<String, dynamic> data = jsonDecode(responseBody);
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      log(responseBody.toString());
+    } else {
+      throw Exception("Failed to register: ${response.reasonPhrase}");
+    }
     return data;
   }
 }

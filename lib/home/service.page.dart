@@ -1,13 +1,8 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:trusted_profissional_app/config/pretty.dio.dart';
-import 'package:trusted_profissional_app/home/homeCategoryApi/Model/subcategory.model.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
 import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/serviceProviderController.dart';
 
