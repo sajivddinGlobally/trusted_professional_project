@@ -28,34 +28,33 @@ class ServiceProvider {
     int id;
     int userId;
     int subCategoryId;
-    // int categoryId;
     String bannerImage;
     String title;
     String description;
-    String serviceLocation;
-    String availabilityTime;
+    ServiceLocation serviceLocation;
+    AvailabilityTime availabilityTime;
     String startingPrice;
+    Status status;
     String whatsIncludedDescription;
-    String fullPackageDescription;
-    String emergencyServiceDescription;
+    FullPackageDescription fullPackageDescription;
+    EmergencyServiceDescription emergencyServiceDescription;
     List<String> serviceGalleryImages;
     DateTime createdAt;
     DateTime updatedAt;
-    String userName;
-    String subCategoryName;
-    String categoryName;
+    UserName userName;
+    SubCategoryName subCategoryName;
 
     ServiceProvider({
         required this.id,
         required this.userId,
         required this.subCategoryId,
-        // required this.categoryId,
         required this.bannerImage,
         required this.title,
         required this.description,
         required this.serviceLocation,
         required this.availabilityTime,
         required this.startingPrice,
+        required this.status,
         required this.whatsIncludedDescription,
         required this.fullPackageDescription,
         required this.emergencyServiceDescription,
@@ -64,50 +63,133 @@ class ServiceProvider {
         required this.updatedAt,
         required this.userName,
         required this.subCategoryName,
-        required this.categoryName,
     });
 
     factory ServiceProvider.fromJson(Map<String, dynamic> json) => ServiceProvider(
         id: json["id"],
         userId: json["user_id"],
         subCategoryId: json["sub_category_id"],
-        // categoryId: json["category_id"],
         bannerImage: json["banner_image"],
         title: json["title"],
         description: json["description"],
-        serviceLocation: json["service_location"],
-        availabilityTime: json["availability_time"],
+        serviceLocation: serviceLocationValues.map[json["service_location"]]!,
+        availabilityTime: availabilityTimeValues.map[json["availability_time"]]!,
         startingPrice: json["starting_price"],
+        status: statusValues.map[json["status"]]!,
         whatsIncludedDescription: json["whats_included_description"],
-        fullPackageDescription: json["full_package_description"],
-        emergencyServiceDescription: json["emergency_service_description"],
+        fullPackageDescription: fullPackageDescriptionValues.map[json["full_package_description"]]!,
+        emergencyServiceDescription: emergencyServiceDescriptionValues.map[json["emergency_service_description"]]!,
         serviceGalleryImages: List<String>.from(json["service_gallery_images"].map((x) => x)),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        userName: json["user_name"],
-        subCategoryName: json["sub_category_name"],
-        categoryName: json["category_name"],
+        userName: userNameValues.map[json["user_name"]]!,
+        subCategoryName: subCategoryNameValues.map[json["sub_category_name"]]!,
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "user_id": userId,
         "sub_category_id": subCategoryId,
-        // "category_id": categoryId,
         "banner_image": bannerImage,
-        "title": title,
+        "title": titleValues.reverse[title],
         "description": description,
-        "service_location": serviceLocation,
-        "availability_time": availabilityTime,
+        "service_location": serviceLocationValues.reverse[serviceLocation],
+        "availability_time": availabilityTimeValues.reverse[availabilityTime],
         "starting_price": startingPrice,
+        "status": statusValues.reverse[status],
         "whats_included_description": whatsIncludedDescription,
-        "full_package_description": fullPackageDescription,
-        "emergency_service_description": emergencyServiceDescription,
+        "full_package_description": fullPackageDescriptionValues.reverse[fullPackageDescription],
+        "emergency_service_description": emergencyServiceDescriptionValues.reverse[emergencyServiceDescription],
         "service_gallery_images": List<dynamic>.from(serviceGalleryImages.map((x) => x)),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-        "user_name": userName,
-        "sub_category_name": subCategoryName,
-        "category_name": categoryName,
+        "user_name": userNameValues.reverse[userName],
+        "sub_category_name": subCategoryNameValues.reverse[subCategoryName],
     };
+}
+
+enum AvailabilityTime {
+    THE_10_AM_12_PM,
+    THE_9_AM_6_PM
+}
+
+final availabilityTimeValues = EnumValues({
+    "10 Am- 12PM": AvailabilityTime.THE_10_AM_12_PM,
+    "9 AM - 6 PM": AvailabilityTime.THE_9_AM_6_PM
+});
+
+enum EmergencyServiceDescription {
+    THE_247_EMERGENCY_ELECTRICIAN_SERVICE_AVAILABLE,
+    THE_247_EMERGENCY_PLUMBING_SERVICE_AVAILABLE
+}
+
+final emergencyServiceDescriptionValues = EnumValues({
+    "24/7 emergency electrician service available": EmergencyServiceDescription.THE_247_EMERGENCY_ELECTRICIAN_SERVICE_AVAILABLE,
+    "24/7 emergency plumbing service available": EmergencyServiceDescription.THE_247_EMERGENCY_PLUMBING_SERVICE_AVAILABLE
+});
+
+enum FullPackageDescription {
+    COMPLETE_PLUMBING_SOLUTIONS_FOR_HOMES_AND_OFFICES
+}
+
+final fullPackageDescriptionValues = EnumValues({
+    "Complete plumbing solutions for homes and offices": FullPackageDescription.COMPLETE_PLUMBING_SOLUTIONS_FOR_HOMES_AND_OFFICES
+});
+
+enum ServiceLocation {
+    JAIPUR,
+    NEW_YORK
+}
+
+final serviceLocationValues = EnumValues({
+    "jaipur": ServiceLocation.JAIPUR,
+    "New York": ServiceLocation.NEW_YORK
+});
+
+enum Status {
+    PENDING
+}
+
+final statusValues = EnumValues({
+    "pending": Status.PENDING
+});
+
+enum SubCategoryName {
+    DUSTRING,
+    PLUMING
+}
+
+final subCategoryNameValues = EnumValues({
+    "Dustring": SubCategoryName.DUSTRING,
+    "Pluming": SubCategoryName.PLUMING
+});
+
+enum Title {
+    ELECTRICIAN_SERVICE,
+    PLUMBING_SERVICE
+}
+
+final titleValues = EnumValues({
+    "Electrician Service": Title.ELECTRICIAN_SERVICE,
+    "Plumbing Service": Title.PLUMBING_SERVICE
+});
+
+enum UserName {
+    FIROZ
+}
+
+final userNameValues = EnumValues({
+    "firoz": UserName.FIROZ
+});
+
+class EnumValues<T> {
+    Map<String, T> map;
+    late Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+            reverseMap = map.map((k, v) => MapEntry(v, k));
+            return reverseMap;
+    }
 }
