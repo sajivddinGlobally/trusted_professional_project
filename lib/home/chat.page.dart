@@ -130,7 +130,7 @@ class _ChatPageState extends State<ChatPage> {
                           isUserMessage: false,
                           message: "Charge 1200+GSt",
                         ),
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 280.h),
                         SizedBox(
                           width: 200.w,
                           height: 55.h,
