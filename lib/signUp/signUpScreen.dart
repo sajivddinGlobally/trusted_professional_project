@@ -273,68 +273,85 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 visible: isServiceProvider,
                 child: Padding(
                   padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 10.w),
-                        Expanded(
-                          child:
-                              _selectedFile != null
-                                  ? Text(
-                                    _selectedFile!.path,
-                                    // overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  )
-                                  : Text(
-                                    "No document selected",
-                                    style: GoogleFonts.inter(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Complete Kyc",
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
                         ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            PickFile();
-                          },
-                          child: Container(
-                            width: 100.w,
-                            height: 35.h,
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 0, 97, 254),
-                              borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      SizedBox(height: 10.h),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child:
+                                  _selectedFile != null
+                                      ? Text(
+                                        _selectedFile!.path,
+                                        // overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                      )
+                                      : Text(
+                                        "No document selected",
+                                        style: GoogleFonts.inter(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                      ),
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 5.w, right: 5.w),
-                              child: Center(
-                                child: Text(
-                                  "Upload document",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 10.sp,
-                                    color: Colors.white,
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                PickFile();
+                              },
+                              child: Container(
+                                width: 100.w,
+                                height: 35.h,
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 0, 97, 254),
+                                  borderRadius: BorderRadius.circular(4.r),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 5.w,
+                                    right: 5.w,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Upload document",
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                            SizedBox(width: 10.w),
+                          ],
                         ),
-                        SizedBox(width: 10.w),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -107,11 +107,32 @@ class _ChatPageState extends State<ChatPage> {
               ),
               child: SingleChildScrollView(
                 child: Column(
-
-
                   children: [
+                    ListView(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.all(10.0),
+                      children: [
+                        ChatBubble(
+                          isUserMessage: true,
+                          message: "Hello, how are you?",
+                        ),
+                        ChatBubble(
+                          isUserMessage: false,
+                          message: "I'm good, thanks! How about you?",
+                        ),
+                        ChatBubble(
+                          isUserMessage: true,
+                          message: "I'm doing great!",
+                        ),
+                        ChatBubble(
+                          isUserMessage: false,
+                          message: "That's awesome!",
+                        ),
+                      ],
+                    ),
                     if (messages.length < 10) ...[
-                      SizedBox(height: MediaQuery.of(context).size.height / 2),
+                      SizedBox(height: MediaQuery.of(context).size.height),
                     ],
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
@@ -142,17 +163,37 @@ class _ChatPageState extends State<ChatPage> {
   }
 }
 
-class Chatbuble extends StatefulWidget {
-  const Chatbuble({super.key});
+class ChatBubble extends StatelessWidget {
+  final bool isUserMessage;
+  final String message;
 
-  @override
-  State<Chatbuble> createState() => _ChatbubleState();
-}
+  ChatBubble({required this.isUserMessage, required this.message});
 
-class _ChatbubleState extends State<Chatbuble> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Align(
+      alignment: isUserMessage ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+          color: isUserMessage ? Colors.blueAccent : Colors.grey[300],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: isUserMessage ? Radius.circular(10) : Radius.zero,
+            bottomRight: isUserMessage ? Radius.zero : Radius.circular(10),
+          ),
+        ),
+        child: Text(
+          message,
+          style: TextStyle(
+            color: isUserMessage ? Colors.white : Colors.black,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
   }
 }
 
