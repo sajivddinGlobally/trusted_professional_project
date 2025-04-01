@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,6 +34,21 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   String _selectedOption = "service provider";
 
   bool isServiceProvider = UserRegisterDataHold.usertype == "service provider";
+
+  File? _selectedFile;
+  List<File> _selectedFiles = [];
+
+  Future<void> pickFiles() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: true, // Allow multiple image selection
+    );
+    if (result != null) {
+      setState(() {
+        _selectedFiles = result.paths.map((path) => File(path!)).toList();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,6 +257,142 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 child: RegisterField(
                   lable: "Adhar Number",
                   controller: adharControlelr,
+                ),
+              ),
+              Visibility(
+                visible: isServiceProvider,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Complete Kyc",
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(),
+                        ),
+                        // child: Row(
+                        //   children: [
+                        //     SizedBox(width: 10.w),
+                        //     Expanded(
+                        //       child: Text(
+                        //         _selectedFiles.isNotEmpty
+                        //             ? "${_selectedFiles.length} file(s) selected"
+                        //             : "Complete Kyc",
+                        //         style: GoogleFonts.inter(
+                        //           fontSize: 14.sp,
+                        //           fontWeight: FontWeight.w500,
+                        //           color: Colors.black,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Spacer(),
+                        //     GestureDetector(
+                        //       onTap: pickFiles,
+                        //       child: Container(
+                        //         width: 100.w,
+                        //         height: 35.h,
+                        //         decoration: BoxDecoration(
+                        //           color: Colors.blue,
+                        //           borderRadius: BorderRadius.circular(4.r),
+                        //         ),
+                        //         child: Center(
+                        //           child: Text(
+                        //             "Upload video",
+                        //             style: GoogleFonts.inter(
+                        //               fontWeight: FontWeight.w400,
+                        //               fontSize: 11.sp,
+                        //               color: Colors.white,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 10.w),
+                        //   ],
+                        // ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: isServiceProvider,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Upload Video",
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child: Text(
+                                _selectedFiles.isNotEmpty
+                                    ? "${_selectedFiles.length} file(s) selected"
+                                    : "No video selected",
+                                style: GoogleFonts.inter(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: pickFiles,
+                              child: Container(
+                                width: 100.w,
+                                height: 35.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(4.r),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Upload video",
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 11.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               // RegisterField(
