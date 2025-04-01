@@ -145,7 +145,7 @@ class _ChatPageState extends State<ChatPage> {
                       ],
                     ),
                     if (messages.length < 10) ...[
-                      SizedBox(height: MediaQuery.of(context).size.height),
+                      SizedBox(height: MediaQuery.of(context).size.height / 2),
                     ],
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
