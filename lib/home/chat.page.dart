@@ -115,19 +115,32 @@ class _ChatPageState extends State<ChatPage> {
                       children: [
                         ChatBubble(
                           isUserMessage: true,
-                          message: "Hello, how are you?",
+                          message: "Hi, What is the exacat concern",
                         ),
                         ChatBubble(
                           isUserMessage: false,
-                          message: "I'm good, thanks! How about you?",
-                        ),
-                        ChatBubble(
-                          isUserMessage: true,
-                          message: "I'm doing great!",
+                          message: "The bathroom top concern",
                         ),
                         ChatBubble(
                           isUserMessage: false,
-                          message: "That's awesome!",
+                          message: "I am available Monday 5 PM",
+                        ),
+                        ChatBubble(isUserMessage: true, message: "Ok"),
+                        ChatBubble(
+                          isUserMessage: false,
+                          message: "Charge 1200+GSt",
+                        ),
+                        SizedBox(height: 20.h),
+                        SizedBox(
+                          width: 200.w,
+                          height: 55.h,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(200.w, 55.h),
+                            ),
+                            onPressed: () {},
+                            child: Text("Book Now"),
+                          ),
                         ),
                       ],
                     ),
@@ -177,7 +190,10 @@ class ChatBubble extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         margin: EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          color: isUserMessage ? Colors.blueAccent : Colors.grey[300],
+          color:
+              isUserMessage
+                  ? Color.fromARGB(255, 0, 97, 254)
+                  : Colors.grey[300],
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
