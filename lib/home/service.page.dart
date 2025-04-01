@@ -105,7 +105,6 @@ class _ServicePageState extends ConsumerState<ServicePage> {
                                 );
                               }),
                             ),
-
                             SizedBox(height: 16),
                           ],
                         );
@@ -378,129 +377,6 @@ class _MygridviewbuilderState extends ConsumerState<Mygridviewbuilder> {
             ),
       ),
     );
-
-    // return SizedBox(
-    //   child: exampleData.when(
-    //     data: (example) {
-    //       return Padding(
-    //         padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 10.h),
-    //         child: GridView.builder(
-    //           shrinkWrap: true,
-    //           physics: NeverScrollableScrollPhysics(),
-    //           itemCount: example.serviceProviders.length,
-    //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //             crossAxisCount: 2,
-    //             crossAxisSpacing: 10.h, // Spacing between columns
-    //             mainAxisSpacing: 10.h, // Spacing between rows
-    //             childAspectRatio: 1.3, // ✅ Adjust this to change item size
-    //           ),
-    //           itemBuilder: (context, index) {
-    //             return GestureDetector(
-    //               onTap: () {
-    //                 Navigator.push(
-    //                   context,
-    //                   CupertinoPageRoute(
-    //                     builder:
-    //                         (context) => ParticularService(
-    //                           id: example.serviceProviders[index].id.toString(),
-    //                         ),
-    //                   ),
-    //                 );
-    //               },
-    //               child: Container(
-    //                 width: 196.w,
-    //                 height: 134.h,
-    //                 decoration: BoxDecoration(
-    //                   // color: Colors.yellow,
-    //                   borderRadius: BorderRadius.circular(20.r),
-    //                   border: Border.all(
-    //                     color: Color.fromARGB(255, 17, 17, 28),
-    //                     width: 1,
-    //                   ),
-    //                 ),
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   mainAxisAlignment: MainAxisAlignment.start,
-    //                   children: [
-    //                     SizedBox(
-    //                       // height: 80.h,
-    //                       width: MediaQuery.of(context).size.width,
-    //                       child: Padding(
-    //                         padding: EdgeInsets.only(
-    //                           top: 5.h,
-    //                           left: 5.w,
-    //                           right: 5.w,
-    //                         ),
-    //                         child: ClipRRect(
-    //                           borderRadius: BorderRadius.circular(15.r),
-    //                           child: Image.network(
-    //                             // "assets/electricianservice.png",
-    //                             // filteredServices[index].bannerImage,
-    //                             example.serviceProviders[index].bannerImage,
-    //                             height: 80.h,
-    //                             width: MediaQuery.of(context).size.width,
-    //                             fit: BoxFit.cover,
-    //                           ),
-    //                         ),
-    //                       ),
-    //                     ),
-    //                     Padding(
-    //                       padding: EdgeInsets.only(left: 8.w, top: 10.h),
-    //                       child: Text(
-    //                         // "Rahul: Electrician Service",
-    //                         // filteredServices[index].title,
-    //                         example.serviceProviders[index].title,
-    //                         style: GoogleFonts.inter(
-    //                           fontWeight: FontWeight.w500,
-    //                           fontSize: 14.sp,
-    //                           color: Color.fromARGB(255, 17, 17, 28),
-    //                         ),
-    //                       ),
-    //                     ),
-    //                     Padding(
-    //                       padding: EdgeInsets.only(left: 8.w, top: 5.h),
-    //                       child: Row(
-    //                         children: [
-    //                           Text(
-    //                             "Starting from ${example.serviceProviders[index].startingPrice}",
-    //                             style: GoogleFonts.inter(
-    //                               fontWeight: FontWeight.w500,
-    //                               fontSize: 11.sp,
-    //                               color: Color.fromARGB(255, 102, 102, 102),
-    //                             ),
-    //                           ),
-    //                           Spacer(),
-    //                           Padding(
-    //                             padding: EdgeInsets.only(right: 10.w),
-    //                             child: Text(
-    //                               "⭐ 4.8/5",
-    //                               style: GoogleFonts.inter(
-    //                                 fontWeight: FontWeight.w500,
-    //                                 fontSize: 11.sp,
-    //                                 color: Color.fromARGB(255, 102, 102, 102),
-    //                               ),
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //             );
-    //           },
-    //         ),
-    //       );
-    //     },
-    //     error: (error, stackTrace) => Center(child: Text(error.toString())),
-    //     loading:
-    //         () => SizedBox(
-    //           height: MediaQuery.of(context).size.height,
-    //           width: MediaQuery.of(context).size.width,
-    //           child: Center(child: CircularProgressIndicator()),
-    //         ),
-    //   ),
-    // );
   }
 }
 

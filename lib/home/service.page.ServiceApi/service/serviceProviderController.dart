@@ -9,7 +9,4 @@ final serviceProviderController =
       return apiserviceprovider.getServiceProvider(id);
     });
 
-// final exmapleProvider = FutureProvider((ref) async {
-//   final exampleservice = ApiServiceProvider(await getDio());
-//   return exampleservice.getExample();
-// });
+

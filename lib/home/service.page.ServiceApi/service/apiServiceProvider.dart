@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:trusted_profissional_app/home/service.page.ServiceApi/Model/serviceProviderModel.dart';
-// import 'package:trusted_profissional_app/home/service.page.ServiceApi/service/exampleModel.dart';
 import 'package:trusted_profissional_app/particularService/particulearProviderModel.dart';
 
 part 'apiServiceProvider.g.dart';
@@ -18,7 +17,5 @@ abstract class ApiServiceProvider {
     @Path('id') String id,
   );
 
-  // // example hai ye code
-  // @GET("/api/services-providers")
-  // Future<ExmapleModel> getExample();
+
 }
