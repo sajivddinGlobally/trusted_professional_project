@@ -107,6 +107,8 @@ class _ChatPageState extends State<ChatPage> {
               ),
               child: SingleChildScrollView(
                 child: Column(
+
+
                   children: [
                     if (messages.length < 10) ...[
                       SizedBox(height: MediaQuery.of(context).size.height / 2),
@@ -137,6 +139,20 @@ class _ChatPageState extends State<ChatPage> {
         child: MessageInput(controller: _controller, onSend: onSend),
       ),
     );
+  }
+}
+
+class Chatbuble extends StatefulWidget {
+  const Chatbuble({super.key});
+
+  @override
+  State<Chatbuble> createState() => _ChatbubleState();
+}
+
+class _ChatbubleState extends State<Chatbuble> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
 
