@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,9 @@ import 'package:hive/hive.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trusted_profissional_app/home/chat.page.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
+import 'package:trusted_profissional_app/home/homeCategoryApi/Service/serviceController.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
+import 'package:trusted_profissional_app/particularService/particularService.page.dart';
 import 'package:trusted_profissional_app/profile.page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -56,6 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final categoryData = ref.watch(categoryProvider);
+    final serviceData = ref.watch(serviceController);
     var box = Hive.box('authBox');
     return Scaffold(
       // backgroundColor: Color(0xFFFFFFFF),
@@ -217,26 +221,36 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 padding: EdgeInsets.only(left: 20.w),
                                 child: Stack(
                                   children: [
-                                    Container(
-                                      width: 121.w,
-                                      height: 185.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          8.53.r,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                            builder: (context) => ServicePage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 121.w,
+                                        height: 185.h,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            8.53.r,
+                                          ),
+                                          color: Colors.black,
                                         ),
-                                        color: Colors.black,
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          8.53.r,
-                                        ),
-                                        child: Image.network(
-                                          // "assets/electrician.png",
-                                          // mylist[index]["imageUrl"]!,
-                                          category.data[index].imageUrl,
-                                          width: 121.w,
-                                          height: 185.h,
-                                          fit: BoxFit.cover,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            8.53.r,
+                                          ),
+                                          child: Image.network(
+                                            // "assets/electrician.png",
+                                            // mylist[index]["imageUrl"]!,
+                                            category.data[index].imageUrl,
+                                            width: 121.w,
+                                            height: 185.h,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -271,6 +285,73 @@ class _HomePageState extends ConsumerState<HomePage> {
                               Center(child: Text(error.toString())),
                       loading: () => Center(child: CircularProgressIndicator()),
                     ),
+                    // serviceData.when(
+                    //   data: (data) {
+                    //     return SizedBox(
+                    //       height: 190.h,
+                    //       child: ListView.builder(
+                    //         scrollDirection: Axis.horizontal,
+                    //         itemCount: data.serviceProviders.length,
+                    //         itemBuilder: (context, index) {
+                    //           return Padding(
+                    //             padding: EdgeInsets.only(left: 20.w),
+                    //             child: Stack(
+                    //               children: [
+                    //                 Container(
+                    //                   width: 121.w,
+                    //                   height: 185.h,
+                    //                   decoration: BoxDecoration(
+                    //                     borderRadius: BorderRadius.circular(
+                    //                       8.53.r,
+                    //                     ),
+                    //                     color: Colors.black,
+                    //                   ),
+                    //                   child: ClipRRect(
+                    //                     borderRadius: BorderRadius.circular(
+                    //                       8.53.r,
+                    //                     ),
+                    //                     child: Image.network(
+                    //                       // "assets/electrician.png",
+                    //                       data
+                    //                           .serviceProviders[index]
+                    //                           .bannerImage,
+                    //                       width: 121.w,
+                    //                       height: 185.h,
+                    //                       fit: BoxFit.cover,
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //                 Positioned(
+                    //                   bottom: 15.h,
+                    //                   left: 8.w,
+                    //                   child: Text(
+                    //                     // "Electrician Service",
+                    //                     // mylist[index]["service"]!,
+                    //                     data.serviceProviders[index].title,
+                    //                     style: GoogleFonts.inter(
+                    //                       fontSize: 8.53,
+                    //                       fontWeight: FontWeight.w500,
+                    //                       color: Color.fromARGB(
+                    //                         255,
+                    //                         255,
+                    //                         255,
+                    //                         255,
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           );
+                    //         },
+                    //       ),
+                    //     );
+                    //   },
+                    //   error:
+                    //       (error, stackTrace) =>
+                    //           Center(child: Text(error.toString())),
+                    //   loading: () => Center(child: CircularProgressIndicator()),
+                    // ),
                     SizedBox(height: 20.h),
                     Center(
                       child: Column(
