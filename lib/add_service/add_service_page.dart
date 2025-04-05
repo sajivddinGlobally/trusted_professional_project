@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
@@ -717,6 +718,7 @@ class _AddServicePageState extends ConsumerState<AddServicePage> {
                                 imageFile: _selectedFile!,
                                 gallaryImages: _selectedFiles,
                               );
+                              Fluttertoast.showToast(msg: "Service add");
                               Navigator.push(
                                 context,
                                 CupertinoPageRoute(
