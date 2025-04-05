@@ -21,7 +21,7 @@ class SignUpScreen extends ConsumerStatefulWidget {
 }
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
-  final nameController = TextEditingController();
+  final usernameController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final adharControlelr = TextEditingController();
@@ -35,7 +35,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   String _selectedOption = "service provider";
 
   bool isServiceProvider = UserRegisterDataHold.usertype == "service provider";
-
+  String? servicetype;
+  List<String> type = ['Title of subcategory', 'Dustring', 'Plumming'];
   File? _selectedFile;
   List<File> _selectedFiles = [];
 
@@ -188,7 +189,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ),
                 ],
               ),
-              RegisterField(lable: 'Your Name', controller: nameController),
+              RegisterField(lable: 'User Name', controller: usernameController),
+              RegisterField(lable: 'Your Email', controller: emailController),
               Padding(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
                 child: Column(
@@ -260,7 +262,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ],
                 ),
               ),
-              RegisterField(lable: 'Your Email', controller: emailController),
+
               // Aadhar Field, only visible for "service provider"
               Visibility(
                 visible: isServiceProvider,
@@ -279,7 +281,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       Text(
                         "Complete Kyc",
                         style: GoogleFonts.inter(
-                          fontSize: 13,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: Color.fromARGB(255, 30, 30, 30),
                         ),
@@ -365,7 +367,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       Text(
                         "Upload Video",
                         style: GoogleFonts.inter(
-                          fontSize: 13,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: Color.fromARGB(255, 30, 30, 30),
                         ),
@@ -423,14 +425,80 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ),
                 ),
               ),
-              // RegisterField(
-              //   lable: 'Aadhar Number',
-              //   controller: adharControlelr,
-              // ),
-              RegisterField(lable: 'Password', controller: passwordController),
-              RegisterField(
-                lable: 'Confirm Password',
-                controller: confirmpasswordController,
+
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Service Type",
+                      style: GoogleFonts.inter(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromARGB(255, 30, 30, 30),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    DropdownButtonFormField<String>(
+                      value: servicetype,
+                      hint: Text(
+                        "Service Service",
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
+                        ),
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          servicetype = newValue;
+                        });
+                      },
+                      items:
+                          type.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: GoogleFonts.roboto(
+                                  fontSize: 13.w,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xFF4D4D4D),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 12.h,
+                          horizontal: 15.w,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 17, 17, 25),
+                            width: 1,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 17, 17, 25),
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select Service type';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 20.h),
               Padding(
@@ -452,47 +520,47 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       setState(() {
                         isCircular = true;
                       });
-                      try {
-                        // Direct call kiya hai service ko  bina riverpod ka use kar ke
-                        final registerService = RegisterService(getDio());
+                      // try {
+                      //   // Direct call kiya hai service ko  bina riverpod ka use kar ke
+                      //   final registerService = RegisterService(getDio());
 
-                        final response = await registerService.register(
-                          RegistorBodyModel(
-                            name: nameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            passwordConfirmation:
-                                confirmpasswordController.text,
-                            phone: phoneController.text,
-                            userType: _selectedOption,
-                            // aadhar:
-                            //     isServiceProvider
-                            //         ? adharControlelr.text
-                            //         : "", // Aadhar sirf service provider ke liye
-                            aadhar:
-                                isServiceProvider
-                                    ? adharControlelr.text
-                                    : "", // ✅ Ensure empty string
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Registration successful!")),
-                        );
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          CupertinoPageRoute(builder: (context) => Login()),
-                          (route) => false,
-                        );
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Error: ${e.toString()}")),
-                        );
-                        log(e.toString());
-                      } finally {
-                        setState(() {
-                          isCircular = false;
-                        });
-                      }
+                      //   final response = await registerService.register(
+                      //     RegistorBodyModel(
+                      //       name: nameController.text,
+                      //       email: emailController.text,
+                      //       password: passwordController.text,
+                      //       passwordConfirmation:
+                      //           confirmpasswordController.text,
+                      //       phone: phoneController.text,
+                      //       userType: _selectedOption,
+                      //       // aadhar:
+                      //       //     isServiceProvider
+                      //       //         ? adharControlelr.text
+                      //       //         : "", // Aadhar sirf service provider ke liye
+                      //       aadhar:
+                      //           isServiceProvider
+                      //               ? adharControlelr.text
+                      //               : "", // ✅ Ensure empty string
+                      //     ),
+                      //   );
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(content: Text("Registration successful!")),
+                      //   );
+                      //   Navigator.pushAndRemoveUntil(
+                      //     context,
+                      //     CupertinoPageRoute(builder: (context) => Login()),
+                      //     (route) => false,
+                      //   );
+                      // } catch (e) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(content: Text("Error: ${e.toString()}")),
+                      //   );
+                      //   log(e.toString());
+                      // } finally {
+                      //   setState(() {
+                      //     isCircular = false;
+                      //   });
+                      // }
                     }
                   },
                   child:

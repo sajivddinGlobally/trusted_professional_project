@@ -10,6 +10,7 @@ import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/forgot_password/forgot_password.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
 import 'package:trusted_profissional_app/login/loginModel/loginBodyModel.dart';
+import 'package:trusted_profissional_app/login/otp.page.dart';
 
 import 'package:trusted_profissional_app/login/serviceLogin/loginService.dart';
 import 'package:trusted_profissional_app/signUp/signUpScreen.dart';
@@ -22,15 +23,16 @@ class Login extends ConsumerStatefulWidget {
 }
 
 class _LoginState extends ConsumerState<Login> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final phonController = TextEditingController();
+
   bool islogin = false;
-  bool secure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: 440.w,
@@ -42,14 +44,14 @@ class _LoginState extends ConsumerState<Login> {
                 ),
               ),
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 30.h),
             Padding(
               padding: EdgeInsets.only(left: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Welcome Back!",
+                    "Login with OTP",
                     style: GoogleFonts.inter(
                       fontSize: 32,
                       fontWeight: FontWeight.w500,
@@ -59,9 +61,9 @@ class _LoginState extends ConsumerState<Login> {
                   Row(
                     children: [
                       Text(
-                        "Create have an account? ",
+                        "Create have an account?",
                         style: GoogleFonts.inter(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w500,
                           color: Color.fromARGB(255, 30, 30, 30),
                         ),
@@ -76,9 +78,9 @@ class _LoginState extends ConsumerState<Login> {
                           );
                         },
                         child: Text(
-                          "Sign Up ",
+                          " Sign Up ",
                           style: GoogleFonts.inter(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w500,
                             color: Color.fromARGB(255, 0, 97, 254),
                             decoration: TextDecoration.underline,
@@ -98,8 +100,8 @@ class _LoginState extends ConsumerState<Login> {
                 ],
               ),
             ),
-            SizedBox(height: 20.h),
-            RegisterField(lable: "Your Email", controller: emailController),
+            // SizedBox(height: 20.h),
+            // RegisterField(lable: "Your Number", controller: phonController),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
               child: Column(
@@ -109,7 +111,7 @@ class _LoginState extends ConsumerState<Login> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Password",
+                        "Phone Number",
                         style: GoogleFonts.inter(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -119,94 +121,81 @@ class _LoginState extends ConsumerState<Login> {
                     ],
                   ),
                   SizedBox(height: 12.h),
-                  Container(
-                    // height: 55.h,
-                    width: MediaQuery.of(context).size.width,
-                    child: TextFormField(
-                      obscureText: secure == true ? secure : false,
-                      controller: passwordController,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              secure = !secure;
-                            });
-                          },
-                          child:
-                              secure == true
-                                  ? Icon(
-                                    Icons.visibility_off,
-                                    color: Color.fromARGB(150, 30, 30, 30),
-                                  )
-                                  : Icon(
-                                    Icons.visibility,
-                                    color: Color.fromARGB(150, 30, 30, 30),
-                                  ),
+                  TextFormField(
+                    maxLength: 10,
+                    keyboardType: TextInputType.phone,
+                    controller: phonController,
+                    textAlignVertical: TextAlignVertical.center,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      hintText: "Enter your phone number",
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 12.h,
+                        horizontal: 15.w,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 17, 17, 25),
+                          width: 1,
                         ),
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 12.h,
-                          horizontal: 15.w,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 17, 17, 25),
+                          width: 1,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 17, 17, 25),
+                          width: 1,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 17, 17, 25),
+                          width: 1,
                         ),
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Phone number is required";
+                      }
+                    },
                   ),
                 ],
               ),
             ),
             SizedBox(height: 15.h),
-            Padding(
-              padding: EdgeInsets.only(right: 20.w),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => ForgotPassword(),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    "Forgot Password?",
-                    style: GoogleFonts.inter(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 30, 30, 30),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(right: 20.w),
+            //   child: Align(
+            //     alignment: Alignment.centerRight,
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           CupertinoPageRoute(
+            //             builder: (context) => ForgotPassword(),
+            //           ),
+            //         );
+            //       },
+            //       child: Text(
+            //         "Forgot Password?",
+            //         style: GoogleFonts.inter(
+            //           fontSize: 13,
+            //           fontWeight: FontWeight.w500,
+            //           color: Color.fromARGB(255, 30, 30, 30),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(height: 20.h),
             Column(
               children: [
@@ -264,44 +253,48 @@ class _LoginState extends ConsumerState<Login> {
                   backgroundColor: Color.fromARGB(255, 0, 97, 254),
                 ),
                 onPressed: () async {
-                  setState(() {
-                    islogin = true;
-                  });
-                  try {
-                    final body = LoginBodyModel(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-                    final service = LoginService(await getDio());
-                    //  final response = await compute(service.login, body); comput use
-                    final response = await service.login(
-                      body,
-                    ); // without comput use
-                    if (response != null) {
-                      // *Hive me user credentials save karein**
-                      var box = Hive.box('authBox');
-                      await box.put('email', response.data.email);
-                      await box.put('token', response.data.token);
-                      await box.put('id', response.data.userid);
-                      await box.put('name', response.data.name);
-                      await box.put("user_type", response.data.userType);
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(builder: (context) => OtpPage()),
+                  );
+                  // setState(() {
+                  //   islogin = true;
+                  // });
+                  // try {
+                  //   final body = LoginBodyModel(
+                  //     email: emailController.text,
+                  //     password: passwordController.text,
+                  //   );
+                  //   final service = LoginService(await getDio());
+                  //   //  final response = await compute(service.login, body); comput use
+                  //   final response = await service.login(
+                  //     body,
+                  //   ); // without comput use
+                  //   if (response != null) {
+                  //     // *Hive me user credentials save karein**
+                  //     var box = Hive.box('authBox');
+                  //     await box.put('email', response.data.email);
+                  //     await box.put('token', response.data.token);
+                  //     await box.put('id', response.data.userid);
+                  //     await box.put('name', response.data.name);
+                  //     await box.put("user_type", response.data.userType);
 
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(builder: (context) => HomePage()),
-                        (route) => false,
-                      );
-                    } else {
-                      Fluttertoast.showToast(msg: "Some thing went wrong");
-                    }
-                  } catch (_) {
-                    setState(() {
-                      islogin = false;
-                      Fluttertoast.showToast(
-                        msg: "Login email & password is invalid",
-                      );
-                    });
-                  }
+                  //     Navigator.pushAndRemoveUntil(
+                  //       context,
+                  //       CupertinoPageRoute(builder: (context) => HomePage()),
+                  //       (route) => false,
+                  //     );
+                  //   } else {
+                  //     Fluttertoast.showToast(msg: "Some thing went wrong");
+                  //   }
+                  // } catch (_) {
+                  //   setState(() {
+                  //     islogin = false;
+                  //     Fluttertoast.showToast(
+                  //       msg: "Login email & password is invalid",
+                  //     );
+                  //   });
+                  // }
                 },
                 child:
                     islogin == false
