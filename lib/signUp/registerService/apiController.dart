@@ -71,4 +71,56 @@ class Apicontroller {
       throw Exception("Something went wrong: $e");
     }
   }
+
+  static Future<RegistorResModel> register(
+    context, {
+    required String name,
+    required String email,
+    required String phone,
+    required String user_type,
+    required Function ifError,
+  }) async {
+    final Uri url = Uri.parse(
+      'http://skilzaar.laravel.globallywebsolutions.com/api/register',
+    );
+
+    var request = http.MultipartRequest("POST", url);
+    request.headers.addAll({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    });
+
+    request.fields.addAll({
+      "name": name,
+      "email": email,
+      "phone": phone,
+      "user_type": user_type,
+    });
+
+    try {
+      final http.StreamedResponse response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+      log(responseBody);
+      Map<String, dynamic> data = jsonDecode(responseBody);
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("$name your account was created")),
+        );
+        Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(builder: (context) => Login()),
+          (route) => false,
+        );
+        return RegistorResModel.fromJson(jsonDecode(responseBody));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("${data["message"].toString()}")),
+        );
+        ifError();
+        throw Exception("Failed to register: ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      throw Exception("Something went wrong: $e");
+    }
+  }
 }
