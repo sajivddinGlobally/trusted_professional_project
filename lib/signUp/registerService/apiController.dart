@@ -24,7 +24,7 @@ class Apicontroller {
       'http://skilzaar.laravel.globallywebsolutions.com/api/register',
     );
     if (imageFile == null) {
-      Fluttertoast.showToast(msg: "Please select image");
+      Fluttertoast.showToast(msg: "Please selectimage");
       throw Exception("Image mission");
     }
 

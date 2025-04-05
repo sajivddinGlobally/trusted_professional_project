@@ -18,7 +18,7 @@ class SignUpScreen extends ConsumerStatefulWidget {
 }
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
-  final usernameController = TextEditingController();
+  final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final adharControlelr = TextEditingController();
@@ -34,9 +34,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   bool isServiceProvider = UserRegisterDataHold.usertype == "service provider";
   String? servicetype;
   List<String> type = ['Title of subcategory', 'Dustring', 'Plumming'];
-  File? _selectedFile;
+  File? selectedFile;
   List<File> _selectedFiles = [];
 
+  File? _selectedFile;
   Future<void> pickFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -53,7 +54,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       setState(() {
-        _selectedFile = File(result.files.single.path!);
+        selectedFile = File(result.files.single.path!);
       });
     }
   }
@@ -186,340 +187,288 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ),
                 ],
               ),
-              if(UserRegisterDataHold.usertype == "Service Provider")...[
-              RegisterField(lable: 'User Name', controller: usernameController),
-              RegisterField(lable: 'Your Email', controller: emailController),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Your Phone",
-                          style: GoogleFonts.inter(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromARGB(255, 30, 30, 30),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 12.h),
-                    Container(
-                      // height: 55.h,
-                      width: MediaQuery.of(context).size.width,
-                      child: TextFormField(
-                        keyboardType: TextInputType.numberWithOptions(),
-                        controller: phoneController,
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 12.h,
-                            horizontal: 15.w,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(
-                              color: Color.fromARGB(255, 17, 17, 25),
-                              width: 1,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(
-                              color: Color.fromARGB(255, 17, 17, 25),
-                              width: 1,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(
-                              color: Color.fromARGB(255, 17, 17, 25),
-                              width: 1,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(
-                              color: Color.fromARGB(255, 17, 17, 25),
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Your Phone field is required";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Aadhar Field, only visible for "service provider"
-              RegisterField(
-                lable: "Adhar Number",
-                controller: adharControlelr,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Complete Kyc",
-                      style: GoogleFonts.inter(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 30, 30, 30),
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 60.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        border: Border.all(),
-                      ),
-                      child: Row(
+              if (UserRegisterDataHold.usertype == "Service Provider") ...[
+                RegisterField(lable: 'User Name', controller: nameController),
+                RegisterField(lable: 'Your Email', controller: emailController),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child:
-                                _selectedFile != null
-                                    ? Text(
-                                      _selectedFile!.path,
-                                      // overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color.fromARGB(255, 0, 0, 0),
+                          Text(
+                            "Your Phone",
+                            style: GoogleFonts.inter(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(255, 30, 30, 30),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12.h),
+                      Container(
+                        // height: 55.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: TextFormField(
+                          keyboardType: TextInputType.numberWithOptions(),
+                          controller: phoneController,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 12.h,
+                              horizontal: 15.w,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Your Phone field is required";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Aadhar Field, only visible for "service provider"
+                RegisterField(
+                  lable: "Adhar Number",
+                  controller: adharControlelr,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Complete Kyc",
+                        style: GoogleFonts.inter(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child:
+                                  selectedFile != null
+                                      ? Text(
+                                        selectedFile!.path,
+                                        // overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                      )
+                                      : Text(
+                                        "No document selected",
+                                        style: GoogleFonts.inter(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
                                       ),
-                                    )
-                                    : Text(
-                                      "No document selected",
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                PickFile();
+                              },
+                              child: Container(
+                                width: 100.w,
+                                height: 35.h,
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 0, 97, 254),
+                                  borderRadius: BorderRadius.circular(4.r),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 5.w,
+                                    right: 5.w,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Upload document",
                                       style: GoogleFonts.inter(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10.sp,
+                                        color: Colors.white,
                                       ),
                                     ),
-                          ),
-                          Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              PickFile();
-                            },
-                            child: Container(
-                              width: 100.w,
-                              height: 35.h,
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 0, 97, 254),
-                                borderRadius: BorderRadius.circular(4.r),
+                                  ),
+                                ),
                               ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  left: 5.w,
-                                  right: 5.w,
+                            ),
+                            SizedBox(width: 10.w),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Upload Video",
+                        style: GoogleFonts.inter(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child: Text(
+                                _selectedFiles.isNotEmpty
+                                    ? "${_selectedFiles.length} file(s) selected"
+                                    : "No video selected",
+                                style: GoogleFonts.inter(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: pickFiles,
+                              child: Container(
+                                width: 100.w,
+                                height: 35.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(4.r),
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "Upload document",
+                                    "Upload video",
                                     style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 10.sp,
+                                      fontSize: 11.sp,
                                       color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 10.w),
-                        ],
+                            SizedBox(width: 10.w),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Upload Video",
-                      style: GoogleFonts.inter(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 30, 30, 30),
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 60.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        border: Border.all(),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: Text(
-                              _selectedFiles.isNotEmpty
-                                  ? "${_selectedFiles.length} file(s) selected"
-                                  : "No video selected",
-                              style: GoogleFonts.inter(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          GestureDetector(
-                            onTap: pickFiles,
-                            child: Container(
-                              width: 100.w,
-                              height: 35.h,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(4.r),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Upload video",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10.w),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Service Type",
-                      style: GoogleFonts.inter(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 30, 30, 30),
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    DropdownButtonFormField<String>(
-                      value: servicetype,
-                      hint: Text(
-                        "Service Service",
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Service Type",
                         style: GoogleFonts.inter(
-                          fontSize: 13,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: Color.fromARGB(255, 30, 30, 30),
                         ),
                       ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          servicetype = newValue;
-                        });
-                      },
-                      items:
-                          type.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: GoogleFonts.roboto(
-                                  fontSize: 13.w,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF4D4D4D),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 12.h,
-                          horizontal: 15.w,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Please select Service type';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              ] else...[
-                RegisterField(lable: 'User Name', controller: usernameController),
-              RegisterField(lable: 'Your Email', controller: emailController),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Your Phone",
+                      SizedBox(height: 10.h),
+                      DropdownButtonFormField<String>(
+                        value: servicetype,
+                        hint: Text(
+                          "Service Service",
                           style: GoogleFonts.inter(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
                             color: Color.fromARGB(255, 30, 30, 30),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 12.h),
-                    Container(
-                      // height: 55.h,
-                      width: MediaQuery.of(context).size.width,
-                      child: TextFormField(
-                        keyboardType: TextInputType.numberWithOptions(),
-                        controller: phoneController,
-                        textAlignVertical: TextAlignVertical.center,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            servicetype = newValue;
+                          });
+                        },
+                        items:
+                            type.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 13.w,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF4D4D4D),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
                             vertical: 12.h,
                             horizontal: 15.w,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 17, 17, 25),
+                              width: 1,
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.r),
@@ -528,21 +477,148 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               width: 1,
                             ),
                           ),
+                        ),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select Service type';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ] else ...[
+                RegisterField(lable: 'User Name', controller: nameController),
+                RegisterField(lable: 'Your Email', controller: emailController),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Your Phone",
+                            style: GoogleFonts.inter(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(255, 30, 30, 30),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12.h),
+                      Container(
+                        // height: 55.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: TextFormField(
+                          keyboardType: TextInputType.numberWithOptions(),
+                          controller: phoneController,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 12.h,
+                              horizontal: 15.w,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 17, 25),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Your Phone field is required";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Service Type",
+                        style: GoogleFonts.inter(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 30, 30, 30),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      DropdownButtonFormField<String>(
+                        value: servicetype,
+                        hint: Text(
+                          "Service Service",
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Color.fromARGB(255, 30, 30, 30),
+                          ),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            servicetype = newValue;
+                          });
+                        },
+                        items:
+                            type.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 13.w,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF4D4D4D),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 12.h,
+                            horizontal: 15.w,
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.r),
+
                             borderSide: BorderSide(
                               color: Color.fromARGB(255, 17, 17, 25),
                               width: 1,
                             ),
                           ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(
-                              color: Color.fromARGB(255, 17, 17, 25),
-                              width: 1,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
+                          focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.r),
                             borderSide: BorderSide(
                               color: Color.fromARGB(255, 17, 17, 25),
@@ -551,91 +627,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Your Phone field is required";
+                          if (value == null) {
+                            return 'Please select Service type';
                           }
                           return null;
                         },
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Service Type",
-                      style: GoogleFonts.inter(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 30, 30, 30),
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    DropdownButtonFormField<String>(
-                      value: servicetype,
-                      hint: Text(
-                        "Service Service",
-                        style: GoogleFonts.inter(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(255, 30, 30, 30),
-                        ),
-                      ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          servicetype = newValue;
-                        });
-                      },
-                      items:
-                          type.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: GoogleFonts.roboto(
-                                  fontSize: 13.w,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF4D4D4D),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 12.h,
-                          horizontal: 15.w,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 17, 17, 25),
-                            width: 1,
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Please select Service type';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-              ),
-                  
               ],
               SizedBox(height: 20.h),
               Padding(
@@ -659,14 +659,36 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         isCircular = true;
                       });
                       if (UserRegisterDataHold.usertype == "Seeking Service") {
-                        RegistorResModel resModel = await Apicontroller.register(
-                          context,
-                          name: name,
-                          email: email,
-                          phone: phone,
-                          user_type: user_type,
-                          ifError: ifError,
-                        );
+                        RegistorResModel resModel =
+                            await Apicontroller.register(
+                              context,
+                              name: nameController.text,
+                              email: emailController.text,
+                              phone: phoneController.text.toString(),
+                              user_type: "provider",
+                              ifError: () {
+                                setState(() {
+                                  isCircular = false;
+                                });
+                              },
+                            );
+                      } else {
+                        RegistorResModel resModel =
+                            await Apicontroller.registerUser(
+                              context,
+                              name: nameController.text,
+                              email: emailController.text,
+                              phone: phoneController.text.toString(),
+                              imageFile: _selectedFile!,
+                              aadhar: adharControlelr.text.toString(),
+                              video: selectedFile!,
+                              user_type: "provider",
+                              ifError: () {
+                                setState(() {
+                                  isCircular = false;
+                                });
+                              },
+                            );
                       }
                     }
                   },
