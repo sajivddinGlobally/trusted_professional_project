@@ -81,7 +81,6 @@ class _OtpPageState extends State<OtpPage> {
                 ),
               ],
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: Center(

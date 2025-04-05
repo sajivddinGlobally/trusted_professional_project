@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
-import 'package:trusted_profissional_app/signUp/registerModel/registerBodyModel.dart';
 
 import 'package:trusted_profissional_app/signUp/registerService/registerService.dart';
 
