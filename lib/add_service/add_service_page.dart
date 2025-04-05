@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
@@ -11,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Model/subcategory.model.dart';
 
 import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
+import 'package:trusted_profissional_app/home/service.page.dart';
 
 class AddServicePage extends ConsumerStatefulWidget {
   const AddServicePage({super.key});
@@ -714,6 +716,12 @@ class _AddServicePageState extends ConsumerState<AddServicePage> {
                                 sub_category_id: subcategoryId!,
                                 imageFile: _selectedFile!,
                                 gallaryImages: _selectedFiles,
+                              );
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => ServicePage(),
+                                ),
                               );
                             } catch (e) {
                               setState(() {

@@ -109,31 +109,37 @@ class ServiceProvider {
 }
 
 enum AvailabilityTime {
+    THE_1030_PM,
     THE_10_AM_12_PM,
     THE_9_AM_6_PM
 }
 
 final availabilityTimeValues = EnumValues({
+    "10:30 PM": AvailabilityTime.THE_1030_PM,
     "10 Am- 12PM": AvailabilityTime.THE_10_AM_12_PM,
     "9 AM - 6 PM": AvailabilityTime.THE_9_AM_6_PM
 });
 
 enum EmergencyServiceDescription {
+    TESTING,
     THE_247_EMERGENCY_ELECTRICIAN_SERVICE_AVAILABLE,
     THE_247_EMERGENCY_PLUMBING_SERVICE_AVAILABLE
 }
 
 final emergencyServiceDescriptionValues = EnumValues({
+    "testing": EmergencyServiceDescription.TESTING,
     "24/7 emergency electrician service available": EmergencyServiceDescription.THE_247_EMERGENCY_ELECTRICIAN_SERVICE_AVAILABLE,
     "24/7 emergency plumbing service available": EmergencyServiceDescription.THE_247_EMERGENCY_PLUMBING_SERVICE_AVAILABLE
 });
 
 enum FullPackageDescription {
-    COMPLETE_PLUMBING_SOLUTIONS_FOR_HOMES_AND_OFFICES
+    COMPLETE_PLUMBING_SOLUTIONS_FOR_HOMES_AND_OFFICES,
+    TESTING
 }
 
 final fullPackageDescriptionValues = EnumValues({
-    "Complete plumbing solutions for homes and offices": FullPackageDescription.COMPLETE_PLUMBING_SOLUTIONS_FOR_HOMES_AND_OFFICES
+    "Complete plumbing solutions for homes and offices": FullPackageDescription.COMPLETE_PLUMBING_SOLUTIONS_FOR_HOMES_AND_OFFICES,
+    "testing": FullPackageDescription.TESTING
 });
 
 enum ServiceLocation {
@@ -156,29 +162,35 @@ final statusValues = EnumValues({
 
 enum SubCategoryName {
     DUSTRING,
-    PLUMING
+    PLUMING,
+    TITLE_OF_SUB_CATEGORY
 }
 
 final subCategoryNameValues = EnumValues({
     "Dustring": SubCategoryName.DUSTRING,
-    "Pluming": SubCategoryName.PLUMING
+    "Pluming": SubCategoryName.PLUMING,
+    "Title of Sub category": SubCategoryName.TITLE_OF_SUB_CATEGORY
 });
 
 enum Title {
     ELECTRICIAN_SERVICE,
+    PENTER,
     PLUMBING_SERVICE
 }
 
 final titleValues = EnumValues({
     "Electrician Service": Title.ELECTRICIAN_SERVICE,
+    "Penter": Title.PENTER,
     "Plumbing Service": Title.PLUMBING_SERVICE
 });
 
 enum UserName {
+    ARMAN,
     FIROZ
 }
 
 final userNameValues = EnumValues({
+    "arman": UserName.ARMAN,
     "firoz": UserName.FIROZ
 });
 

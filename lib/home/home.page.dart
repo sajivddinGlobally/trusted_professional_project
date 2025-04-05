@@ -10,7 +10,6 @@ import 'package:trusted_profissional_app/home/chat.page.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Service/CategoryController.dart';
 import 'package:trusted_profissional_app/home/homeCategoryApi/Service/serviceController.dart';
 import 'package:trusted_profissional_app/home/service.page.dart';
-import 'package:trusted_profissional_app/particularService/particularService.page.dart';
 import 'package:trusted_profissional_app/profile.page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
