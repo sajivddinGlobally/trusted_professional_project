@@ -52,18 +52,17 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   // }
 
   Future<void> pickFiles() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      allowMultiple: true,
-    );
-    if (result != null && result.files.isNotEmpty) {
-      setState(() {
-        _selectedFiles = result.paths.map((path) => File(path!)).toList();
-        _selectedFile =
-            _selectedFiles.first; // 👈 Assign first file to _selectedFile
-      });
-    }
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.image,
+    allowMultiple: true,
+  );
+  if (result != null && result.files.isNotEmpty) {
+    setState(() {
+      _selectedFiles = result.paths.map((path) => File(path!)).toList();
+      _selectedFile = _selectedFiles.first; // 👈 Assign first file to _selectedFile
+    });
   }
+}
 
   File? selectedFile;
 
