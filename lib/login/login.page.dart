@@ -255,6 +255,9 @@ class _LoginState extends ConsumerState<Login> {
                     final body = LoginBodyModel(phone: phonController.text);
                     final service = LoginService(await getDio());
                     final response = service.login(body);
+                    var box = Hive.box("authBox");
+                    box.put('response', response);
+                    box.get('token');
                     if (!phonController.text.isEmpty) {
                       Navigator.push(
                         context,

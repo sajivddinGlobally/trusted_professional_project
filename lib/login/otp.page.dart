@@ -86,20 +86,26 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                     onChanged: (value) {},
                     onResend: () {},
                     onCompleted: (value) async {
-                      final otpBody = OtpBodyModel(
-                        phone: widget.phone,
-                        otp: value,
-                      );
-                      final response = await ref.read(
-                        otpProvider(otpBody).future,
-                      );
-                      if (otpBody != null) {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(builder: (context) => HomePage()),
+                      try {
+                        final otpBody = OtpBodyModel(
+                          phone: widget.phone,
+                          otp: value,
                         );
-                      } else {
-                        Fluttertoast.showToast(msg: "Invalid OTP");
+                        final response = await ref.read(
+                          otpProvider(otpBody).future,
+                        );
+                        if (otpBody != null) {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => HomePage(),
+                            ),
+                          );
+                        } else {
+                          Fluttertoast.showToast(msg: "Invalid OTP");
+                        }
+                      } catch (e) {
+                        Fluttertoast.showToast(msg: "Please enter valid OTP");
                       }
                     },
                   ),
