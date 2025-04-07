@@ -90,17 +90,16 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                         phone: widget.phone,
                         otp: value,
                       );
-
                       final response = await ref.read(
                         otpProvider(otpBody).future,
                       );
-                      if (response != null) {
+                      if (otpBody != null) {
                         Navigator.push(
                           context,
                           CupertinoPageRoute(builder: (context) => HomePage()),
                         );
                       } else {
-                        Fluttertoast.showToast(msg: "invalid otp");
+                        Fluttertoast.showToast(msg: "Invalid OTP");
                       }
                     },
                   ),
