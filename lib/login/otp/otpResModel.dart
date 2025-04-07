@@ -9,8 +9,8 @@ OtpResModel otpResModelFromJson(String str) => OtpResModel.fromJson(json.decode(
 String otpResModelToJson(OtpResModel data) => json.encode(data.toJson());
 
 class OtpResModel {
-    String message;
-    String token;
+    String? message;
+    String? token;
     User user;
 
     OtpResModel({
@@ -34,11 +34,11 @@ class OtpResModel {
 
 class User {
     int id;
-    String name;
-    String email;
+    String? name;
+    String? email;
     String phone;
     dynamic emailVerifiedAt;
-    String token;
+    String? token;
     dynamic rememberToken;
     DateTime createdAt;
     DateTime updatedAt;
@@ -47,7 +47,7 @@ class User {
     dynamic userType;
     dynamic aadhar;
     dynamic service;
-    String otp;
+    String? otp;
     DateTime otpExpiresAt;
 
     User({

@@ -92,14 +92,22 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                         otp: value,
                       );
                       try {
-                        final response = await ref.read(
+                        final response = await ref.watch(
                           otpProvider(otpBody).future,
                         );
                         var box = Hive.box("authBox");
-                        await box.put('token', response.token);
-                        await box.put("email", response.user.email);
-                        await box.put("name", response.user.name);
-                        await box.put("userToken", response.user.token);
+                        // await box.put('token', response.token);
+                        // await box.put("email", response.user.email);
+                        // await box.put("name", response.user.name);
+                        // await box.put("userToken", response.user.token);
+                        await box.put('token', response.token ?? "");
+                        await box.put("email", response.user.email ?? "");
+                        await box.put("name", response.user.name ?? "");
+                        await box.put("userToken", response.user.token ?? "");
+                        log("👉 token: ${response.token}");
+                        log("👉 email: ${response.user.email}");
+                        log("👉 name: ${response.user.name}");
+                        log("👉 userToken: ${response.user.token}");
 
                         Fluttertoast.showToast(msg: "Login successful");
 
