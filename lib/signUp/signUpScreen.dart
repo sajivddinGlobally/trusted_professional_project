@@ -144,7 +144,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   Row(
                     children: [
                       Radio<String>(
-                        value: "Service Seeker",
+                        value: "Seeking Servicer",
                         groupValue: _selectedOption,
                         onChanged: (value) {
                           setState(() {
@@ -589,6 +589,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             color: Color.fromARGB(255, 30, 30, 30),
                           ),
                         ),
+
                         onChanged: (String? newValue) {
                           setState(() {
                             servicetype = newValue;
@@ -615,7 +616,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.r),
-
                             borderSide: BorderSide(
                               color: Color.fromARGB(255, 17, 17, 25),
                               width: 1,
@@ -649,44 +649,48 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     backgroundColor: Color.fromARGB(255, 0, 97, 254),
                   ),
                   onPressed: () async {
-                    log("testing");
-                    setState(() {
-                      isCircular = true;
-                    });
-                    if (UserRegisterDataHold.usertype == "Seeking Service") {
-                      RegistorResModel resModel = await Apicontroller.register(
-                        context,
-                        name: nameController.text,
-                        email: emailController.text,
-                        phone: phoneController.text,
-                        user_type: formData.user_type,
-                        ifError: () {
-                          setState(() {
-                            isCircular = false;
-                          });
-                        },
-                      );
-                    } else {
-                      RegistorResModel resModel =
-                          await Apicontroller.registerUser(
-                            context,
-                            name: nameController.text,
-                            email: emailController.text,
-                            phone: phoneController.text.toString(),
-                            imageFile: _selectedFile!,
-                            aadhar: adharControlelr.text.toString(),
-                            video: selectedFile!,
-                            user_type: formData.user_type,
-                            ifError: () {
-                              setState(() {
-                                isCircular = false;
-                              });
-                            },
-                          );
+                    if (_formKey.currentState!.validate()) {
+                      log("testing");
+                      setState(() {
+                        isCircular = true;
+                      });
+
+                      if (UserRegisterDataHold.usertype == "Seeking Service") {
+                        RegistorResModel resModel =
+                            await Apicontroller.register(
+                              context,
+                              name: nameController.text,
+                              email: emailController.text,
+                              phone: phoneController.text,
+                              user_type: formData.user_type,
+                              ifError: () {
+                                setState(() {
+                                  isCircular = false;
+                                });
+                              },
+                            );
+                      } else {
+                        RegistorResModel resModel =
+                            await Apicontroller.registerUser(
+                              context,
+                              name: nameController.text,
+                              email: emailController.text,
+                              phone: phoneController.text.toString(),
+                              imageFile: _selectedFile!,
+                              aadhar: adharControlelr.text.toString(),
+                              video: selectedFile!,
+                              user_type: formData.user_type,
+                              ifError: () {
+                                setState(() {
+                                  isCircular = false;
+                                });
+                              },
+                            );
+                      }
                     }
                   },
                   child:
-                      isCircular
+                      isCircular == true
                           ? CircularProgressIndicator(color: Colors.white)
                           : Text(
                             "Sign Up",

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +21,6 @@ class OtpPage extends ConsumerStatefulWidget {
 }
 
 class _OtpPageState extends ConsumerState<OtpPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,19 +85,22 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                     resendColor: Colors.black,
                     onChanged: (value) {},
                     onResend: () {},
-                    onCompleted: (value) {
-                      final otpbody = OtpBodyModel(
+                    onCompleted: (value) async {
+                      final otpBody = OtpBodyModel(
                         phone: widget.phone,
                         otp: value,
                       );
-                      final otp = ref.watch(otpProvider(otpbody));
-                      if (otp != null) {
+
+                      final response = await ref.read(
+                        otpProvider(otpBody).future,
+                      );
+                      if (response != null) {
                         Navigator.push(
                           context,
                           CupertinoPageRoute(builder: (context) => HomePage()),
                         );
                       } else {
-                        Fluttertoast.showToast(msg: "Invalid ");
+                        Fluttertoast.showToast(msg: "invalid otp");
                       }
                     },
                   ),

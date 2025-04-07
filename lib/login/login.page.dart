@@ -162,11 +162,6 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Phone number is required";
-                      }
-                    },
                   ),
                 ],
               ),
@@ -259,30 +254,26 @@ class _LoginState extends ConsumerState<Login> {
                   try {
                     final body = LoginBodyModel(phone: phonController.text);
                     final service = LoginService(await getDio());
-                    //  final response = await compute(service.login, body); comput use
-                    final response = await service.login(
-                      body,
-                    ); // without comput use
-                    if (response != null) {
-                      // *Hive me user credentials save karein**
-                      var box = Hive.box('authBox');
-
-                      Navigator.pushAndRemoveUntil(
+                    final response = service.login(body);
+                    if (!phonController.text.isEmpty) {
+                      Navigator.push(
                         context,
                         CupertinoPageRoute(
                           builder:
                               (context) => OtpPage(phone: phonController.text),
                         ),
-                        (route) => false,
                       );
                     } else {
-                      Fluttertoast.showToast(msg: "Some thing went wrong");
+                      setState(() {
+                        islogin = false;
+                        Fluttertoast.showToast(msg: "Enter phone number");
+                      });
                     }
-                  } catch (_) {
+                  } catch (e) {
                     setState(() {
                       islogin = false;
                       Fluttertoast.showToast(
-                        msg: "Please enter your phone number",
+                        msg: "Please Enter valid phone number",
                       );
                     });
                   }
