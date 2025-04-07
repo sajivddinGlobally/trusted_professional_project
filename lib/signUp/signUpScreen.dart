@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
 import 'package:trusted_profissional_app/signUp/registerModel/registerResModel.dart';
 import 'package:trusted_profissional_app/signUp/registerService/apiController.dart';
+import 'package:trusted_profissional_app/signUp/registerService/registerController.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -31,13 +32,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   // Default user type
   String _selectedOption = "service provider";
 
-  bool isServiceProvider = UserRegisterDataHold.usertype == "service provider";
   String? servicetype;
-  List<String> type = ['Title of subcategory', 'Dustring', 'Plumming'];
-  File? selectedFile;
-  List<File> _selectedFiles = [];
 
+  List<String> type = ['Title of subcategory', 'Dustring', 'Plumming'];
+
+  List<File> _selectedFiles = [];
   File? _selectedFile;
+
   Future<void> pickFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -50,6 +51,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     }
   }
 
+  File? selectedFile;
+
   Future<void> PickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -61,7 +64,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isServiceProvider = _selectedOption == "Service Provider";
+    final formData = ref.watch(formDataProvider);
     return Scaffold(
       backgroundColor: Color(0xFFFFFFFF),
       body: Form(
@@ -647,49 +650,39 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ),
                   onPressed: () async {
                     log("testing");
-                    if (_formKey.currentState!.validate()) {
-                      if (passwordController.text !=
-                          confirmpasswordController.text) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Passwords do not match")),
-                        );
-                        return;
-                      }
-                      setState(() {
-                        isCircular = true;
-                      });
-                      if (UserRegisterDataHold.usertype == "Seeking Service") {
-                        RegistorResModel resModel =
-                            await Apicontroller.register(
-                              context,
-                              name: nameController.text,
-                              email: emailController.text,
-                              phone: phoneController.text.toString(),
-                              user_type: "provider",
-                              ifError: () {
-                                setState(() {
-                                  isCircular = false;
-                                });
-                              },
-                            );
-                      } else {
-                        RegistorResModel resModel =
-                            await Apicontroller.registerUser(
-                              context,
-                              name: nameController.text,
-                              email: emailController.text,
-                              phone: phoneController.text.toString(),
-                              imageFile: _selectedFile!,
-                              aadhar: adharControlelr.text.toString(),
-                              video: selectedFile!,
-                              user_type: "provider",
-                              ifError: () {
-                                setState(() {
-                                  isCircular = false;
-                                });
-                              },
-                            );
-                      }
+                    setState(() {
+                      isCircular = true;
+                    });
+                    if (UserRegisterDataHold.usertype == "Seeking Service") {
+                      RegistorResModel resModel = await Apicontroller.register(
+                        context,
+                        name: nameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                        user_type: formData.user_type,
+                        ifError: () {
+                          setState(() {
+                            isCircular = false;
+                          });
+                        },
+                      );
+                    } else {
+                      RegistorResModel resModel =
+                          await Apicontroller.registerUser(
+                            context,
+                            name: nameController.text,
+                            email: emailController.text,
+                            phone: phoneController.text.toString(),
+                            imageFile: _selectedFile!,
+                            aadhar: adharControlelr.text.toString(),
+                            video: selectedFile!,
+                            user_type: formData.user_type,
+                            ifError: () {
+                              setState(() {
+                                isCircular = false;
+                              });
+                            },
+                          );
                     }
                   },
                   child:

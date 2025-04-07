@@ -34,7 +34,7 @@ class Apicontroller {
       "Accept": "application/json",
     });
     request.files.add(
-      await http.MultipartFile.fromPath('profile_pic', imageFile.path),
+      await http.MultipartFile.fromPath('image', imageFile.path),
     );
     request.files.add(await http.MultipartFile.fromPath('video', video.path));
     request.fields.addAll({

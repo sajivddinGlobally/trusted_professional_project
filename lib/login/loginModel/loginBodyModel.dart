@@ -9,21 +9,17 @@ LoginBodyModel loginBodyModelFromJson(String str) => LoginBodyModel.fromJson(jso
 String loginBodyModelToJson(LoginBodyModel data) => json.encode(data.toJson());
 
 class LoginBodyModel {
-    String email;
-    String password;
+    String phone;
 
     LoginBodyModel({
-        required this.email,
-        required this.password,
+        required this.phone,
     });
 
     factory LoginBodyModel.fromJson(Map<String, dynamic> json) => LoginBodyModel(
-        email: json["email"],
-        password: json["password"],
+        phone: json["phone"],
     );
 
     Map<String, dynamic> toJson() => {
-        "email": email,
-        "password": password,
+        "phone": phone,
     };
 }

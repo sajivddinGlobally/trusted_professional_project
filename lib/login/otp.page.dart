@@ -1,17 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otpify/otpify.dart';
+import 'package:trusted_profissional_app/home/home.page.dart';
 
-class OtpPage extends StatefulWidget {
-  const OtpPage({super.key});
+import 'package:trusted_profissional_app/login/otp/otpBodyModel.dart';
+import 'package:trusted_profissional_app/login/otp/otpController/otpController.dart';
+
+class OtpPage extends ConsumerStatefulWidget {
+  final String phone;
+  const OtpPage({super.key, required this.phone});
 
   @override
-  State<OtpPage> createState() => _OtpPageState();
+  ConsumerState<OtpPage> createState() => _OtpPageState();
 }
 
-class _OtpPageState extends State<OtpPage> {
+class _OtpPageState extends ConsumerState<OtpPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,31 +84,45 @@ class _OtpPageState extends State<OtpPage> {
                     resendColor: Colors.black,
                     onChanged: (value) {},
                     onResend: () {},
-                    onCompleted: (value) {},
+                    onCompleted: (value) {
+                      final otpbody = OtpBodyModel(
+                        phone: widget.phone,
+                        otp: value,
+                      );
+                      final otp = ref.watch(otpProvider(otpbody));
+                      if (otp != null) {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(builder: (context) => HomePage()),
+                        );
+                      } else {
+                        Fluttertoast.showToast(msg: "Invalid ");
+                      }
+                    },
                   ),
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w),
-              child: Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(440.w, 53.h),
-                    backgroundColor: Color.fromARGB(255, 0, 97, 254),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    "Verify",
-                    style: GoogleFonts.inter(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            //   child: Center(
+            //     child: ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         minimumSize: Size(440.w, 53.h),
+            //         backgroundColor: Color.fromARGB(255, 0, 97, 254),
+            //       ),
+            //       onPressed: () {},
+            //       child: Text(
+            //         "Verify",
+            //         style: GoogleFonts.inter(
+            //           fontSize: 15,
+            //           fontWeight: FontWeight.w500,
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(height: 30.h),
           ],
         ),

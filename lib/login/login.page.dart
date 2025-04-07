@@ -1,18 +1,18 @@
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
-import 'package:trusted_profissional_app/forgot_password/forgot_password.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
 import 'package:trusted_profissional_app/login/loginModel/loginBodyModel.dart';
-import 'package:trusted_profissional_app/login/otp.page.dart';
 
+import 'package:trusted_profissional_app/login/otp.page.dart';
 import 'package:trusted_profissional_app/login/serviceLogin/loginService.dart';
+
 import 'package:trusted_profissional_app/signUp/signUpScreen.dart';
 
 class Login extends ConsumerStatefulWidget {
@@ -253,48 +253,39 @@ class _LoginState extends ConsumerState<Login> {
                   backgroundColor: Color.fromARGB(255, 0, 97, 254),
                 ),
                 onPressed: () async {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => OtpPage()),
-                  );
-                  // setState(() {
-                  //   islogin = true;
-                  // });
-                  // try {
-                  //   final body = LoginBodyModel(
-                  //     email: emailController.text,
-                  //     password: passwordController.text,
-                  //   );
-                  //   final service = LoginService(await getDio());
-                  //   //  final response = await compute(service.login, body); comput use
-                  //   final response = await service.login(
-                  //     body,
-                  //   ); // without comput use
-                  //   if (response != null) {
-                  //     // *Hive me user credentials save karein**
-                  //     var box = Hive.box('authBox');
-                  //     await box.put('email', response.data.email);
-                  //     await box.put('token', response.data.token);
-                  //     await box.put('id', response.data.userid);
-                  //     await box.put('name', response.data.name);
-                  //     await box.put("user_type", response.data.userType);
+                  setState(() {
+                    islogin = true;
+                  });
+                  try {
+                    final body = LoginBodyModel(phone: phonController.text);
+                    final service = LoginService(await getDio());
+                    //  final response = await compute(service.login, body); comput use
+                    final response = await service.login(
+                      body,
+                    ); // without comput use
+                    if (response != null) {
+                      // *Hive me user credentials save karein**
+                      var box = Hive.box('authBox');
 
-                  //     Navigator.pushAndRemoveUntil(
-                  //       context,
-                  //       CupertinoPageRoute(builder: (context) => HomePage()),
-                  //       (route) => false,
-                  //     );
-                  //   } else {
-                  //     Fluttertoast.showToast(msg: "Some thing went wrong");
-                  //   }
-                  // } catch (_) {
-                  //   setState(() {
-                  //     islogin = false;
-                  //     Fluttertoast.showToast(
-                  //       msg: "Login email & password is invalid",
-                  //     );
-                  //   });
-                  // }
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(
+                          builder:
+                              (context) => OtpPage(phone: phonController.text),
+                        ),
+                        (route) => false,
+                      );
+                    } else {
+                      Fluttertoast.showToast(msg: "Some thing went wrong");
+                    }
+                  } catch (_) {
+                    setState(() {
+                      islogin = false;
+                      Fluttertoast.showToast(
+                        msg: "Please enter your phone number",
+                      );
+                    });
+                  }
                 },
                 child:
                     islogin == false
