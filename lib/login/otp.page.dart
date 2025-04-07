@@ -114,36 +114,6 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                           msg: "Invalid OTP or server error",
                         );
                       }
-
-                      // final body = OtpBodyModel(
-                      //   phone: widget.phone,
-                      //   otp: value,
-                      // );
-
-                      // try {
-                      //   final res = await ref.read(otpProvider(body).future);
-
-                      //   // ✅ Store token and user info in Hive
-                      //   final box = Hive.box("authBox");
-                      //   box.put('token', res.token);
-                      //   box.put('email', res.user.email);
-                      //   box.put('name', res.user.name);
-                      //   box.put('userToken', res.user.token);
-
-                      //   if (body != null) {
-                      //     Fluttertoast.showToast(msg: "Login successful");
-
-                      //     Navigator.pushAndRemoveUntil(
-                      //       context,
-                      //       CupertinoPageRoute(builder: (_) => HomePage()),
-                      //       (route) => false,
-                      //     );
-                      //   } else {
-                      //     Fluttertoast.showToast(msg: "dafasdfadfa");
-                      //   }
-                      // } catch (e) {
-                      //   Fluttertoast.showToast(msg: "OTP verification failed");
-                      // }
                     },
                   ),
                 ),
