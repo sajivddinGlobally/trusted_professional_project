@@ -107,26 +107,7 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                 ),
               ],
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            //   child: Center(
-            //     child: ElevatedButton(
-            //       style: ElevatedButton.styleFrom(
-            //         minimumSize: Size(440.w, 53.h),
-            //         backgroundColor: Color.fromARGB(255, 0, 97, 254),
-            //       ),
-            //       onPressed: () {},
-            //       child: Text(
-            //         "Verify",
-            //         style: GoogleFonts.inter(
-            //           fontSize: 15,
-            //           fontWeight: FontWeight.w500,
-            //           color: Colors.white,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
             SizedBox(height: 30.h),
           ],
         ),
