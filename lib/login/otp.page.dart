@@ -96,10 +96,6 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                           otpProvider(otpBody).future,
                         );
                         var box = Hive.box("authBox");
-                        // await box.put('token', response.token);
-                        // await box.put("email", response.user.email);
-                        // await box.put("name", response.user.name);
-                        // await box.put("userToken", response.user.token);
                         await box.put('token', response.token ?? "");
                         await box.put("email", response.user.email ?? "");
                         await box.put("name", response.user.name ?? "");
