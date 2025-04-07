@@ -23,20 +23,22 @@ class Apicontroller {
     final Uri url = Uri.parse(
       'http://skilzaar.laravel.globallywebsolutions.com/api/register',
     );
-    if (imageFile == null) {
+    if (imageFile == null || video == null) {
       Fluttertoast.showToast(msg: "Please select image");
-      throw Exception("Image mission");
+      throw Exception("Image or video missing");
     }
 
     var request = http.MultipartRequest("POST", url);
     request.headers.addAll({
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       "Accept": "application/json",
     });
     request.files.add(
       await http.MultipartFile.fromPath('image', imageFile.path),
     );
     request.files.add(await http.MultipartFile.fromPath('video', video.path));
+
+    // add this fields
     request.fields.addAll({
       "name": name,
       "email": email,
@@ -46,6 +48,9 @@ class Apicontroller {
     });
 
     try {
+      print("Sending registerUser request...");
+      print("Fields: ${request.fields}");
+      print("Files: ${request.files.map((f) => f.filename).toList()}");
       final http.StreamedResponse response = await request.send();
       final responseBody = await response.stream.bytesToString();
       log(responseBody);

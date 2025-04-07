@@ -248,37 +248,80 @@ class _LoginState extends ConsumerState<Login> {
                   backgroundColor: Color.fromARGB(255, 0, 97, 254),
                 ),
                 onPressed: () async {
+                  // setState(() {
+                  //   islogin = true;
+                  // });
+                  // try {
+                  //   final body = LoginBodyModel(phone: phonController.text);
+                  //   final service = LoginService(await getDio());
+                  //   final response = service.login(body);
+
+                  //   var box = Hive.box("authBox");
+                  //   box.put('phone', phonController.text);
+
+                  //   if (!phonController.text.isEmpty) {
+                  //     Navigator.push(
+                  //       context,
+                  //       CupertinoPageRoute(
+                  //         builder:
+                  //             (context) => OtpPage(phone: phonController.text),
+                  //       ),
+                  //     );
+                  //   } else {
+                  //     setState(() {
+                  //       islogin = false;
+                  //       Fluttertoast.showToast(msg: "Enter phone number");
+                  //     });
+                  //   }
+                  // } catch (e) {
+                  //   setState(() {
+                  //     islogin = false;
+                  //     Fluttertoast.showToast(
+                  //       msg: "Please Enter valid phone number",
+                  //     );
+                  //   });
+                  // }
+                  if (phonController.text.isEmpty) {
+                    Fluttertoast.showToast(msg: "Enter phone number");
+                    return;
+                  }
+
                   setState(() {
                     islogin = true;
                   });
+
                   try {
                     final body = LoginBodyModel(phone: phonController.text);
                     final service = LoginService(await getDio());
-                    final response = service.login(body);
+
+                    // Await login request (OTP sent)
+                    final response = await service.login(
+                      body,
+                    ); // returns LoginResModel
+
+                    Fluttertoast.showToast(
+                      msg: response.message,
+                    ); // show OTP sent message
+
+                    // ✅ Store phone number in Hive
                     var box = Hive.box("authBox");
-                    box.put('response', response);
-                    box.get('token');
-                    if (!phonController.text.isEmpty) {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder:
-                              (context) => OtpPage(phone: phonController.text),
-                        ),
-                      );
-                    } else {
-                      setState(() {
-                        islogin = false;
-                        Fluttertoast.showToast(msg: "Enter phone number");
-                      });
-                    }
+                    box.put('phone', phonController.text);
+
+                    // ✅ Go to OTP Page
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder:
+                            (context) => OtpPage(phone: phonController.text),
+                      ),
+                    );
                   } catch (e) {
                     setState(() {
                       islogin = false;
-                      Fluttertoast.showToast(
-                        msg: "Please Enter valid phone number",
-                      );
                     });
+                    Fluttertoast.showToast(
+                      msg: "Please enter a valid phone number",
+                    );
                   }
                 },
                 child:

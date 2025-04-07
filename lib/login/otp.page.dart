@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:otpify/otpify.dart';
 import 'package:trusted_profissional_app/home/home.page.dart';
 
@@ -86,33 +87,68 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                     onChanged: (value) {},
                     onResend: () {},
                     onCompleted: (value) async {
+                      final otpBody = OtpBodyModel(
+                        phone: widget.phone,
+                        otp: value,
+                      );
                       try {
-                        final otpBody = OtpBodyModel(
-                          phone: widget.phone,
-                          otp: value,
-                        );
                         final response = await ref.read(
                           otpProvider(otpBody).future,
                         );
-                        if (otpBody != null) {
-                          Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => HomePage(),
-                            ),
-                          );
-                        } else {
-                          Fluttertoast.showToast(msg: "Invalid OTP");
-                        }
-                      } catch (e) {
-                        Fluttertoast.showToast(msg: "Please enter valid OTP");
+                        var box = Hive.box("authBox");
+                        await box.put('token', response.token);
+                        await box.put("email", response.user.email);
+                        await box.put("name", response.user.name);
+                        await box.put("userToken", response.user.token);
+
+                        Fluttertoast.showToast(msg: "Login successful");
+
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(builder: (context) => HomePage()),
+                          (route) => false,
+                        );
+                      } catch (e, stack) {
+                        debugPrint("❌ OTP verify error: $e");
+                        Fluttertoast.showToast(
+                          msg: "Invalid OTP or server error",
+                        );
                       }
+
+                      // final body = OtpBodyModel(
+                      //   phone: widget.phone,
+                      //   otp: value,
+                      // );
+
+                      // try {
+                      //   final res = await ref.read(otpProvider(body).future);
+
+                      //   // ✅ Store token and user info in Hive
+                      //   final box = Hive.box("authBox");
+                      //   box.put('token', res.token);
+                      //   box.put('email', res.user.email);
+                      //   box.put('name', res.user.name);
+                      //   box.put('userToken', res.user.token);
+
+                      //   if (body != null) {
+                      //     Fluttertoast.showToast(msg: "Login successful");
+
+                      //     Navigator.pushAndRemoveUntil(
+                      //       context,
+                      //       CupertinoPageRoute(builder: (_) => HomePage()),
+                      //       (route) => false,
+                      //     );
+                      //   } else {
+                      //     Fluttertoast.showToast(msg: "dafasdfadfa");
+                      //   }
+                      // } catch (e) {
+                      //   Fluttertoast.showToast(msg: "OTP verification failed");
+                      // }
                     },
                   ),
                 ),
               ],
             ),
-
             SizedBox(height: 30.h),
           ],
         ),

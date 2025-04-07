@@ -675,9 +675,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               context,
                               name: nameController.text,
                               email: emailController.text,
-                              phone: phoneController.text.toString(),
+                              phone: phoneController.text,
                               imageFile: _selectedFile!,
-                              aadhar: adharControlelr.text.toString(),
+                              aadhar: adharControlelr.text,
                               video: selectedFile!,
                               user_type: formData.user_type,
                               ifError: () {
