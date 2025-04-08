@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:trusted_profissional_app/add_service/add_service_page.dart';
 import 'package:trusted_profissional_app/login/login.page.dart';
+import 'package:trusted_profissional_app/signUp/signUpScreen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -69,7 +71,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/profile.png"),
+                  Image.asset(
+                    // "assets/profile.png"
+                    box.get('imageFile') ?? "assets/profile.png",
+                  ),
                   Padding(
                     padding: EdgeInsets.only(top: 16.h),
                     child: Text(

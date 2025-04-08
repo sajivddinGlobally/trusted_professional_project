@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:trusted_profissional_app/config/pretty.dio.dart';
@@ -248,39 +247,6 @@ class _LoginState extends ConsumerState<Login> {
                   backgroundColor: Color.fromARGB(255, 0, 97, 254),
                 ),
                 onPressed: () async {
-                  // setState(() {
-                  //   islogin = true;
-                  // });
-                  // try {
-                  //   final body = LoginBodyModel(phone: phonController.text);
-                  //   final service = LoginService(await getDio());
-                  //   final response = service.login(body);
-
-                  //   var box = Hive.box("authBox");
-                  //   box.put('phone', phonController.text);
-
-                  //   if (!phonController.text.isEmpty) {
-                  //     Navigator.push(
-                  //       context,
-                  //       CupertinoPageRoute(
-                  //         builder:
-                  //             (context) => OtpPage(phone: phonController.text),
-                  //       ),
-                  //     );
-                  //   } else {
-                  //     setState(() {
-                  //       islogin = false;
-                  //       Fluttertoast.showToast(msg: "Enter phone number");
-                  //     });
-                  //   }
-                  // } catch (e) {
-                  //   setState(() {
-                  //     islogin = false;
-                  //     Fluttertoast.showToast(
-                  //       msg: "Please Enter valid phone number",
-                  //     );
-                  //   });
-                  // }
                   if (phonController.text.isEmpty) {
                     Fluttertoast.showToast(msg: "Enter phone number");
                     return;

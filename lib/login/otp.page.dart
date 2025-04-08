@@ -100,6 +100,7 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                         await box.put("email", response.user.email ?? "");
                         await box.put("name", response.user.name ?? "");
                         await box.put("userToken", response.user.token ?? "");
+                        await box.put('usertype', response.user.userType ?? "");
                         log("👉 token: ${response.token}");
                         log("👉 email: ${response.user.email}");
                         log("👉 name: ${response.user.name}");
@@ -114,9 +115,7 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                         );
                       } catch (e, stack) {
                         debugPrint("❌ OTP verify error: $e");
-                        Fluttertoast.showToast(
-                          msg: "Invalid OTP or server error",
-                        );
+                        Fluttertoast.showToast(msg: "Invalid OTP");
                       }
                     },
                   ),
