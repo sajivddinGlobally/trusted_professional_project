@@ -49,8 +49,8 @@ class Apicontroller {
 
     try {
       print("Sending registerUser request...");
-    print("Fields: ${request.fields}");
-    print("Files: ${request.files.map((f) => f.filename).toList()}");
+      print("Fields: ${request.fields}");
+      print("Files: ${request.files.map((f) => f.filename).toList()}");
       final http.StreamedResponse response = await request.send();
       final responseBody = await response.stream.bytesToString();
       log(responseBody);
