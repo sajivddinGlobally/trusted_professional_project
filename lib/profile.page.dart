@@ -227,7 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                     //// add condition for add serviec
                     SizedBox(height: 10.h),
-                    if (box.get('user_type') == "Provider") ...[
+                    if (box.get('user_type') == "provider") ...[
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
