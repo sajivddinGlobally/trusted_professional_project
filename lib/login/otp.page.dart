@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -105,6 +104,7 @@ class _OtpPageState extends ConsumerState<OtpPage> {
                         log("👉 email: ${response.user.email}");
                         log("👉 name: ${response.user.name}");
                         log("👉 userToken: ${response.user.token}");
+                        log("usertype: ${response.user.userType}");
 
                         Fluttertoast.showToast(msg: "Login successful");
 

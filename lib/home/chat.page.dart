@@ -130,7 +130,7 @@ class _ChatPageState extends State<ChatPage> {
                           isUserMessage: false,
                           message: "Charge 1200+GSt",
                         ),
-                        SizedBox(height: 280.h),
+                        SizedBox(height: 250.h),
                         SizedBox(
                           width: 200.w,
                           height: 55.h,
@@ -313,44 +313,37 @@ class _MessageInputState extends State<MessageInput> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w),
-          child: TextField(
-            controller: widget.controller,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color.fromARGB(255, 245, 245, 245),
-              hintText: "Send Messages",
-              hintStyle: GoogleFonts.roboto(
-                fontSize: 15.sp,
-                color: Color.fromARGB(255, 128, 128, 128),
-                fontWeight: FontWeight.w400,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.r),
-                borderSide: BorderSide(width: 1.w, color: Colors.grey.shade300),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.r),
-                borderSide: BorderSide(width: 1.w, color: Colors.grey.shade300),
-              ),
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  widget.onSend();
-                },
-                child: Container(
-                  child: Icon(
-                    Icons.send,
-                    color: Color.fromARGB(255, 0, 97, 254),
-                  ),
-                ),
-              ),
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w),
+      child: TextField(
+        controller: widget.controller,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromARGB(255, 245, 245, 245),
+          hintText: "Send Messages",
+          hintStyle: GoogleFonts.roboto(
+            fontSize: 15.sp,
+            color: Color.fromARGB(255, 128, 128, 128),
+            fontWeight: FontWeight.w400,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(width: 1.w, color: Colors.grey.shade300),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(width: 1.w, color: Colors.grey.shade300),
+          ),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              widget.onSend();
+            },
+            child: Container(
+              child: Icon(Icons.send, color: Color.fromARGB(255, 0, 97, 254)),
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
